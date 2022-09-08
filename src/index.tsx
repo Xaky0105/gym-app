@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import Header from './components/header';
 import './index.css';
 
 const root = ReactDOM.createRoot(
@@ -7,7 +8,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <div></div>
+        <Header />
     </React.StrictMode>
 );
 
