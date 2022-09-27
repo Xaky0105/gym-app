@@ -1,0 +1,24 @@
+@import '../../../variables.scss';
+
+@media (max-width: $tabletWidth) {
+    .navList {
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        left: -100%;
+        box-shadow: 2px 2px 10px 1px $shadowColor;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: $white;
+        z-index: 25;
+        transition: all .3s linear;
+        button {
+            margin: 3px 0;
+        }
+    }
+    .active {
+        left: 2%;
+    }
+}
