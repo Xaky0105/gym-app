@@ -1,4 +1,5 @@
 $lightGray: rgb(233, 233, 233);
+$darkGray: rgb(111, 111, 111);
 $textColor: rgb(33, 33, 33);
 $shadowColor: #c8c8c8;
 
@@ -14,4 +15,8 @@ $black: #000;
 
 $fastTransition: all .1s ease-in-out;
 
-$tabletWidth: 700px
+$tabletWidth: 800px;
+$mobileWidth: 550px;
+
+$headerHeight: 60px;
+$calendarHeaderHeight: 100px
