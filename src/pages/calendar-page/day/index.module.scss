@@ -1,0 +1,79 @@
+@import '../../../variables.scss';
+.wrapper {
+    border: 1px solid $lightGray;
+    height: calc(((100vh - $headerHeight - $calendarHeaderHeight) - 10px) / 6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    transition: all .2s linear;
+    &:hover {
+        background-color: $lightGray;
+    }
+    @media (max-width: $tabletWidth) {
+        padding: 2px;
+        height: calc((100vw - 40px) / 6);
+    }
+}
+.dayHeader {
+    display: flex;
+    flex-direction: column;
+    .dayWeek {
+        @media (max-width: $tabletWidth) {
+            font-size: 10px;
+            margin: 0;
+        }
+    }
+    .number {
+        margin-bottom: 5px;
+        @media (max-width: $tabletWidth) {
+            font-size: 10px;
+            margin: 0;
+        }
+    }
+}
+
+.trainingList {
+    overflow: auto;
+    width: 100%;
+    .training {
+        font-size: 10px;
+        // background-color: $color8;
+        padding: 5px;
+        border-radius: 5px;
+        color: $textColor;
+        white-space: nowrap; /* Текст не переносится */
+        overflow: hidden; /* Обрезаем всё за пределами блока */
+        text-overflow: ellipsis; /* Добавляем многоточие */
+        width: 100%;
+        margin-bottom: 5px;
+        transition: all .2s linear;
+        cursor: pointer;
+        &:hover {
+            // background-color: $color14;
+        }
+    }
+    .disabled {
+        background-color: #9d9d9d;
+        cursor: auto;
+        &:hover {
+            background-color: #9d9d9d;
+        }
+    }
+    
+}
+.currentDay {
+    border: 1px solid $wave;
+}
+// .selected {
+//     background-color: $color11;
+// }
+// .darkned {
+//     background-color: $color4;
+// }
+.dayOfTheLastMonth {
+    background: repeating-linear-gradient(-45deg, #fff, #fff 20px, $lightGray 22px, $lightGray 10px);
+    color: #9d9d9d;
+    cursor: auto;
+}
