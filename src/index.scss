@@ -2,8 +2,9 @@
 @import './reset.scss';
 
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    color: $textColor;
 }
 
 ::-webkit-scrollbar {

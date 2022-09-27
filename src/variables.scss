@@ -1,5 +1,6 @@
 $lightGray: rgb(233, 233, 233);
-
+$textColor: rgb(33, 33, 33);
+$shadowColor: #c8c8c8;
 
 $deepWater: #003B46;
 $ocean: #07575B;
@@ -11,4 +12,6 @@ $white: #fff;
 $black: #000;
 
 
-$fastTransition: all .2s ease-in-out;
+$fastTransition: all .1s ease-in-out;
+
+$tabletWidth: 700px
