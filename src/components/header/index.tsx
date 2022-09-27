@@ -35,10 +35,12 @@ const Header: React.FC = () => {
                     </div>
                 </Container>
             </header>
-            <UserSettingsList 
-                isActiveSettings={isActiveSettings}
-                onCLickSettingsToggler={onCLickSettingsToggler}
-            />
+            <Container>
+                <UserSettingsList 
+                    isActiveSettings={isActiveSettings}
+                    onCLickSettingsToggler={onCLickSettingsToggler}
+                />
+            </Container>
         </>
     )
 }
