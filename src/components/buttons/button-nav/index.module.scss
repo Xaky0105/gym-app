@@ -14,4 +14,7 @@
     &:hover {
         background-color: $lightGray;
     }
+    @media (max-width: $tabletWidth) {
+        margin-right: 0;
+    }
 }
