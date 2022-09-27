@@ -6,9 +6,10 @@ type ButtonNavType = {
     name: string
     to: string
     callback?: () => void
+    marginRight?: string
 }
 
-export const ButtonNav:React.FC<ButtonNavType> = ({name, to, callback}) => {
+export const ButtonNav:React.FC<ButtonNavType> = ({name, to, marginRight, callback}) => {
     const navigate = useNavigate()
     const btnClickHandler = () => {
         callback && callback()
@@ -18,6 +19,7 @@ export const ButtonNav:React.FC<ButtonNavType> = ({name, to, callback}) => {
         <button 
             className={styles.btn}
             onClick={btnClickHandler}
+            style={{marginRight: marginRight}}
         >
             {name}
         </button>

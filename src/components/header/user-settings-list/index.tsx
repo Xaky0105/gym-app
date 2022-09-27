@@ -19,6 +19,7 @@ const UserSettingsList:React.FC<UserSettingsListPropsType> = ({isActiveSettings,
                 <ButtonNav 
                     key={i}
                     name={setting.name}
+                    marginRight={'0px'}
                     to={setting.path}
                 />
             ))}
