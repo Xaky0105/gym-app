@@ -1,0 +1,39 @@
+@import '../../../variables.scss';
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: $calendarHeaderHeight;
+    padding: 10px 0;
+    .wrapperGroupBtn {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+        .btnWrapper {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all .2s linear;
+            margin-right: 7px;
+            cursor: pointer;
+            &:hover {
+                background-color: $lightGray;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        .data {
+            color: $textColor;
+            font-size: 20px;
+            margin-left: 10px;
+            @media (max-width: $tabletWidth) {
+                font-size: 16px;
+            }
+        }
+    }
+    
+}

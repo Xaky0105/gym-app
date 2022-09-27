@@ -1,0 +1,8 @@
+@import '../../../variables.scss';
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(40px, 1fr));
+    // margin: 15px;
+    border: 0.5px solid $lightGray;
+}

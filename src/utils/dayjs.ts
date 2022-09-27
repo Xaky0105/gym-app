@@ -25,3 +25,7 @@ export const getYear = (monthIndex: number): string => {
 export const getCurrentDay = () => {
     return dayjs().locale(ruLocale).format('DD/MM/YYYY')
 }
+
+export const daysNotIncludedInCurrentMonth = (monthIndex: number) => {
+    return dayjs().month(monthIndex).month()
+}
