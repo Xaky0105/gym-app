@@ -1,10 +1,10 @@
 import React from "react";
-import ButtonOutline from "../../../components/buttons/button-outline";
+import ButtonOutline from "../buttons/button-outline";
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux-hook";
-import { resetMonthIndex, decMonthIndex, incMonthIndex } from "../../../store/monthSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
+import { resetMonthIndex, decMonthIndex, incMonthIndex } from "../../store/monthSlice";
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
-import { getYear } from '../../../utils/dayjs'
+import { getYear } from '../../utils/dayjs'
 import styles from './index.module.scss'
 
 const CalendarHeader:React.FC = () => {

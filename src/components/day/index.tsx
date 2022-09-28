@@ -1,7 +1,7 @@
 import React from 'react';
-import { useAppSelector } from '../../../hooks/redux-hook'
+import { useAppSelector } from '../../hooks/redux-hook'
 import styles from './index.module.scss'
-import { daysNotIncludedInCurrentMonth, getCurrentDay } from '../../../utils/dayjs';
+import { daysNotIncludedInCurrentMonth, getCurrentDay } from '../../utils/dayjs';
 import { Dayjs } from 'dayjs';
 
 interface DayProps {

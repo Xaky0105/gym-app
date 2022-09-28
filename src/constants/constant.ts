@@ -5,7 +5,7 @@ type CategoriesExerciseType = {
 }
 
 export const navigation = [
-    {name: 'Тренировки', path: '/training'},
+    {name: 'Тренировки', path: '/workouts'},
     {name: 'Календарь', path: '/calendar'},
     {name: 'Аналитика', path: '/analytics'}
 ]
