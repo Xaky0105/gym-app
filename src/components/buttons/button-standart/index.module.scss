@@ -1,0 +1,16 @@
+@import '../../../variables.scss';
+
+.btn {
+    background-color: $ocean;
+    color: $textColorWhite;
+    padding: 10px;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: $fastTransition;
+    &:hover {
+        background-color: $deepWater;
+    }
+}
