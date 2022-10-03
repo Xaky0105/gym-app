@@ -11,7 +11,7 @@ export type Sets = {
 }
 export type Workout = {
     workoutName: string
-    uniqueId: string
+    id: string
     date?: string
     exercises: Exercise[]
 }
