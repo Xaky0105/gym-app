@@ -13,4 +13,9 @@
     &:hover {
         background-color: $deepWater;
     }
+    &:disabled {
+        background-color: $lightGray;
+        color: #ccc;
+        cursor: auto;
+    }
 }
