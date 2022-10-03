@@ -1,3 +1,4 @@
+import { ROUTE_PATH } from './../types/route';
 import { v4 as uuidv4 } from 'uuid';
 import { Exercise } from '../types/workout';
 type CategoriesExerciseType = {
@@ -5,13 +6,13 @@ type CategoriesExerciseType = {
 }
 
 export const navigation = [
-    {name: 'Тренировки', path: '/workouts'},
-    {name: 'Календарь', path: '/calendar'},
-    {name: 'Аналитика', path: '/analytics'}
+    {name: 'Тренировки', path: ROUTE_PATH.WORKOUT},
+    {name: 'Календарь', path: ROUTE_PATH.CALENDAR},
+    {name: 'Аналитика', path: ROUTE_PATH.ANALYTICS}
 ]
 
 export const settings = [
-    {name: 'Выйти', path: '/login'},
+    {name: 'Выйти', path: ROUTE_PATH.LOGIN},
 ]
 
 export const exerciseList: CategoriesExerciseType = {
