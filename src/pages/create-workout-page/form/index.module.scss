@@ -1,0 +1,13 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto;
+    margin: 15px 0;
+    height: 100%;
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+}

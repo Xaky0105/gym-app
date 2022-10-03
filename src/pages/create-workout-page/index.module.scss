@@ -1,0 +1,31 @@
+@import '../../variables.scss';
+.wrapper {
+    display: flex;
+    .leftSide {
+        width: 50%;
+        border-right: 1px solid $lightGray;
+        display: flex;
+        flex-direction: column;
+        padding-right: 15px;
+        height: calc(100vh - $headerHeight);
+    }
+    .rightSide {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        height: calc(100vh - $headerHeight);
+        .block {
+            margin: 15px 0;
+            overflow: auto;
+            .content {
+                padding: 15px;
+                height: 100%;
+            }
+        }
+    }
+    .title {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+}
