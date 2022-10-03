@@ -1,0 +1,27 @@
+@import '../../../variables.scss';
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: calc(100vh - $headerHeight);
+    .title {
+        margin-top: 10px;
+        text-align: center;
+        color: $textColor;
+    }
+    .block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+        margin-bottom: 10px;
+        overflow: auto;
+        .content{
+            overflow: auto;
+            margin: 15px 0;
+        }
+        .btnWrapper {
+            text-align: center;
+        }
+    }
+}
