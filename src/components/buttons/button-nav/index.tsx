@@ -4,16 +4,16 @@ import styles from './index.module.scss'
 
 type ButtonNavType = {
     name: string
-    to: string
-    callback?: () => void
+    to?: string
+    onClick?: () => void
     marginRight?: string
 }
 
-export const ButtonNav:React.FC<ButtonNavType> = ({name, to, marginRight, callback}) => {
+export const ButtonNav:React.FC<ButtonNavType> = ({name, to, marginRight, onClick}) => {
     const navigate = useNavigate()
     const btnClickHandler = () => {
-        callback && callback()
-        navigate(to)
+        onClick && onClick()
+        to && navigate(to)
     }
     return (
         <button 

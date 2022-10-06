@@ -10,6 +10,7 @@
     font-weight: 500;
     border-radius: 5px;
     transition: $fastTransition;
+    position: relative;
     &:hover {
         background-color: $deepWater;
     }
@@ -17,5 +18,13 @@
         background-color: $lightGray;
         color: #ccc;
         cursor: auto;
+    }
+    .preloaderWrapper {
+        position: absolute;
+        top: 50%;
+        left: 2%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
     }
 }

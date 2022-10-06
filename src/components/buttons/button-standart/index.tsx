@@ -1,19 +1,24 @@
 import {FC} from "react";
+import { Preloader } from "../../preloader";
 import styles from './index.module.scss'
 
 type ButtonStandartPropsType = {
     handleClick?: () => void
     name: string
-    disabled?: any
+    disabled?: boolean
+    type?: 'button' | 'submit' | 'reset'
+    isloading?: boolean
 }
 
-const ButtonStandart:FC<ButtonStandartPropsType> = ({handleClick, name, disabled}) => {
+const ButtonStandart:FC<ButtonStandartPropsType> = ({handleClick, name, disabled, type, isloading}) => {
     return (
         <button
             className={styles.btn}
             onClick={() => handleClick && handleClick()}
-            disabled={disabled}
+            disabled={disabled || isloading}
+            type={type && type}
         >
+            {isloading && <div className={styles.preloaderWrapper}><Preloader /></div>}
             {name}
         </button>
     )
