@@ -1,0 +1,14 @@
+@import '../../variables.scss';
+.mask {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.41);
+    height: calc(100vh - $headerHeight);
+    .preloaderWrapper {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
