@@ -11,10 +11,6 @@ export const navigation = [
     {name: 'Аналитика', path: ROUTE_PATH.ANALYTICS}
 ]
 
-export const settings = [
-    {name: 'Выйти', path: ROUTE_PATH.LOGIN},
-]
-
 export const exerciseList: CategoriesExerciseType = {
     legs: [
         {id: uuidv4(), name: 'Приседания со штангой', category: 'Ноги'},

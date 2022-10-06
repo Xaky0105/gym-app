@@ -1,8 +1,10 @@
 export enum ROUTE_PATH {
-    CALENDAR = '/alendar',
+    CALENDAR = '/calendar',
     WORKOUT = '/workout',
     CREATE_WORKOUT = '/create-workout',
     ANALYTICS = '/analytics',
-    LOGIN = '/login',
-    EDIT_WORKOUT = '/edit-workout'
+    LOGIN = '/',
+    REGISTER = '/register',
+    EDIT_WORKOUT = '/edit-workout',
+    NOT_FOUND = '*'
 }
