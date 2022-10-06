@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import ExerciseAccordion from "../../components/exercise-accordion";
 import { Container } from "../../compound/container";
 import { useAppSelector } from "../../hooks/redux-hook";
+import { getWorkouts } from "../../store/selectors";
 import { Exercise } from "../../types/workout";
 import { isEqualObjects } from '../../utils/object'
 import Form from "./form";
@@ -17,7 +18,7 @@ const CreateWorkoutPage:FC = () => {
     const state = location.state as CustomUseLocationState
     const editableWorkoutId = state ? state.editableWorkoutId : ''
     
-    const userWorkouts = useAppSelector(state => state.workout.userWorkouts)
+    const userWorkouts = useAppSelector(getWorkouts)
     const [temporaryExercise, setTemporaryExercise] = useState<Exercise[]>(() => {
         return state ? userWorkouts[editableWorkoutId].exercises : []
     })

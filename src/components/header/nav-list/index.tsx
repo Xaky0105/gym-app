@@ -18,7 +18,7 @@ const NavList:React.FC<NavListPropsType> = ({isActiveNav, onClickNavToggler}) =>
                     key={i}
                     name={nav.name}
                     to={nav.path}
-                    callback={onClickNavToggler}
+                    onClick={onClickNavToggler}
                 />
             ))}
         </nav>

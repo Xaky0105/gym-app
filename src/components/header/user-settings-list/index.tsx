@@ -1,7 +1,9 @@
 import React from "react";
 import { ButtonNav } from '../../buttons/button-nav';
-import { settings } from '../../../constants/constant';
 import styles from './index.module.scss'
+import { userSignOut } from "../../../store/actions/asyncAction";
+import { useAppDispatch } from "../../../hooks/redux-hook";
+import { workoutsFetchComplete } from "../../../store/workoutSlice";
 
 type UserSettingsListPropsType = {
     onCLickSettingsToggler: () => void
@@ -9,20 +11,22 @@ type UserSettingsListPropsType = {
 }
 
 const UserSettingsList:React.FC<UserSettingsListPropsType> = ({isActiveSettings, onCLickSettingsToggler}) => {
+    const dispatch = useAppDispatch()
     const cn = isActiveSettings ? `${styles.userSettings} ${styles.active}` : `${styles.userSettings}`
+    const onClickSignOut = () => {
+        dispatch(userSignOut())
+        dispatch(workoutsFetchComplete({}))
+    }
     return (
         <div 
             className={cn}
             onClick={onCLickSettingsToggler}
-        >
-            {settings.map((setting, i) => (
-                <ButtonNav 
-                    key={i}
-                    name={setting.name}
-                    marginRight={'0px'}
-                    to={setting.path}
-                />
-            ))}
+        > 
+            <ButtonNav 
+                name={'Выйти'}
+                marginRight={'0px'}
+                onClick={onClickSignOut}
+            />
         </div>
     )
 }

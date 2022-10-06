@@ -6,10 +6,11 @@ import { resetMonthIndex, decMonthIndex, incMonthIndex } from "../../store/month
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 import { getYear } from '../../utils/dayjs'
 import styles from './index.module.scss'
+import { getMonthIndex } from "../../store/selectors";
 
 const CalendarHeader:React.FC = () => {
     const dispatch = useAppDispatch()
-    const monthIndex = useAppSelector(state => state.month.monthIndex)
+    const monthIndex = useAppSelector(getMonthIndex)
     const buttonCLickHandler = (func: ActionCreatorWithoutPayload<string>) => {
         dispatch(func())
     }

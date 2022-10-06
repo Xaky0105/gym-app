@@ -1,5 +1,6 @@
 import {FC} from 'react'
 import { useAppSelector } from '../../../hooks/redux-hook'
+import { getWorkouts } from '../../../store/selectors'
 import styles from './index.module.scss'
 
 type RightSideTypeProps = {
@@ -7,7 +8,7 @@ type RightSideTypeProps = {
 }
 
 const RightSide:FC<RightSideTypeProps> = ({ workoutId }) => {
-    const workouts = useAppSelector(state => state.workout.userWorkouts)
+    const workouts = useAppSelector(getWorkouts)
     const exercises = workoutId && workouts[workoutId].exercises
     return (
         <div className={styles.rightSide}>

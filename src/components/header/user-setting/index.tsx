@@ -6,7 +6,7 @@ type UserSettingsPropsType = {
     isActiveSettings: boolean
 }
 
-const UserSetting:React.FC<UserSettingsPropsType> = ({onCLickSettingsToggler, isActiveSettings}) => {
+const UserSetting:React.FC<UserSettingsPropsType> = ({onCLickSettingsToggler}) => {
     return (
         <div 
             className={styles.user}

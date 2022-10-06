@@ -3,17 +3,19 @@ import { MdClose } from 'react-icons/md';
 import { TiPencil } from 'react-icons/ti'
 import Tooltip from '@mui/material/Tooltip';
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
-import { deleteUserWorkout } from "../../store/workoutSlice";
 import { useNavigate } from "react-router-dom";
-import styles from './index.module.scss'
 import { ROUTE_PATH } from "../../types/route";
+import { getWorkouts } from "../../store/selectors";
+import { deleteWorkout } from "../../store/actions/asyncAction";
+import styles from './index.module.scss'
+
 
 type WorkoutListPropTypes = {
     setWorkoutClickHandler: (id: string | null) => void
 }
 
 const WorkoutList:FC<WorkoutListPropTypes> = ({ setWorkoutClickHandler }) => {
-    const userWorkouts = useAppSelector(state => state.workout.userWorkouts)
+    const userWorkouts = useAppSelector(getWorkouts)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const userWorkoutsArr = Object.entries(userWorkouts)
@@ -23,7 +25,7 @@ const WorkoutList:FC<WorkoutListPropTypes> = ({ setWorkoutClickHandler }) => {
     const onClickDeleteWorkout = (id: string) => (e: any) => {
         e.stopPropagation()
         setWorkoutClickHandler(null)
-        dispatch(deleteUserWorkout(id))
+        dispatch(deleteWorkout(id))
     }
     return (
         <ul className={styles.listWorkout}>

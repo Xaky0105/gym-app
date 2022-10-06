@@ -3,6 +3,7 @@ import { useAppSelector } from '../../hooks/redux-hook'
 import styles from './index.module.scss'
 import { daysNotIncludedInCurrentMonth, getCurrentDay } from '../../utils/dayjs';
 import { Dayjs } from 'dayjs';
+import { getMonthIndex } from '../../store/selectors';
 
 interface DayProps {
     day: Dayjs,
@@ -10,7 +11,7 @@ interface DayProps {
 }
 
 const Day: React.FC<DayProps> = ({day, row}) => {
-    const monthIndex = useAppSelector(state => state.month.monthIndex)
+    const monthIndex = useAppSelector(getMonthIndex)
 
     const cn = () => {
         const currentDayClass = day.format('DD/MM/YYYY') === getCurrentDay() ? `${styles.currentDay}`: '' 
