@@ -1,0 +1,33 @@
+@import '../../../../variables.scss';
+.content {
+    position: relative;
+    padding: 10px;
+    .title {
+        color: $textColor;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    .back {
+        position: absolute;
+        top: 13px;
+        left: 15px;
+        color: $textColor;
+        cursor: pointer;
+        transition: all .2s linear;
+        &:hover {
+            color: $deepWater;
+        }
+    }
+    .addSetBtn {
+        background-color: transparent;
+        padding: 5px;
+        border: 0;
+        span {
+            cursor: pointer;
+            transition: all .2s linear;
+            &:hover {
+                color: $deepWater;
+            }
+        }
+    }
+}

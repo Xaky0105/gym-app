@@ -1,0 +1,74 @@
+@import '../../variables.scss';
+.mask {
+    height: 100vh;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.298);
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: .5s ease-in-out both running maskAnimation;
+}
+.modale {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    z-index: 1001;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 3px 3px 7px 2px #959595;
+    animation: .3s ease both running slidein;
+    @media (max-width: $mobileWidth) {
+        width: 95%;
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        background-color: $lightGray;
+        color: $textColor;
+        border-radius: 10px 10px 0 0;
+        padding: 5px 10px;
+        font-weight: 600;
+    }
+}
+.cross {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    transition: all .2s linear;
+    cursor: pointer;
+    &:hover {
+        transform: rotate(90deg);
+    }
+    svg {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@keyframes slidein {
+    from {
+        opacity: 0;
+        top: 25%;
+    }
+    to {
+        opacity: 1;
+        top: 50%;
+    }
+}
+
+@keyframes maskAnimation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

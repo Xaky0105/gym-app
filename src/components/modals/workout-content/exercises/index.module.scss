@@ -1,0 +1,39 @@
+@import "../../../../variables.scss";
+.content {
+    padding: 10px;
+    position: relative;
+    .title {
+        text-align: center;
+        color: $textColor;
+        margin-bottom: 15px;
+    }
+    .back {
+        position: absolute;
+        top: 13px;
+        left: 15px;
+        color: $textColor;
+        cursor: pointer;
+        transition: all .2s linear;
+        &:hover {
+            color: $deepWater;
+        }
+    }
+    ul {
+        max-height: 150px;
+        padding: 5px 10px;
+        overflow: auto;
+        li {
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px 0px #c8c8c8;;
+            margin-bottom: 12px;
+            transition: all .1s linear;
+            &:hover {
+                background-color: $lightGray;
+            }
+        }
+    }
+}
+
+
