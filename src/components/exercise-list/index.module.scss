@@ -3,6 +3,9 @@
     margin: 15px 0;
     overflow: auto;
     padding-right: 15px;
+    @media (max-width: $mobileWidth) {
+        margin: 8px 0;
+    }
     .exercise {
         display: flex;
         justify-content: space-between;

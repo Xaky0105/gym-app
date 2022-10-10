@@ -1,3 +1,4 @@
+@import '../../../variables.scss';
 .user {
     display: flex;
     align-items: center;
@@ -6,4 +7,8 @@
     border-radius: 5px;
     background-color: #fff;
     cursor: pointer;
+    @media (max-width: $mobileWidth) {
+        width: 30px;
+        height: 30px;
+    }
 }

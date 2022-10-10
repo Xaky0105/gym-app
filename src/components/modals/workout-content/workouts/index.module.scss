@@ -1,0 +1,30 @@
+@import '../../../../variables.scss';
+.content {
+    padding: 10px;
+    .title {
+        color: $textColor;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    div div span {
+        white-space: nowrap; /* Текст не переносится */
+        overflow: hidden; /* Обрезаем всё за пределами блока */
+        text-overflow: ellipsis; /* Добавляем многоточие */
+    }
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+        background-color: transparent;
+        border: none;
+        span {
+            cursor: pointer;
+            transition: all .2s linear;
+            color: $textColor;
+            &:hover {
+                color: $ocean
+            }
+        }
+    }
+}

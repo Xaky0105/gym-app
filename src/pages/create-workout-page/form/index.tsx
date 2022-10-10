@@ -31,21 +31,25 @@ const Form:FC<FormPropsType> = ({temporaryExercise, togglerTemporaryExercise, cl
         },
         validationSchema: createWorkoutSchema,
         onSubmit: (workoutName) => {
-            const createUserWorkout = (id: string) => {
+            const configUserWorkout = (id: string) => {
+                const exercises: {[k: string]: Exercise} = {};
+                temporaryExercise.forEach((item) => { 
+                    exercises[item.id] = item 
+                });
                 const dataTraining = {
                     ...workoutName,
                     id,
-                    exercises: temporaryExercise
+                    exercises: exercises
                 }
                 return dataTraining
             }
             if (editableWorkoutId) {
-                const workout = createUserWorkout(editableWorkoutId)
+                const workout = configUserWorkout(editableWorkoutId)
                 dispatch(createOrEditWorkout(workout, 'edit'))
                 navigate(ROUTE_PATH.WORKOUT)
             } else {
                 const id = uuidv4()
-                const workout = createUserWorkout(id)
+                const workout = configUserWorkout(id)
                 dispatch(createOrEditWorkout(workout, 'create'))
                 clearTemporaryExercise()
                 formik.resetForm()
@@ -57,6 +61,7 @@ const Form:FC<FormPropsType> = ({temporaryExercise, togglerTemporaryExercise, cl
             <div className={styles.wrapper}>
                 <TextField 
                     fullWidth
+                    sx={{marginBottom: '20px','& .MuiFormHelperText-root': { position: 'absolute', top: '100%' }}}
                     variant="standard"
                     id="workoutName"
                     name="workoutName"

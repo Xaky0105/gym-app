@@ -1,3 +1,4 @@
+@import '../../../variables.scss';
 .form {
     display: flex;
     flex-direction: column;
@@ -5,6 +6,9 @@
     overflow: auto;
     margin: 15px 0;
     height: 100%;
+    @media (max-width: $mobileWidth) {
+        margin: 15px 0 8px 0;
+    }
     .wrapper {
         display: flex;
         flex-direction: column;

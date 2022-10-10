@@ -1,4 +1,9 @@
 @import '../../variables.scss';
+.notWorkouts {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 50px;
+}
 .listWorkout {
     margin: 10px 15px 0 15px;
     .workout {

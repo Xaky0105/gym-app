@@ -5,10 +5,15 @@ import Burger from './burger';
 import NavList from './nav-list';
 import UserSetting from './user-setting';
 import UserSettingsList from './user-settings-list';
+import { useAppSelector } from '../../hooks/redux-hook';
+import { getUserEmail } from '../../store/selectors';
 
 const Header: React.FC = () => {
     const [isActiveNav, setIsActiveNav] = useState(false)
     const [isActiveSettings, setIsActiveSettings] = useState(false)
+
+    const userEmail = useAppSelector(getUserEmail)
+
     const onClickNavToggler = () => {
         setIsActiveNav(!isActiveNav)
     }
@@ -28,10 +33,13 @@ const Header: React.FC = () => {
                             onClickNavToggler={onClickNavToggler}
                             isActiveNav={isActiveNav}
                         />
-                        <UserSetting 
-                            onCLickSettingsToggler={onCLickSettingsToggler}
-                            isActiveSettings={isActiveSettings}
-                        />
+                        <div className={styles.block}>
+                            <p>{userEmail}</p>
+                            <UserSetting 
+                                onCLickSettingsToggler={onCLickSettingsToggler}
+                                isActiveSettings={isActiveSettings}
+                            />
+                        </div>
                     </div>
                 </Container>
             </header>

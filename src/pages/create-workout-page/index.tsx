@@ -5,7 +5,7 @@ import { Container } from "../../compound/container";
 import { useAppSelector } from "../../hooks/redux-hook";
 import { getWorkouts } from "../../store/selectors";
 import { Exercise } from "../../types/workout";
-import { isEqualObjects } from '../../utils/object'
+import _ from "lodash";
 import Form from "./form";
 import styles from './index.module.scss'
 
@@ -20,17 +20,17 @@ const CreateWorkoutPage:FC = () => {
     
     const userWorkouts = useAppSelector(getWorkouts)
     const [temporaryExercise, setTemporaryExercise] = useState<Exercise[]>(() => {
-        return state ? userWorkouts[editableWorkoutId].exercises : []
+        return state ? _.toArray(userWorkouts[editableWorkoutId].exercises) : []
     })
     const clearTemporaryExercise = () => {
         setTemporaryExercise([])
     }
     const togglerTemporaryExercise = (exercise: Exercise) => {
         setTemporaryExercise((prevEx) => {
-            if (!prevEx.find((ex) => isEqualObjects(exercise, ex))) {
+            if (!prevEx.find((ex) => ex.id === exercise.id)) {
                 return [...prevEx, exercise]
             } else {
-                return [...prevEx.filter((ex) => !isEqualObjects(exercise, ex))]
+                return [...prevEx.filter((ex) => ex.id !== exercise.id)]
             }
         })
     }
