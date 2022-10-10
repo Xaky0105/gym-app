@@ -5,17 +5,6 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     color: $textColor;
-    margin: 0;
-    overflow: hidden;
-}
-
-body > .scroll-box {
-    position: relative;
-    left: 0;
-    right: 0;
-    height: 100%;
-    max-height: 100vh;
-    overflow-y: auto;
 }
 
 ::-webkit-scrollbar {
