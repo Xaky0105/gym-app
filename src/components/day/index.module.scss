@@ -19,10 +19,16 @@
 .dayHeader {
     display: flex;
     flex-direction: column;
+    @media (max-width: $mobileWidth) {
+        flex-direction: row;
+    }
     .dayWeek {
         @media (max-width: $tabletWidth) {
             font-size: 10px;
-            margin: 0;
+            margin-right: 0;
+        }
+        @media (max-width: $mobileWidth) {
+            margin-right: 10px;
         }
     }
     .number {
@@ -34,24 +40,29 @@
     }
 }
 
-.trainingList {
+.workoutList {
     overflow: auto;
     width: 100%;
-    .training {
-        font-size: 10px;
-        // background-color: $color8;
-        padding: 5px;
-        border-radius: 5px;
-        color: $textColor;
+    .workout {
+        font-size: 12px;
+        color: $white;
+        font-weight: 600;
+        background-color: $wave;
+        padding: 2px 5px;
+        border-radius: 3px;
         white-space: nowrap; /* Текст не переносится */
         overflow: hidden; /* Обрезаем всё за пределами блока */
         text-overflow: ellipsis; /* Добавляем многоточие */
         width: 100%;
         margin-bottom: 5px;
-        transition: all .2s linear;
+        transition: all .1s linear;
         cursor: pointer;
         &:hover {
-            // background-color: $color14;
+            background-color: $ocean;
+        }
+        @media (max-width: $mobileWidth) {
+            font-size: 9px;
+            padding: 0 3px;
         }
     }
     .disabled {

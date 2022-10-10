@@ -4,10 +4,17 @@
     flex-direction: column;
     height: calc(100vh - $headerHeight);
     width: 50%;
+    @media (max-width: $mobileWidth) {
+        height: calc(50vh - $headerHeight + 20px / 2);
+        width: 100%;
+    }
     .title {
         margin-top: 10px;
         text-align: center;
         color: $textColor;
+        @media (max-width: $mobileWidth) {
+            font-size: 15px;
+        }
     }
     .exerciseList {
         margin: 20px 0;

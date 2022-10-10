@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Workout } from "../types/workout";
-
-type UserWorkoutsStateType = {
-    [key: string]: Workout
-}
+import { ExerciseListType, UserWorkoutsStateType } from './../types/workout';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type WorkoutState = {
+    exerciseList: ExerciseListType
     userWorkouts: UserWorkoutsStateType
-    isLoading: false
+    workoutsOnTheCalendar: UserWorkoutsStateType
+    isLoading: boolean
 }
 
 const initialState: WorkoutState = {
+    exerciseList: {},
     userWorkouts: {},
+    workoutsOnTheCalendar: {},
     isLoading: false
 }
 
@@ -25,11 +25,28 @@ const workoutsSlice = createSlice({
         workoutsFetchComplete(state, action) {
             state.userWorkouts = action.payload
         },
-        deleteUserWorkout(state, action) {
+        deleteUserWorkout(state, action: PayloadAction<string>) {
             delete state.userWorkouts[action.payload]
         },
         setIsLoadingWorkout(state, action) {
             state.isLoading = action.payload
+        },
+        addWorkoutToCalendar(state, action) {
+            const id = action.payload.id
+            state.workoutsOnTheCalendar[id] = action.payload
+        },
+        workoutsToCalendarFetchComplete(state, action) {
+            state.workoutsOnTheCalendar = action.payload
+        },
+        deleteWorkoutFromCalendar(state, action: PayloadAction<string>) {
+            delete state.workoutsOnTheCalendar[action.payload]
+        },
+        exerciseListFetchComplete(state, action) {
+            state.exerciseList = action.payload
+        },
+        updateExercise(state, action) {
+            const { idSelectedWorkout, idSelectedExercise, exercise } = action.payload
+            state.workoutsOnTheCalendar[idSelectedWorkout].exercises[idSelectedExercise] = exercise
         }
     }
 })
@@ -39,5 +56,10 @@ export const {
     deleteUserWorkout,
     workoutsFetchComplete,
     setIsLoadingWorkout,
+    addWorkoutToCalendar,
+    workoutsToCalendarFetchComplete,
+    deleteWorkoutFromCalendar,
+    exerciseListFetchComplete,
+    updateExercise
 } = workoutsSlice.actions
 export default workoutsSlice.reducer

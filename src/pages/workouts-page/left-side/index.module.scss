@@ -4,10 +4,17 @@
     flex-direction: column;
     width: 50%;
     height: calc(100vh - $headerHeight);
+    @media (max-width: $mobileWidth) {
+        width: 100%;
+        height: calc(50vh - $headerHeight + 20px / 2);
+    }
     .title {
         margin-top: 10px;
         text-align: center;
         color: $textColor;
+        @media (max-width: $mobileWidth) {
+            font-size: 15px;
+        }
     }
     .block {
         display: flex;
@@ -19,6 +26,17 @@
         .content{
             overflow: auto;
             margin: 15px 0;
+        }
+        @media (max-width: $mobileWidth) {
+            border-bottom: 1px solid $lightGray;
+                button{
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translate(-50%);
+                    padding: 5px 10px;
+                    width: 90%;
+                }
         }
         .btnWrapper {
             text-align: center;

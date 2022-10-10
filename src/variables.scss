@@ -1,4 +1,4 @@
-$lightGray: rgb(238, 238, 238);
+$lightGray: #f1f3f4;
 $darkGray: rgb(111, 111, 111);
 $textColor: rgb(33, 33, 33);
 $textColorWhite: rgb(247, 247, 247);
@@ -12,6 +12,7 @@ $seaFoam: #C4DFE6;
 
 $white: #fff;
 $black: #000;
+$pink: rgb(208, 92, 92);
 
 
 $fastTransition: all .1s ease-in-out;
@@ -20,4 +21,5 @@ $tabletWidth: 800px;
 $mobileWidth: 550px;
 
 $headerHeight: 60px;
+$headerHeightMobile: 40px;
 $calendarHeaderHeight: 100px
