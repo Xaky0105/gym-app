@@ -1,0 +1,70 @@
+@import '../../../../../variables.scss';
+.wrapper {
+    position: absolute;
+    width: 60%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 10;
+    border-radius: 0 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+    animation: slidein .2s;
+    .block {
+        .title {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .item {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 7px 1px #ccc;
+            margin-bottom: 10px;
+            transition: all .2s linear;
+            &:hover {
+                box-shadow: 0px 0px 7px 1px $ocean;
+            }
+        }
+        .active {
+            box-shadow: 0px 0px 7px 1px $pink;
+        }
+    }
+    button {
+        padding: 5px;
+    }
+}
+.mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.13);
+    border-radius: 0 0 10px 10px;
+    animation: fadeid 1s;
+}
+
+@keyframes slidein {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+  
+    to {
+        width: 60%;
+        opacity: 1;
+    }
+}
+@keyframes fadeid {
+    from {
+        opacity: 0;;
+    }
+  
+    to {
+        opacity: 1;;
+    }
+}

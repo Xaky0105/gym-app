@@ -2,60 +2,64 @@
 .content {
     padding: 10px;
     position: relative;
-    .title {
-        color: $textColor;
-        text-align: center;
-        margin-bottom: 15px;
-    }
-    .back {
-        position: absolute;
-        top: 13px;
-        left: 15px;
-        color: $textColor;
-        cursor: pointer;
-        transition: all .2s linear;
-        &:hover {
-            color: $ocean;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .topBlock {
+        .title {
+            color: $textColor;
+            text-align: center;
+            margin-bottom: 15px;
         }
-    }
-    .workoutList {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        max-height: 150px;
-        overflow: auto;
-        .workoutItem {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px;
-            border-radius: 5px;
-            margin: 5px 0;
-            width: 95%;
-            min-height: 30px;
-            white-space: nowrap; /* Текст не переносится */
-            overflow: hidden; /* Обрезаем всё за пределами блока */
-            text-overflow: ellipsis; /* Добавляем многоточие */
-            background-color: $lightGray;
-            cursor: pointer;
+        .noWorkout {
+            text-align: center;
+            margin-top: 25px;
         }
-        .activeWorkout {
-            background-color: $deepWater;
-            color: $textColorWhite;
-        }
-    }
-    .btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 10px;
-        background-color: transparent;
-        border: none;
-        .btnChild {
+        .back {
+            position: absolute;
+            top: 13px;
+            left: 15px;
+            color: $textColor;
             cursor: pointer;
             transition: all .2s linear;
-            color: $textColor;
             &:hover {
-                color: $deepWater
+                color: $ocean;
+            }
+        }
+        .workoutList {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-height: 150px;
+            overflow: auto;
+            .workoutItem {
+                display: flex;
+                justify-content: space-between;
+                padding: 5px;
+                border-radius: 5px;
+                margin: 5px 0;
+                width: 95%;
+                min-height: 30px;
+                white-space: nowrap; /* Текст не переносится */
+                overflow: hidden; /* Обрезаем всё за пределами блока */
+                text-overflow: ellipsis; /* Добавляем многоточие */
+                background-color: $lightGray;
+                cursor: pointer;
+            }
+            .activeWorkout {
+                background-color: $deepWater;
+                color: $textColorWhite;
+            }
+        }
+    }
+    .botBlock {
+        display: flex;
+        flex-direction: column;
+        .selectGroup {
+            display: flex;
+            ul {
+                max-height: 150px;
             }
         }
     }
