@@ -1,24 +1,28 @@
-import styles from './index.module.scss'
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import { Container } from '../../compound/container';
-import Burger from './burger';
-import NavList from './nav-list';
-import UserSetting from './user-setting';
-import UserSettingsList from './user-settings-list';
-import { useAppSelector } from '../../hooks/redux-hook';
-import { getUserEmail } from '../../store/selectors';
+import { Burger } from './burger';
+import { NavList } from './nav-list';
+import { UserSetting } from './user-setting';
+import { UserSettingsList } from './user-settings-list';
+import { MobileNavList } from './mobile-nav-list';
+import styles from './index.module.scss'
 
-const Header: React.FC = () => {
+export const Header:FC = () => {
     const [isActiveNav, setIsActiveNav] = useState(false)
     const [isActiveSettings, setIsActiveSettings] = useState(false)
-
-    const userEmail = useAppSelector(getUserEmail)
 
     const onClickNavToggler = () => {
         setIsActiveNav(!isActiveNav)
     }
     const onCLickSettingsToggler = () => {
         setIsActiveSettings(!isActiveSettings)
+    }
+    const maskClickHandler = () => {
+        if (isActiveNav) {
+            onClickNavToggler()
+        } else if (isActiveSettings) {
+            onCLickSettingsToggler()
+        }
     }
     return (
         <>
@@ -29,12 +33,8 @@ const Header: React.FC = () => {
                             onClickNavToggler={onClickNavToggler}
                             isActiveNav={isActiveNav}
                         />
-                        <NavList 
-                            onClickNavToggler={onClickNavToggler}
-                            isActiveNav={isActiveNav}
-                        />
+                        <NavList />
                         <div className={styles.block}>
-                            <p>{userEmail}</p>
                             <UserSetting 
                                 onCLickSettingsToggler={onCLickSettingsToggler}
                                 isActiveSettings={isActiveSettings}
@@ -43,14 +43,18 @@ const Header: React.FC = () => {
                     </div>
                 </Container>
             </header>
-            <Container>
-                <UserSettingsList 
-                    isActiveSettings={isActiveSettings}
-                    onCLickSettingsToggler={onCLickSettingsToggler}
-                />
-            </Container>
+            <MobileNavList 
+                onClickNavToggler={onClickNavToggler} 
+                isActiveNav={isActiveNav}
+            />
+            <UserSettingsList 
+                isActiveSettings={isActiveSettings}
+                onCLickSettingsToggler={onCLickSettingsToggler}
+            />
+            {
+                (isActiveNav || isActiveSettings) && 
+                <div className={styles.mask}onClick={maskClickHandler}></div>
+            }
         </>
     )
 }
-
-export default Header

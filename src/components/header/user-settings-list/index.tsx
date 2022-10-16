@@ -1,17 +1,19 @@
 import React from "react";
 import { ButtonNav } from '../../buttons/button-nav';
 import styles from './index.module.scss'
-import { userSignOut } from "../../../store/actions/asyncAction";
-import { useAppDispatch } from "../../../hooks/redux-hook";
-import { workoutsFetchComplete } from "../../../store/workoutSlice";
+import { userSignOut } from "../../../store/asyncActions/userAsyncAction";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux-hook";
+import { workoutsFetchComplete } from "../../../store/slices/workoutSlice";
+import { getUserEmail } from "../../../store/selectors";
 
 type UserSettingsListPropsType = {
     onCLickSettingsToggler: () => void
     isActiveSettings: boolean
 }
 
-const UserSettingsList:React.FC<UserSettingsListPropsType> = ({isActiveSettings, onCLickSettingsToggler}) => {
+export const UserSettingsList:React.FC<UserSettingsListPropsType> = ({isActiveSettings, onCLickSettingsToggler}) => {
     const dispatch = useAppDispatch()
+    const userEmail = useAppSelector(getUserEmail)
     const cn = isActiveSettings ? `${styles.userSettings} ${styles.active}` : `${styles.userSettings}`
     const onClickSignOut = () => {
         dispatch(userSignOut())
@@ -22,14 +24,18 @@ const UserSettingsList:React.FC<UserSettingsListPropsType> = ({isActiveSettings,
             className={cn}
             onClick={onCLickSettingsToggler}
         > 
-            <ButtonNav 
-                name={'Выйти'}
-                marginRight={'0px'}
-                onClick={onClickSignOut}
-            />
+            <p className={styles.loggedInText}>Вы вошли как:</p>
+            <p className={styles.email}><b>{userEmail?.split('@')[0]}</b></p>
+            <ul>
+                <li>
+                    <ButtonNav 
+                        name={'Выйти'}
+                        marginRight={'0px'}
+                        onClick={onClickSignOut}
+                    />
+                </li>
+            </ul>
         </div>
     )
 }
-
-export default UserSettingsList
 
