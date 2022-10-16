@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import { FC, useState } from 'react'
 import { Container } from '../../compound/container'
+import { RightSide } from './right-side';
+import { LeftSide } from './left-side';
 import styles from './index.module.scss'
-import RightSide from './right-side';
-import LeftSide from './left-side';
 
-const WorkoutsPage:React.FC = () => {
+export const WorkoutsPage:FC = () => {
     const [workoutId, setWorkoutId] = useState<string | null>(null)
     const setWorkoutClickHandler = (id: string | null) => {
         setWorkoutId(id)
     }
-    console.log(workoutId)
     return (
         <Container>
             <div className={styles.wrapper}>
@@ -19,5 +18,3 @@ const WorkoutsPage:React.FC = () => {
         </Container>
     )
 }
-
-export default WorkoutsPage

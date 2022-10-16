@@ -4,9 +4,13 @@
     flex-direction: column;
     width: 50%;
     height: calc(100vh - $headerHeight);
+    border-right: 1px solid $lightGray;
+    padding-right: 10px;
     @media (max-width: $mobileWidth) {
         width: 100%;
         height: calc(50vh - $headerHeight + 20px / 2);
+        padding-right: 0;
+        border-right: none;
     }
     .title {
         margin-top: 10px;

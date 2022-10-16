@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
 import ReactDOM from 'react-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook'
-import { toggleModale } from '../../store/modaleSlice'
+import { toggleModale } from '../../store/slices/modaleSlice'
 import { getIsOpenModalWorkout, getSelectedDay } from '../../store/selectors'
 import { MdOutlineClose } from 'react-icons/md'
+import dayjs from 'dayjs'
 import styles from './index.module.scss'
 
 type ModaleTypeProps = {
@@ -25,7 +26,7 @@ export const Modale:FC<ModaleTypeProps> = ({children}) => {
             </div>
             <div className={styles.modale}>
                 <div className={styles.header}>
-                    <p>{daySelected}</p>
+                    <p>{dayjs(daySelected).format('DD/MM/YYYY') }</p>
                     <div 
                         className={styles.cross}
                         onClick={() => {dispatch(toggleModale())}}

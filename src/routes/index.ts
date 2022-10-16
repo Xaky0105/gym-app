@@ -1,11 +1,11 @@
 import React from 'react';
-import AnalyticsPage from '../pages/analytics-page';
-import CalendarPage from '../pages/calendar-page';
-import CreateWorkoutPage from '../pages/create-workout-page';
+import { AnalyticsPage } from '../pages/analytics-page';
+import { CalendarPage } from '../pages/calendar-page';
+import { CreateWorkoutPage } from '../pages/create-workout-page';
 import { LoginPage } from '../pages/login-page';
-import NotFoundPage from '../pages/not-found-page';
+import { NotFoundPage } from '../pages/not-found-page';
 import { RegisterPage } from '../pages/register-page';
-import WorkoutsPage from '../pages/workouts-page';
+import { WorkoutsPage } from '../pages/workouts-page';
 import { ROUTE_PATH } from './../types/route';
 
 type Route = {

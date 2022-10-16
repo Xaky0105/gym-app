@@ -6,16 +6,15 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
 import { useNavigate } from "react-router-dom";
 import { ROUTE_PATH } from "../../types/route";
 import { getWorkouts } from "../../store/selectors";
-import { deleteWorkout } from "../../store/actions/asyncAction";
+import { deleteWorkout } from "../../store/asyncActions/workoutAsyncAction";
 import _ from "lodash";
 import styles from './index.module.scss'
-
 
 type WorkoutListPropTypes = {
     setWorkoutClickHandler: (id: string | null) => void
 }
 
-const WorkoutList:FC<WorkoutListPropTypes> = ({ setWorkoutClickHandler }) => {
+export const WorkoutList:FC<WorkoutListPropTypes> = ({ setWorkoutClickHandler }) => {
     const userWorkouts = useAppSelector(getWorkouts)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -64,8 +63,5 @@ const WorkoutList:FC<WorkoutListPropTypes> = ({ setWorkoutClickHandler }) => {
             </ul>
             }
         </>
-        
     )
 }
-
-export default WorkoutList

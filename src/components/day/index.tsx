@@ -1,12 +1,13 @@
-import React from 'react';
+import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook'
 import { daysNotIncludedInCurrentMonth, getCurrentDay } from '../../utils/dayjs';
 import dayjs, { Dayjs } from 'dayjs';
 import { getMonthIndex, getWorkoutsFromCalendar } from '../../store/selectors';
-import { setStepWorkoutModale, setTempIdWorkout, toggleModale } from '../../store/modaleSlice';
-import { changeDaySelected } from '../../store/daySlice';
+import { setStepWorkoutModale, setTempIdWorkout, toggleModale } from '../../store/slices/modaleSlice';
+import { changeDaySelected } from '../../store/slices/daySlice';
 import { STEP_MODAL } from '../modals/workout-content';
 import _ from 'lodash'
+import { DAY_FORMAT } from '../../types/day';
 import styles from './index.module.scss'
 
 interface DayProps {
@@ -14,32 +15,35 @@ interface DayProps {
     row: number
 }
 
-const Day: React.FC<DayProps> = ({day, row}) => {
+export const Day:FC<DayProps> = ({day, row}) => {
     const dispatch = useAppDispatch()
 
     const monthIndex = useAppSelector(getMonthIndex)
     const workoutsFromCalendar = useAppSelector(getWorkoutsFromCalendar)
     const workoutsForTheDay = _.toArray(workoutsFromCalendar)
-        .filter((workout) => workout.date === day.format('DD/MM/YYYY'))
+        .filter((workout) => workout.date === day.format(DAY_FORMAT.YYYY_MM_DD))
 
-    const currentDayClass = day.format('DD/MM/YYYY') === getCurrentDay() ? `${styles.currentDay}`: '' 
+    const currentDayClass = day.format(DAY_FORMAT.YYYY_MM_DD) === getCurrentDay() ? `${styles.currentDay}`: '' 
     const dayNotThisMonth = day.month() !== daysNotIncludedInCurrentMonth(monthIndex) ? `${styles.dayOfTheLastMonth}` : ''
-    const disabledTrainingItemClass = day.month() !== dayjs().month(monthIndex).month() ? `${styles.disabled}` : ''
+    const disabledTrainingItem = day.month() !== dayjs().month(monthIndex).month()
+    const disabledTrainingItemClass = disabledTrainingItem ? `${styles.disabled}` : ''
 
     const dayClickHandler = () => {
         if (!dayNotThisMonth) {
-            dispatch(changeDaySelected(day.format('DD/MM/YYYY')))
+            dispatch(changeDaySelected(day.format(DAY_FORMAT.YYYY_MM_DD)))
             dispatch(setStepWorkoutModale(STEP_MODAL.WORKOUTS))
             dispatch(toggleModale())
         }
     }
 
     const workoutOnClick = (id: string) => (e: React.MouseEvent) => {
-        e.stopPropagation()
-        dispatch(setTempIdWorkout(id))
-        dispatch(changeDaySelected(day.format('DD/MM/YYYY')))
-        dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES))
-        dispatch(toggleModale())
+        if (!disabledTrainingItem) {
+            e.stopPropagation()
+            dispatch(setTempIdWorkout(id))
+            dispatch(changeDaySelected(day.format(DAY_FORMAT.YYYY_MM_DD)))
+            dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES))
+            dispatch(toggleModale())
+        }
     }
 
     return (
@@ -68,5 +72,3 @@ const Day: React.FC<DayProps> = ({day, row}) => {
         </div>
     )
 }
-
-export default Day

@@ -1,4 +1,4 @@
-import {FC} from "react";
+import { FC } from "react";
 import { Preloader } from "../../preloader";
 import styles from './index.module.scss'
 
@@ -10,7 +10,7 @@ type ButtonStandartPropsType = {
     isloading?: boolean
 }
 
-const ButtonStandart:FC<ButtonStandartPropsType> = ({handleClick, name, disabled, type, isloading}) => {
+export const ButtonStandart:FC<ButtonStandartPropsType> = ({handleClick, name, disabled, type, isloading}) => {
     return (
         <button
             className={styles.btn}
@@ -23,5 +23,3 @@ const ButtonStandart:FC<ButtonStandartPropsType> = ({handleClick, name, disabled
         </button>
     )
 }
-
-export default ButtonStandart

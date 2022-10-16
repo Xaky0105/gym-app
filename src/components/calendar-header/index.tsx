@@ -1,17 +1,17 @@
-import React from "react";
-import ButtonOutline from "../buttons/button-outline";
+import { FC } from "react";
+import { ButtonOutline } from "../buttons/button-outline";
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import { useAppDispatch, useAppSelector } from "../../hooks/redux-hook";
-import { resetMonthIndex, decMonthIndex, incMonthIndex } from "../../store/monthSlice";
+import { resetMonthIndex, decMonthIndex, incMonthIndex } from "../../store/slices/monthSlice";
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 import { getCurrentDay, getYear } from '../../utils/dayjs'
 import { getMonthIndex } from "../../store/selectors";
-import { changeDaySelected } from "../../store/daySlice";
-import styles from './index.module.scss'
-import { setStepWorkoutModale, toggleModale } from "../../store/modaleSlice";
+import { changeDaySelected } from "../../store/slices/daySlice";
+import { setStepWorkoutModale, toggleModale } from "../../store/slices/modaleSlice";
 import { STEP_MODAL } from "../modals/workout-content";
+import styles from './index.module.scss'
 
-const CalendarHeader:React.FC = () => {
+const CalendarHeader:FC = () => {
     const dispatch = useAppDispatch()
     const monthIndex = useAppSelector(getMonthIndex)
     const buttonCLickHandler = (func: ActionCreatorWithoutPayload<string>) => {
@@ -27,13 +27,13 @@ const CalendarHeader:React.FC = () => {
             <div className={styles.wrapperGroupBtn}>
                 <ButtonOutline 
                     text="Тренировка на сегодня"
-                    callback={workoutForDayClickHandler}
+                    handleClick={workoutForDayClickHandler}
                 />
             </div>
             <div className={styles.wrapperGroupBtn}>
                 <ButtonOutline 
                     text="Сегодня" 
-                    callback={() => buttonCLickHandler(resetMonthIndex)}
+                    handleClick={() => buttonCLickHandler(resetMonthIndex)}
                 />
                 <div 
                     className={styles.btnWrapper}

@@ -1,20 +1,18 @@
-import React from 'react'
+import { FC } from 'react'
 import styles from './index.module.scss'
 
 type ButtonOutlinePropsType = {
-    callback: () => void
+    handleClick: () => void
     text: string
 }
 
-const ButtonOutline:React.FC<ButtonOutlinePropsType> = ({callback, text}) => {
+export const ButtonOutline:FC<ButtonOutlinePropsType> = ({handleClick, text}) => {
     return (
         <button 
             className={styles.btnOutline}
-            onClick={callback}
+            onClick={handleClick}
         >
             {text}
         </button>
     )
 }
-
-export default ButtonOutline

@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from './index.module.scss'
 
@@ -9,7 +9,7 @@ type ButtonNavType = {
     marginRight?: string
 }
 
-export const ButtonNav:React.FC<ButtonNavType> = ({name, to, marginRight, onClick}) => {
+export const ButtonNav:FC<ButtonNavType> = ({name, to, marginRight, onClick}) => {
     const navigate = useNavigate()
     const btnClickHandler = () => {
         onClick && onClick()

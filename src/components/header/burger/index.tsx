@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import styles from './index.module.scss'
 
 type BurgerPropsType = {
@@ -6,7 +6,7 @@ type BurgerPropsType = {
     onClickNavToggler: () => void 
 }
 
-const Burger:React.FC<BurgerPropsType> = ({onClickNavToggler, isActiveNav}) => {
+export const Burger:FC<BurgerPropsType> = ({onClickNavToggler, isActiveNav}) => {
     const cn = isActiveNav ? `${styles.burger} ${styles.opened}` : `${styles.burger}`
     return (
         <button 
@@ -30,6 +30,3 @@ const Burger:React.FC<BurgerPropsType> = ({onClickNavToggler, isActiveNav}) => {
         </button>
     )
 }
-
-
-export default Burger

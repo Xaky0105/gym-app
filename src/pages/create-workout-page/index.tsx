@@ -6,14 +6,14 @@ import { useAppSelector } from "../../hooks/redux-hook";
 import { getWorkouts } from "../../store/selectors";
 import { Exercise } from "../../types/workout";
 import _ from "lodash";
-import Form from "./form";
+import { Form } from "./form";
 import styles from './index.module.scss'
 
 interface CustomUseLocationState {
     editableWorkoutId: string
 }
 
-const CreateWorkoutPage:FC = () => {
+export const CreateWorkoutPage:FC = () => {
     const location = useLocation()
     const state = location.state as CustomUseLocationState
     const editableWorkoutId = state ? state.editableWorkoutId : ''
@@ -61,5 +61,3 @@ const CreateWorkoutPage:FC = () => {
         </Container>
     )
 }
-
-export default CreateWorkoutPage

@@ -1,15 +1,16 @@
 import { FC, useEffect } from 'react';
 import { useFormik } from 'formik';
-import ButtonStandart from '../../components/buttons/button-standart';
+import { ButtonStandart } from '../../components/buttons/button-standart';
 import TextField from '@mui/material/TextField';
 import { loginSchema } from '../../sheme'
 import { Link, useNavigate } from 'react-router-dom'
-import styles from './index.module.scss'
+import { FcGoogle } from 'react-icons/fc';
 import { ROUTE_PATH } from '../../types/route';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
 import { getUser, getUserError, getUserIsLoading } from '../../store/selectors';
-import { userAuth } from '../../store/actions/asyncAction';
+import { loginWithGoogle, userAuth } from '../../store/asyncActions/userAsyncAction';
 import { AuthError } from '../../components/errors/auth-error';
+import styles from './index.module.scss'
 
 type OnClickSubmitFn = (values: {email: string, password: string}) => void
 
@@ -73,6 +74,15 @@ export const LoginPage:FC = () => {
                     <div className={styles.block}>
                         <p>Нет аккаунта ?</p>
                         <Link to={ROUTE_PATH.REGISTER}>Зарегистрироваться</Link>
+                        <p>или</p>
+                        <div 
+                            onClick={() => dispatch(loginWithGoogle())}
+                            className={styles.signInWithGoogle}
+                        >
+                            <FcGoogle size={30}/>
+                            <span>Авторизоваться через гугл</span>
+                        </div>
+                        
                     </div>
                 </div>
                 <ButtonStandart 

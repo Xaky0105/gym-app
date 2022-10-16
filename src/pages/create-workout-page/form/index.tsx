@@ -8,9 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hook';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../../types/route';
-import ButtonStandart from '../../../components/buttons/button-standart';
+import { ButtonStandart } from '../../../components/buttons/button-standart';
 import { getWorkouts } from '../../../store/selectors';
-import { createOrEditWorkout } from '../../../store/actions/asyncAction';
+import { createOrEditWorkout } from '../../../store/asyncActions/workoutAsyncAction';
 import styles from './index.module.scss'
 
 type FormPropsType = {
@@ -20,7 +20,7 @@ type FormPropsType = {
     editableWorkoutId?: string
 }
 
-const Form:FC<FormPropsType> = ({temporaryExercise, togglerTemporaryExercise, clearTemporaryExercise, editableWorkoutId}) => {
+export const Form:FC<FormPropsType> = ({temporaryExercise, togglerTemporaryExercise, clearTemporaryExercise, editableWorkoutId}) => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const userWorkouts = useAppSelector(getWorkouts)
@@ -82,5 +82,3 @@ const Form:FC<FormPropsType> = ({temporaryExercise, togglerTemporaryExercise, cl
         </form>
     )
 }
-
-export default Form

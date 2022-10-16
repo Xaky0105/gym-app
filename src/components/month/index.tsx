@@ -1,13 +1,13 @@
 import { type Dayjs } from 'dayjs'
 import React from 'react'
-import Day from '../day'
+import { Day } from '../day'
 import styles from './index.module.scss'
 
 interface MonthProps {
     month: Dayjs[][]
 }
 
-const Month: React.FC<MonthProps> = ({month}) => {
+export const Month: React.FC<MonthProps> = ({month}) => {
     return (
         <div className={styles.wrapper}>
             {month.map((row: any[], i: number) => (
@@ -20,5 +20,3 @@ const Month: React.FC<MonthProps> = ({month}) => {
         </div>
     )
 }
-
-export default Month

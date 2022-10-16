@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { STEP_MODAL } from "../components/modals/workout-content";
+import { STEP_MODAL } from "../../components/modals/workout-content";
 
 type ModaleState = {
     modaleWorkoutIsOpen: boolean
+    confirmModaleIsOpen: boolean
     stepWorkoutModale: STEP_MODAL
     idSelectedWorkout: string
     idSelectedExercise: string
@@ -10,6 +11,7 @@ type ModaleState = {
 
 const initialState: ModaleState = {
     modaleWorkoutIsOpen: false,
+    confirmModaleIsOpen: false,
     stepWorkoutModale: STEP_MODAL.WORKOUTS,
     idSelectedWorkout: '',
     idSelectedExercise: ''
@@ -26,6 +28,9 @@ const modaleSlice = createSlice({
                 state.idSelectedWorkout = ''
             }
         },
+        toggleConfirmModale(state) {
+            state.confirmModaleIsOpen = !state.confirmModaleIsOpen
+        },
         setStepWorkoutModale(state, action) {
             state.stepWorkoutModale = action.payload
         },
@@ -39,7 +44,8 @@ const modaleSlice = createSlice({
 })
 
 export const { 
-    toggleModale, 
+    toggleModale,
+    toggleConfirmModale, 
     setStepWorkoutModale,
     setTempIdWorkout,
     setTempIdExercise

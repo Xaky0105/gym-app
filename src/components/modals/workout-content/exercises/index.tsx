@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { STEP_MODAL } from '..'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook'
-import { setStepWorkoutModale, setTempIdExercise } from '../../../../store/modaleSlice'
+import { setStepWorkoutModale, setTempIdExercise } from '../../../../store/slices/modaleSlice'
 import { getWorkoutById } from '../../../../store/selectors'
 import { MdArrowBack } from 'react-icons/md';
 import _ from 'lodash'

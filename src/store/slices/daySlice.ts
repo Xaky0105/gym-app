@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getCurrentDay } from "../utils/dayjs";
+import { getCurrentDay } from "../../utils/dayjs";
 
 type DayState = {
     daySelected: string,

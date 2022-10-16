@@ -1,4 +1,6 @@
-import React from "react";
+import { FC } from "react";
+import { useAppSelector } from "../../../hooks/redux-hook";
+import { getUserPhotoByEmail } from "../../../store/selectors";
 import styles from './index.module.scss'
 
 type UserSettingsPropsType = {
@@ -6,16 +8,14 @@ type UserSettingsPropsType = {
     isActiveSettings: boolean
 }
 
-const UserSetting:React.FC<UserSettingsPropsType> = ({onCLickSettingsToggler}) => {
+export const UserSetting:FC<UserSettingsPropsType> = ({onCLickSettingsToggler}) => {
+    const userPhoto = useAppSelector(getUserPhotoByEmail)
     return (
         <div 
             className={styles.user}
             onClick={onCLickSettingsToggler}
         >
-            <img src="https://www.pngfind.com/pngs/m/470-4703547_icon-user-icon-hd-png-download.png" alt="user"/>
+            <img src={userPhoto} alt="user"/>
         </div>
-        
     )
 }
-
-export default UserSetting

@@ -2,6 +2,7 @@
 .content {
     padding: 10px;
     position: relative;
+    min-height: 250px;
     .title {
         text-align: center;
         color: $textColor;
@@ -19,7 +20,7 @@
         }
     }
     ul {
-        max-height: 150px;
+        max-height: 250px;
         padding: 5px 10px;
         overflow: auto;
         li {

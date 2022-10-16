@@ -1,6 +1,6 @@
-import {FC} from 'react'
-import WorkoutList from '../../../components/workout-list';
-import ButtonStandart from '../../../components/buttons/button-standart'
+import { FC } from 'react'
+import { WorkoutList } from '../../../components/workout-list';
+import { ButtonStandart } from '../../../components/buttons/button-standart'
 import { ROUTE_PATH } from '../../../types/route';
 import { useNavigate } from 'react-router-dom'
 import styles from './index.module.scss'
@@ -9,7 +9,7 @@ type LeftSidePropsType = {
     setWorkoutClickHandler: (id: string | null) => void
 }
 
-const LeftSide:FC<LeftSidePropsType> = ({setWorkoutClickHandler}) => {
+export const LeftSide:FC<LeftSidePropsType> = ({setWorkoutClickHandler}) => {
     const navigate = useNavigate()
     const btnClickHandler = () => {
         navigate(ROUTE_PATH.CREATE_WORKOUT)
@@ -21,15 +21,11 @@ const LeftSide:FC<LeftSidePropsType> = ({setWorkoutClickHandler}) => {
                 <div className={styles.content}>
                     <WorkoutList setWorkoutClickHandler={setWorkoutClickHandler}/>
                 </div>
-                {/* <div className={styles.btnWrapper}> */}
-                    <ButtonStandart 
-                        name='Создать тренировку'
-                        handleClick={btnClickHandler}
-                    />
-                {/* </div> */}
+                <ButtonStandart 
+                    name='Создать тренировку'
+                    handleClick={btnClickHandler}
+                />
             </div>
         </div>
     )
 }
-
-export default LeftSide

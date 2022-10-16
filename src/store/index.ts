@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import daySlice from "./daySlice";
-import modaleSlice from "./modaleSlice";
-import monthReducer from './monthSlice'
-import userSlice from "./userSlice";
-import workoutSlice from "./workoutSlice";
+import daySlice from "./slices/daySlice";
+import modaleSlice from "./slices/modaleSlice";
+import monthReducer from './slices/monthSlice'
+import userSlice from "./slices/userSlice";
+import workoutSlice from "./slices/workoutSlice";
 
 const store = configureStore({
     reducer: {

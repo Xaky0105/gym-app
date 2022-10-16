@@ -4,12 +4,12 @@ import MuiAccordionSummary, {AccordionSummaryProps} from '@mui/material/Accordio
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 import CheckboxList from './list';
 import { Exercise } from '../../types/workout';
 import { useAppSelector } from '../../hooks/redux-hook';
 import { getExerciseList } from '../../store/selectors';
 import _ from 'lodash';
+import { styled } from '@mui/material/styles';
 
 const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />

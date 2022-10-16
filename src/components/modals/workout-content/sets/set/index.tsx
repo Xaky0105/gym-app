@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { FC, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux-hook'
-import { updateExerciseAsync } from '../../../../../store/actions/asyncAction'
+import { updateExerciseAsync } from '../../../../../store/asyncActions/workoutAsyncAction'
 import { getExerciseById } from '../../../../../store/selectors'
 import { SetsType } from '../../../../../types/workout'
 import { AiOutlineCloseSquare } from 'react-icons/ai';
@@ -44,7 +44,7 @@ export const Set:FC<TSetProps> = ({set, index, removeSet}) => {   //Зарефа
         setAmount(prevAmont => prevAmont = Number(value))
     }
     return (
-        <div className={styles.block}>
+        <li className={styles.block}>
             <div className={styles.groupLeft}>
                 <div className={styles.crossWrapper}>
                     <AiOutlineCloseSquare size={20} onClick={() => {removeSet(index)}}/>
@@ -86,6 +86,6 @@ export const Set:FC<TSetProps> = ({set, index, removeSet}) => {   //Зарефа
                     {index === 0 && <span className={styles.title}>Кол-во</span>}
                 </div>
             </div>
-        </div> 
+        </li> 
     )
 }

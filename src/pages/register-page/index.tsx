@@ -1,15 +1,15 @@
 import { FC, useEffect } from 'react';
 import { useFormik } from 'formik';
-import ButtonStandart from '../../components/buttons/button-standart';
+import { ButtonStandart } from '../../components/buttons/button-standart';
 import TextField from '@mui/material/TextField';
 import { registerSchema } from '../../sheme'
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../types/route';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
-import { userAuth } from '../../store/actions/asyncAction';
+import { userAuth } from '../../store/asyncActions/userAsyncAction';
 import { getUser, getUserError, getUserIsLoading } from '../../store/selectors';
-import styles from './index.module.scss'
 import { AuthError } from '../../components/errors/auth-error';
+import styles from './index.module.scss'
 
 type OnClickSubmitFn = (values: {email: string, password: string}) => void
 

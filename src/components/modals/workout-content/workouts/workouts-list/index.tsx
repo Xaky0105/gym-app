@@ -1,14 +1,17 @@
 import { FC } from 'react'
 import { STEP_MODAL } from '../..'
 import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux-hook'
-import { setStepWorkoutModale, setTempIdWorkout } from '../../../../../store/modaleSlice'
+import { setStepWorkoutModale, setTempIdWorkout } from '../../../../../store/slices/modaleSlice'
 import { getSelectedDay, getWorkoutsFromCalendar } from '../../../../../store/selectors'
 import { AiOutlineCloseSquare } from 'react-icons/ai';
 import _ from 'lodash'
 import styles from './index.module.scss'
-import { deleteWorkoutFromCalendarAsync } from '../../../../../store/actions/asyncAction'
 
-export const WorkoutsList:FC = () => {
+type WorkoutListPropsType = {
+    deleteWorkoutClickHandler: (workoutId: string) => (e: React.MouseEvent) => void
+}
+
+export const WorkoutsList:FC<WorkoutListPropsType> = ({deleteWorkoutClickHandler}) => {
     const dispatch = useAppDispatch()
     const daySelected = useAppSelector(getSelectedDay)
     const workoutsOnCalendar = useAppSelector(getWorkoutsFromCalendar)
@@ -18,11 +21,6 @@ export const WorkoutsList:FC = () => {
     const workoutClickHandler = (id: string) => {
         dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES))
         dispatch(setTempIdWorkout(id))
-    }
-
-    const deleteWorkoutClickHandler = (id: string) => (e: React.MouseEvent) => {
-        e.stopPropagation()
-        dispatch(deleteWorkoutFromCalendarAsync(id))
     }
 
     return (

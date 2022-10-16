@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook'
-import { loadWorkouts } from '../../store/actions/asyncAction'
+import { loadWorkouts } from '../../store/asyncActions/workoutAsyncAction'
 import { getIsLoadingWorkouts } from '../../store/selectors'
-import Header from '../header'
+import { Header } from '../header'
 import { Preloader } from '../preloader'
 import styles from './index.module.scss'
 
-const Layout:React.FC = () => {
+export const Layout:React.FC = () => {
     const dispatch = useAppDispatch()
     const workoutsIsLoading = useAppSelector(getIsLoadingWorkouts)
     useEffect(() => {
@@ -30,5 +30,3 @@ const Layout:React.FC = () => {
         </React.Fragment> 
     )
 }
-
-export default Layout

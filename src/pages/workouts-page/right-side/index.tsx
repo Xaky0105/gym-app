@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import { FC } from 'react'
 import _ from 'lodash'
 import { useAppSelector } from '../../../hooks/redux-hook'
 import { getWorkouts } from '../../../store/selectors'
@@ -8,7 +8,7 @@ type RightSideTypeProps = {
     workoutId: string | null
 }
 
-const RightSide:FC<RightSideTypeProps> = ({ workoutId }) => {
+export const RightSide:FC<RightSideTypeProps> = ({ workoutId }) => {
     const workouts = useAppSelector(getWorkouts)
     const exercises = workoutId && workouts[workoutId].exercises
     return (
@@ -24,5 +24,3 @@ const RightSide:FC<RightSideTypeProps> = ({ workoutId }) => {
         </div>
     )
 }
-
-export default RightSide

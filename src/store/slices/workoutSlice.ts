@@ -1,4 +1,4 @@
-import { ExerciseListType, UserWorkoutsStateType } from './../types/workout';
+import { ExerciseListType, UserWorkoutsStateType, Workout } from '../../types/workout';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type WorkoutState = {
@@ -35,11 +35,22 @@ const workoutsSlice = createSlice({
             const id = action.payload.id
             state.workoutsOnTheCalendar[id] = action.payload
         },
+        addSomeWorkoutsToCalendar(state, action: PayloadAction<Workout[]>) {
+            const arrWorkouts = action.payload
+            arrWorkouts.forEach((workout) => {
+                state.workoutsOnTheCalendar[workout.id] = workout 
+            })
+        },
         workoutsToCalendarFetchComplete(state, action) {
             state.workoutsOnTheCalendar = action.payload
         },
         deleteWorkoutFromCalendar(state, action: PayloadAction<string>) {
             delete state.workoutsOnTheCalendar[action.payload]
+        },
+        deleteSomeWorkoutFromCalendar(state, action: PayloadAction<string[]>) { 
+            action.payload.forEach((id) => {
+                delete state.workoutsOnTheCalendar[id]
+            })
         },
         exerciseListFetchComplete(state, action) {
             state.exerciseList = action.payload
@@ -57,8 +68,10 @@ export const {
     workoutsFetchComplete,
     setIsLoadingWorkout,
     addWorkoutToCalendar,
+    addSomeWorkoutsToCalendar,
     workoutsToCalendarFetchComplete,
     deleteWorkoutFromCalendar,
+    deleteSomeWorkoutFromCalendar,
     exerciseListFetchComplete,
     updateExercise
 } = workoutsSlice.actions

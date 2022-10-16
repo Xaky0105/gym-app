@@ -3,16 +3,45 @@
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
+    align-items: flex-start;
     position: absolute;
-    top: -200px;
-    right: 10px;
+    top: calc($headerHeightMobile + 10px);
+    right: 2%;
+    max-width: 200px;
+    opacity: 0;
     box-shadow: 2px 2px 10px 1px $shadowColor;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     background-color: $white;
-    z-index: 25;
-    transition: all .3s linear;
+    z-index: 0;
+    transition: all .2s linear;
+    @media (min-width: $tabletWidth) {
+        top: calc($headerHeight + 10px);
+    }
+    .loggedInText {
+        padding-left: 5px;
+    }
+    .email {
+        max-width: 180px;
+        border-bottom: 1px solid $lightGray;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        white-space: nowrap; /* Текст не переносится */
+        overflow: hidden; /* Обрезаем всё за пределами блока */
+        text-overflow: ellipsis; /* Добавляем многоточие */
+        padding-left: 5px;
+    }
+    ul {
+        width: 100%;
+        li {
+            button {
+                width: 100%;
+                text-align: start;
+            }
+        }
+    }
 }
 .active {
-    top: 10px;
+    opacity: 1;
+    z-index: 2001;
 }
