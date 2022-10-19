@@ -1,0 +1,29 @@
+@import '../../../variables.scss';
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: $lightGray;
+    color: $textColor;
+    border-radius: 10px 10px 0 0;
+    padding: 5px 10px;
+    font-weight: 600;
+    .cross {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background-color: transparent;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        transition: all 0.2s linear;
+        cursor: pointer;
+        &:hover {
+            transform: rotate(90deg);
+        }
+        svg {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
