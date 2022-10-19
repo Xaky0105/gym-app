@@ -27,7 +27,7 @@ export const CalendarPage: FC = () => {
         dispatch(setModaleWorkoutIsOpen(false));
     };
 
-    const workoutsForMonth = useMemo(() => getWorkoutsForMonth(workoutsForCalendar, monthIndex), [monthIndex]);
+    const workoutsForMonth = useMemo(() => getWorkoutsForMonth(workoutsForCalendar, monthIndex), [monthIndex, workoutsForCalendar]);
     return (
         <Container>
             <CalendarHeader />
