@@ -22,7 +22,7 @@
             left: 15px;
             color: $textColor;
             cursor: pointer;
-            transition: all .2s linear;
+            transition: all 0.2s linear;
             &:hover {
                 color: $ocean;
             }
@@ -44,12 +44,14 @@
                 white-space: nowrap; /* Текст не переносится */
                 overflow: hidden; /* Обрезаем всё за пределами блока */
                 text-overflow: ellipsis; /* Добавляем многоточие */
-                background-color: $lightGray;
+                background-color: #fff;
+                box-shadow: 2px 2px 5px 0 #c8c8c8;
                 cursor: pointer;
+                transition: all 0.1s linear;
             }
             .activeWorkout {
-                background-color: $deepWater;
-                color: $textColorWhite;
+                background-color: $seaFoam;
+                // color: $textColorWhite;
             }
         }
     }

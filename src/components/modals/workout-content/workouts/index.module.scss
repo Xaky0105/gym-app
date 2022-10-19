@@ -27,10 +27,10 @@
         bottom: 5px;
         span {
             cursor: pointer;
-            transition: all .2s linear;
+            transition: all 0.2s linear;
             color: $textColor;
             &:hover {
-                color: $ocean
+                color: $ocean;
             }
         }
     }

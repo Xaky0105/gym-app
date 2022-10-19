@@ -1,16 +1,16 @@
-import { FC } from "react";
-import { Preloader } from "../../preloader";
-import styles from './index.module.scss'
+import { FC } from 'react';
+import { Preloader } from '../../preloader';
+import styles from './index.module.scss';
 
 type ButtonStandartPropsType = {
-    handleClick?: () => void
-    name: string
-    disabled?: boolean
-    type?: 'button' | 'submit' | 'reset'
-    isloading?: boolean
-}
+    handleClick?: () => void;
+    name: string;
+    disabled?: boolean;
+    type?: 'button' | 'submit' | 'reset';
+    isloading?: boolean;
+};
 
-export const ButtonStandart:FC<ButtonStandartPropsType> = ({handleClick, name, disabled, type, isloading}) => {
+export const ButtonStandart: FC<ButtonStandartPropsType> = ({ handleClick, name, disabled, type, isloading }) => {
     return (
         <button
             className={styles.btn}
@@ -18,8 +18,12 @@ export const ButtonStandart:FC<ButtonStandartPropsType> = ({handleClick, name, d
             disabled={disabled || isloading}
             type={type && type}
         >
-            {isloading && <div className={styles.preloaderWrapper}><Preloader /></div>}
+            {isloading && (
+                <div className={styles.preloaderWrapper}>
+                    <Preloader />
+                </div>
+            )}
             {name}
         </button>
-    )
-}
+    );
+};

@@ -14,7 +14,7 @@
     border-radius: 5px;
     background-color: $white;
     z-index: 0;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
     @media (min-width: $tabletWidth) {
         top: calc($headerHeight + 10px);
     }

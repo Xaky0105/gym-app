@@ -11,17 +11,16 @@
             padding: 5px;
             border-radius: 5px;
             cursor: pointer;
-            box-shadow: 2px 2px 5px 0px #c8c8c8;;
+            box-shadow: 2px 2px 5px 0px #c8c8c8;
             margin-bottom: 12px;
-            transition: all .1s linear;
+            transition: all 0.1s linear;
             .itemText {
-
             }
             .crossWrapper {
                 display: flex;
                 color: #ccc;
                 cursor: pointer;
-                transition: all .2s linear;
+                transition: all 0.2s linear;
                 &:hover {
                     color: $pink;
                 }

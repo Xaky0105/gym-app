@@ -15,7 +15,7 @@
         box-shadow: 3px 3px 6px 0px $shadowColor;
         margin-bottom: 10px;
         border-radius: 5px;
-        transition: all .2s linear;
+        transition: all 0.2s linear;
         white-space: nowrap;
         cursor: pointer;
         &:hover {
@@ -40,7 +40,7 @@
                     width: 100%;
                     height: 100%;
                     fill: $seaFoam;
-                    transition: all .2s linear;
+                    transition: all 0.2s linear;
                     &:hover {
                         fill: $deepWater;
                     }

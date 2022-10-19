@@ -1,13 +1,13 @@
 @import '../../variables.scss';
 .wrapper {
-    border: 1px solid $lightGray;
+    border: 1px solid $borderColor;
     height: calc(((100vh - $headerHeight - $calendarHeaderHeight) - 10px) / 6);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 5px;
     cursor: pointer;
-    transition: all .2s linear;
+    transition: background-color 0.2s linear;
     &:hover {
         background-color: $lightGray;
     }
@@ -55,7 +55,7 @@
         text-overflow: ellipsis; /* Добавляем многоточие */
         width: 100%;
         margin-bottom: 5px;
-        transition: all .1s linear;
+        transition: all 0.1s linear;
         cursor: pointer;
         &:hover {
             background-color: $ocean;
@@ -72,14 +72,13 @@
             background-color: #9d9d9d;
         }
     }
-    
 }
 .currentDay {
-    border: 1px solid $wave;
+    border: 2px solid $pink;
 }
-// .selected {
-//     background-color: $color11;
-// }
+.selected {
+    background-color: $borderColor;
+}
 // .darkned {
 //     background-color: $color4;
 // }

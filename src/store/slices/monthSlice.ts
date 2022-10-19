@@ -1,28 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
-import dayjs from "dayjs";
+import { createSlice } from '@reduxjs/toolkit';
+import dayjs from 'dayjs';
 
 type MonthState = {
-    monthIndex: number
-}
+    monthIndex: number;
+};
 const initialState: MonthState = {
-    monthIndex: dayjs().month()
-}
+    monthIndex: dayjs().month(),
+};
 const monthSlice = createSlice({
     name: 'month',
     initialState,
     reducers: {
         incMonthIndex(state) {
-            state.monthIndex = state.monthIndex + 1
+            state.monthIndex = state.monthIndex + 1;
         },
         decMonthIndex(state) {
-            state.monthIndex = state.monthIndex - 1
+            state.monthIndex = state.monthIndex - 1;
         },
         resetMonthIndex(state) {
-            state.monthIndex = dayjs().month()
+            state.monthIndex = dayjs().month();
         },
-    }
-})
+    },
+});
 
-export const { incMonthIndex, decMonthIndex, resetMonthIndex } = monthSlice.actions
+export const { incMonthIndex, decMonthIndex, resetMonthIndex } = monthSlice.actions;
 
-export default monthSlice.reducer
+export default monthSlice.reducer;

@@ -1,32 +1,30 @@
-import React, { useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook'
-import { loadWorkouts } from '../../store/asyncActions/workoutAsyncAction'
-import { getIsLoadingWorkouts } from '../../store/selectors'
-import { Header } from '../header'
-import { Preloader } from '../preloader'
-import styles from './index.module.scss'
+import React, { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
+import { loadWorkouts } from '../../store/asyncActions/workoutAsyncAction';
+import { getIsLoadingWorkouts } from '../../store/selectors';
+import { Header } from '../header';
+import { Preloader } from '../preloader';
+import styles from './index.module.scss';
 
-export const Layout:React.FC = () => {
-    const dispatch = useAppDispatch()
-    const workoutsIsLoading = useAppSelector(getIsLoadingWorkouts)
+export const Layout: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const workoutsIsLoading = useAppSelector(getIsLoadingWorkouts);
     useEffect(() => {
-        dispatch(loadWorkouts())
-    }, [dispatch])
+        dispatch(loadWorkouts());
+    }, [dispatch]);
     return (
         <React.Fragment>
             <Header />
-            {
-                workoutsIsLoading 
-                    ?
-                    <div className={styles.mask}>
-                        <div className={styles.preloaderWrapper}>
-                            <Preloader />
-                        </div>
+            {workoutsIsLoading ? (
+                <div className={styles.mask}>
+                    <div className={styles.preloaderWrapper}>
+                        <Preloader />
                     </div>
-                    :
-                    <Outlet />
-            }
-        </React.Fragment> 
-    )
-}
+                </div>
+            ) : (
+                <Outlet />
+            )}
+        </React.Fragment>
+    );
+};

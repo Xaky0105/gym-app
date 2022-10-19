@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -8,25 +8,34 @@ import Checkbox from '@mui/material/Checkbox';
 import { Exercise } from '../../../types/workout';
 
 type CheckBoxListPropsType = {
-    exercisesGroup: Exercise[]
-    togglerTemporaryExercise: (exercise: Exercise) => void
-    temporaryExercise: Exercise[]
-}
+    exercisesGroup: Exercise[];
+    togglerTemporaryExercise: (exercise: Exercise) => void;
+    temporaryExercise: Exercise[];
+};
 
-const CheckboxList:FC<CheckBoxListPropsType> = ({exercisesGroup, togglerTemporaryExercise, temporaryExercise}) => {
-
+export const CheckboxList: FC<CheckBoxListPropsType> = ({
+    exercisesGroup,
+    togglerTemporaryExercise,
+    temporaryExercise,
+}) => {
     const isChecked = (exercise: Exercise) => {
-        return !!temporaryExercise.find((ex) => ex.id === exercise.id)
-    }
+        return !!temporaryExercise.find((ex) => ex.id === exercise.id);
+    };
 
     return (
-        <List sx={{ width: '100%', maxWidth: '100%', bgcolor: 'background.paper' }}>
+        <List
+            sx={{
+                width: '100%',
+                maxWidth: '100%',
+                bgcolor: 'background.paper',
+            }}
+        >
             {exercisesGroup.map((exercise) => {
                 return (
                     <ListItem key={exercise.id} disablePadding>
                         <ListItemButton onClick={() => togglerTemporaryExercise(exercise)} dense>
-                            <ListItemIcon>   
-                                <Checkbox edge="start" checked={isChecked(exercise)}/>
+                            <ListItemIcon>
+                                <Checkbox edge="start" checked={isChecked(exercise)} />
                             </ListItemIcon>
                             <ListItemText primary={exercise.name} />
                         </ListItemButton>
@@ -35,6 +44,4 @@ const CheckboxList:FC<CheckBoxListPropsType> = ({exercisesGroup, togglerTemporar
             })}
         </List>
     );
-}
-
-export default CheckboxList
+};

@@ -5,16 +5,13 @@
     padding: 5px;
     align-items: center;
     margin: 7px 0;
-    h3 {
-
-    }
     .groupLeft {
         display: flex;
         .crossWrapper {
             margin-right: 5px;
             svg {
                 color: #ccc;
-                transition: all .2s linear;
+                transition: all 0.2s linear;
                 cursor: pointer;
                 &:hover {
                     color: $pink;

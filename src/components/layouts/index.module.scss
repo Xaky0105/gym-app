@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 .mask {
     position: relative;
-    background-color: rgba(0, 0, 0, 0.41);
+    background-color: rgba(228, 228, 228, 0.41);
     height: calc(100vh - $headerHeight);
     .preloaderWrapper {
         position: absolute;

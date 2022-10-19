@@ -13,15 +13,15 @@
     border-radius: 5px;
     background-color: $white;
     z-index: 0;
-    transition: all .2s linear;
+    transition: all 0.2s linear;
     ul {
         width: 100%;
         li {
             button {
                 margin-bottom: 10px;
                 width: 100%;
-                text-align: start
-            };
+                text-align: start;
+            }
         }
     }
 }

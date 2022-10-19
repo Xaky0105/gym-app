@@ -9,45 +9,44 @@ import { WorkoutsPage } from '../pages/workouts-page';
 import { ROUTE_PATH } from './../types/route';
 
 type Route = {
-    path: string,
-    Component: React.FC
-}
+    path: string;
+    Component: React.FC;
+};
 
 export const publicRoutesArr: Route[] = [
     {
         path: ROUTE_PATH.LOGIN,
-        Component: LoginPage
+        Component: LoginPage,
     },
     {
         path: ROUTE_PATH.REGISTER,
-        Component: RegisterPage
+        Component: RegisterPage,
     },
     {
         path: ROUTE_PATH.NOT_FOUND,
-        Component: NotFoundPage
+        Component: NotFoundPage,
     },
-]
+];
 
 export const privateRouteArr: Route[] = [
     {
         path: ROUTE_PATH.CALENDAR,
-        Component: CalendarPage
+        Component: CalendarPage,
     },
     {
         path: ROUTE_PATH.ANALYTICS,
-        Component: AnalyticsPage
+        Component: AnalyticsPage,
     },
     {
         path: ROUTE_PATH.CREATE_WORKOUT,
-        Component: CreateWorkoutPage
+        Component: CreateWorkoutPage,
     },
     {
         path: ROUTE_PATH.EDIT_WORKOUT,
-        Component: CreateWorkoutPage
+        Component: CreateWorkoutPage,
     },
     {
         path: ROUTE_PATH.WORKOUT,
-        Component: WorkoutsPage
+        Component: WorkoutsPage,
     },
-
-]
+];

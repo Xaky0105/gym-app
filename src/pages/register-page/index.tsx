@@ -2,33 +2,33 @@ import { FC, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { ButtonStandart } from '../../components/buttons/button-standart';
 import TextField from '@mui/material/TextField';
-import { registerSchema } from '../../sheme'
+import { registerSchema } from '../../sheme';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../types/route';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
 import { userAuth } from '../../store/asyncActions/userAsyncAction';
 import { getUser, getUserError, getUserIsLoading } from '../../store/selectors';
 import { AuthError } from '../../components/errors/auth-error';
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
-type OnClickSubmitFn = (values: {email: string, password: string}) => void
+type OnClickSubmitFn = (values: { email: string; password: string }) => void;
 
-export const RegisterPage:FC = () => {
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+export const RegisterPage: FC = () => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
 
-    const user = useAppSelector(getUser)
-    const userError = useAppSelector(getUserError)
-    const userIsLoading = useAppSelector(getUserIsLoading)
+    const user = useAppSelector(getUser);
+    const userError = useAppSelector(getUserError);
+    const userIsLoading = useAppSelector(getUserIsLoading);
 
-    const onClickSubmit: OnClickSubmitFn = ({email, password}) => {
-        dispatch(userAuth(email, password, 'register'))
-    }
+    const onClickSubmit: OnClickSubmitFn = ({ email, password }) => {
+        dispatch(userAuth(email, password, 'register'));
+    };
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
         },
         validationSchema: registerSchema,
         onSubmit: onClickSubmit,
@@ -36,9 +36,9 @@ export const RegisterPage:FC = () => {
 
     useEffect(() => {
         if (user) {
-            navigate(ROUTE_PATH.CALENDAR)
+            navigate(ROUTE_PATH.CALENDAR);
         }
-    })
+    });
 
     return (
         <div className={styles.registerWrapper}>
@@ -47,7 +47,13 @@ export const RegisterPage:FC = () => {
                 <div className={styles.inputWrapper}>
                     <TextField
                         variant={'standard'}
-                        sx={{marginBottom: '20px','& .MuiFormHelperText-root': { position: 'absolute', top: '100%' }}}
+                        sx={{
+                            marginBottom: '20px',
+                            '& .MuiFormHelperText-root': {
+                                position: 'absolute',
+                                top: '100%',
+                            },
+                        }}
                         fullWidth
                         id="email"
                         name="email"
@@ -59,7 +65,13 @@ export const RegisterPage:FC = () => {
                     />
                     <TextField
                         variant={'standard'}
-                        sx={{marginBottom: '20px','& .MuiFormHelperText-root': { position: 'absolute', top: '100%' }}}
+                        sx={{
+                            marginBottom: '20px',
+                            '& .MuiFormHelperText-root': {
+                                position: 'absolute',
+                                top: '100%',
+                            },
+                        }}
                         fullWidth
                         id="password"
                         name="password"
@@ -72,7 +84,13 @@ export const RegisterPage:FC = () => {
                     />
                     <TextField
                         variant={'standard'}
-                        sx={{marginBottom: '20px','& .MuiFormHelperText-root': { position: 'absolute', top: '100%' }}}
+                        sx={{
+                            marginBottom: '20px',
+                            '& .MuiFormHelperText-root': {
+                                position: 'absolute',
+                                top: '100%',
+                            },
+                        }}
                         fullWidth
                         id="confirmPassword"
                         name="confirmPassword"
@@ -88,12 +106,8 @@ export const RegisterPage:FC = () => {
                         <Link to={ROUTE_PATH.LOGIN}>Войти</Link>
                     </div>
                 </div>
-                <ButtonStandart 
-                    name='Зарегистрироваться'
-                    type={'submit'}
-                    isloading={userIsLoading}
-                />
-                {userError && <AuthError errorMessage={userError}/>}
+                <ButtonStandart name="Зарегистрироваться" type={'submit'} isloading={userIsLoading} />
+                {userError && <AuthError errorMessage={userError} />}
             </form>
         </div>
     );

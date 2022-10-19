@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -6,48 +6,44 @@ import Select from '@mui/material/Select';
 import { HOW_TO_REPEAT } from '../../../../../types/workout';
 
 type SelectRepeatProps = {
-    howToRepeatCLickHandler: (repeat: HOW_TO_REPEAT) => void
-    howToRepeat: HOW_TO_REPEAT
-}
+    howToRepeatCLickHandler: (repeat: HOW_TO_REPEAT) => void;
+    howToRepeat: HOW_TO_REPEAT;
+};
 
 type HowToRepeatType = {
-    name: string
-    type: HOW_TO_REPEAT
-}
+    name: string;
+    type: HOW_TO_REPEAT;
+};
 
 const howToRepeatData: HowToRepeatType[] = [
-    {name: 'Не повторять', type: HOW_TO_REPEAT.DONT_REPEAT},
-    {name: 'Каждый день', type: HOW_TO_REPEAT.EVERY_DAY},
-    {name: 'С интервалом', type: HOW_TO_REPEAT.INTERVAL},
-    {name: 'Каждую неделю', type: HOW_TO_REPEAT.ONCE_A_WEEK},
-]
+    { name: 'Не повторять', type: HOW_TO_REPEAT.DONT_REPEAT },
+    { name: 'Каждый день', type: HOW_TO_REPEAT.EVERY_DAY },
+    { name: 'С интервалом', type: HOW_TO_REPEAT.INTERVAL },
+    { name: 'Каждую неделю', type: HOW_TO_REPEAT.ONCE_A_WEEK },
+];
 
-export const SelectRepeat:FC<SelectRepeatProps> = ({howToRepeatCLickHandler, howToRepeat}) => {
+export const SelectRepeat: FC<SelectRepeatProps> = ({ howToRepeatCLickHandler, howToRepeat }) => {
     const handleChange = (event: any) => {
-        howToRepeatCLickHandler(event.target.value)
+        howToRepeatCLickHandler(event.target.value);
     };
 
     return (
-        <FormControl variant='standard' sx={{ m: 1.5, minWidth: 120, maxWidth: 140 }} size="small">
+        <FormControl variant="standard" sx={{ m: 1.5, minWidth: 120, maxWidth: 140 }} size="small">
             <InputLabel id="select-small">Повторы</InputLabel>
             <Select
-              labelId="select-small"
-              id="select-small"
-              value={howToRepeat}
-              label="HowToRepeat"
-              onChange={handleChange}
-              sx={{ fontSize: '14px' }}
-          >
+                labelId="select-small"
+                id="select-small"
+                value={howToRepeat}
+                label="HowToRepeat"
+                onChange={handleChange}
+                sx={{ fontSize: '14px' }}
+            >
                 {howToRepeatData.map((repeat) => (
-                    <MenuItem 
-                        key={repeat.type}
-                        value={repeat.type}
-                        sx={{ fontSize: '14px' }}
-                    >
+                    <MenuItem key={repeat.type} value={repeat.type} sx={{ fontSize: '14px' }}>
                         {repeat.name}
                     </MenuItem>
                 ))}
             </Select>
         </FormControl>
     );
-}
+};

@@ -12,7 +12,7 @@
     flex-direction: column;
     padding: 10px;
     justify-content: space-between;
-    animation: slidein .2s;
+    animation: slidein 0.2s;
     .block {
         .title {
             text-align: center;
@@ -24,7 +24,7 @@
             border-radius: 5px;
             box-shadow: 0px 0px 7px 1px #ccc;
             margin-bottom: 10px;
-            transition: all .2s linear;
+            transition: all 0.2s linear;
             &:hover {
                 box-shadow: 0px 0px 7px 1px $ocean;
             }
@@ -53,7 +53,7 @@
         width: 0;
         opacity: 0;
     }
-  
+
     to {
         width: 60%;
         opacity: 1;
@@ -61,10 +61,10 @@
 }
 @keyframes fadeid {
     from {
-        opacity: 0;;
+        opacity: 0;
     }
-  
+
     to {
-        opacity: 1;;
+        opacity: 1;
     }
 }

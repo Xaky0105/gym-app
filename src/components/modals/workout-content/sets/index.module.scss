@@ -22,7 +22,7 @@
         left: 15px;
         color: $textColor;
         cursor: pointer;
-        transition: all .2s linear;
+        transition: all 0.2s linear;
         &:hover {
             color: $deepWater;
         }
@@ -34,7 +34,7 @@
         margin-top: 5px;
         span {
             cursor: pointer;
-            transition: all .2s linear;
+            transition: all 0.2s linear;
             &:hover {
                 color: $deepWater;
             }

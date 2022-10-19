@@ -5,37 +5,34 @@ import { NavList } from './nav-list';
 import { UserSetting } from './user-setting';
 import { UserSettingsList } from './user-settings-list';
 import { MobileNavList } from './mobile-nav-list';
-import styles from './index.module.scss'
+import styles from './index.module.scss';
 
-export const Header:FC = () => {
-    const [isActiveNav, setIsActiveNav] = useState(false)
-    const [isActiveSettings, setIsActiveSettings] = useState(false)
+export const Header: FC = () => {
+    const [isActiveNav, setIsActiveNav] = useState(false);
+    const [isActiveSettings, setIsActiveSettings] = useState(false);
 
     const onClickNavToggler = () => {
-        setIsActiveNav(!isActiveNav)
-    }
+        setIsActiveNav(!isActiveNav);
+    };
     const onCLickSettingsToggler = () => {
-        setIsActiveSettings(!isActiveSettings)
-    }
+        setIsActiveSettings(!isActiveSettings);
+    };
     const maskClickHandler = () => {
         if (isActiveNav) {
-            onClickNavToggler()
+            onClickNavToggler();
         } else if (isActiveSettings) {
-            onCLickSettingsToggler()
+            onCLickSettingsToggler();
         }
-    }
+    };
     return (
         <>
             <header className={styles.header}>
                 <Container>
                     <div className={styles.wrapper}>
-                        <Burger 
-                            onClickNavToggler={onClickNavToggler}
-                            isActiveNav={isActiveNav}
-                        />
+                        <Burger onClickNavToggler={onClickNavToggler} isActiveNav={isActiveNav} />
                         <NavList />
                         <div className={styles.block}>
-                            <UserSetting 
+                            <UserSetting
                                 onCLickSettingsToggler={onCLickSettingsToggler}
                                 isActiveSettings={isActiveSettings}
                             />
@@ -43,18 +40,9 @@ export const Header:FC = () => {
                     </div>
                 </Container>
             </header>
-            <MobileNavList 
-                onClickNavToggler={onClickNavToggler} 
-                isActiveNav={isActiveNav}
-            />
-            <UserSettingsList 
-                isActiveSettings={isActiveSettings}
-                onCLickSettingsToggler={onCLickSettingsToggler}
-            />
-            {
-                (isActiveNav || isActiveSettings) && 
-                <div className={styles.mask}onClick={maskClickHandler}></div>
-            }
+            <MobileNavList onClickNavToggler={onClickNavToggler} isActiveNav={isActiveNav} />
+            <UserSettingsList isActiveSettings={isActiveSettings} onCLickSettingsToggler={onCLickSettingsToggler} />
+            {(isActiveNav || isActiveSettings) && <div className={styles.mask} onClick={maskClickHandler}></div>}
         </>
-    )
-}
+    );
+};
