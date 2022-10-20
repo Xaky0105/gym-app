@@ -1,7 +1,7 @@
 @import '../../variables.scss';
 .header {
     position: relative;
-    z-index: 1000;
+    // z-index: 1000;
     height: $headerHeight;
     background-color: $wave;
     box-shadow: 0px 0px 5px 3px #737373;
@@ -26,5 +26,5 @@
     top: 0;
     left: 0;
     background-color: transparent;
-    z-index: 2000;
+    z-index: 2;
 }

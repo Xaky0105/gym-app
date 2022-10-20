@@ -41,7 +41,6 @@ export const Header: FC = () => {
                 </Container>
             </header>
             <MobileNavList onClickNavToggler={onClickNavToggler} isActiveNav={isActiveNav} />
-            <UserSettingsList isActiveSettings={isActiveSettings} onCLickSettingsToggler={onCLickSettingsToggler} />
             {(isActiveNav || isActiveSettings) && <div className={styles.mask} onClick={maskClickHandler}></div>}
         </>
     );
