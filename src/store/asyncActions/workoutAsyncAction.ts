@@ -1,4 +1,10 @@
-import { DELETE_WORKOUT_FROM_CALENDAR, Exercise, HOW_TO_REPEAT, Workout } from '../../types/workout';
+import {
+    DELETE_WORKOUT_FROM_CALENDAR,
+    ExerciseInWorkoutOnCalendar,
+    HOW_TO_REPEAT,
+    Workout,
+    WorkoutOnCalendar,
+} from '../../types/workout';
 import { db } from '../../firebase';
 import {
     doc,
@@ -32,6 +38,7 @@ import {
     setIsLoadingWorkoutCalendar,
     setWorkoutCalendarError,
 } from '../slices/workoutCalendarSlice';
+import _ from 'lodash';
 
 const getCurrentUserId = (getState: any) => {
     const {
@@ -42,7 +49,7 @@ const getCurrentUserId = (getState: any) => {
     return uid;
 };
 
-export const createOrEditWorkout = (workout: Workout, type: 'edit' | 'create') => {
+export const createOrEditWorkout = (workout: WorkoutOnCalendar | Workout, type: 'edit' | 'create') => {
     return async (dispatch: Dispatch, getState: any) => {
         try {
             const uid = getCurrentUserId(getState);
@@ -52,9 +59,9 @@ export const createOrEditWorkout = (workout: Workout, type: 'edit' | 'create') =
             if (type === 'create') {
                 setDoc(userWorkoutDoc, workout);
             } else {
-                updateDoc(userWorkoutDoc, workout);
+                updateDoc(userWorkoutDoc, workout as { [x: string]: any });
             }
-            dispatch(addOrEditUserWorkout(workout));
+            dispatch(addOrEditUserWorkout(workout as WorkoutOnCalendar));
         } catch (err) {
             console.log(err);
         }
@@ -112,11 +119,19 @@ export const loadWorkouts = () => {
     };
 };
 
-export const addWorkoutToCalendarAsync = (workout: Workout, howToRepeat: HOW_TO_REPEAT, repeatInterval: number) => {
+export const addWorkoutToCalendarAsync = (
+    workout: WorkoutOnCalendar,
+    howToRepeat: HOW_TO_REPEAT,
+    repeatInterval: number,
+) => {
     return async (dispatch: Dispatch, getState: any) => {
         try {
             const uid = getCurrentUserId(getState);
-            const setWorkoutsData = async (howToRepeat: HOW_TO_REPEAT, workout: Workout, repeatInterval?: number) => {
+            const setWorkoutsData = async (
+                howToRepeat: HOW_TO_REPEAT,
+                workout: WorkoutOnCalendar,
+                repeatInterval?: number,
+            ) => {
                 dispatch(setIsLoadingWorkoutCalendar(true));
                 const workoutDates = getWorkoutsDates(howToRepeat, workout, repeatInterval);
                 const workoutsArr = generateArrWorkoutsForCalendar(workout, workoutDates);
@@ -148,10 +163,12 @@ export const addWorkoutToCalendarAsync = (workout: Workout, howToRepeat: HOW_TO_
                     break;
             }
         } catch ({ message }) {
-            dispatch(setWorkoutCalendarError(message));
-            setTimeout(() => {
-                dispatch(setWorkoutCalendarError(''));
-            }, 2000);
+            if (typeof message === 'string') {
+                dispatch(setWorkoutCalendarError(message));
+                _.delay(() => dispatch(setWorkoutCalendarError('')), 2000);
+            } else {
+                console.log(message);
+            }
         }
     };
 };
@@ -180,16 +197,14 @@ export const deleteWorkoutFromCalendarAsync = (id: string, type: DELETE_WORKOUT_
                 dispatch(deleteSomeWorkoutFromCalendar(arrIdToRemove));
             }
         } catch ({ message }) {
-            dispatch(setWorkoutCalendarError(message));
-            setTimeout(() => {
-                dispatch(setWorkoutCalendarError(''));
-            }, 2000);
+            dispatch(setWorkoutCalendarError(message as string));
+            _.delay(() => dispatch(setWorkoutCalendarError('')), 2000);
         }
         dispatch(setIsLoadingWorkoutCalendar(false));
     };
 };
 
-export const updateExerciseAsync = (exercise: Exercise) => {
+export const updateExerciseAsync = (exercise: ExerciseInWorkoutOnCalendar) => {
     return async (dispatch: Dispatch, getState: any) => {
         try {
             const {

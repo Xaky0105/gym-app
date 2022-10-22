@@ -3,7 +3,6 @@ import { Container } from '../../compound/container';
 import { Burger } from './burger';
 import { NavList } from './nav-list';
 import { UserSetting } from './user-setting';
-import { UserSettingsList } from './user-settings-list';
 import { MobileNavList } from './mobile-nav-list';
 import styles from './index.module.scss';
 
@@ -41,7 +40,6 @@ export const Header: FC = () => {
                 </Container>
             </header>
             <MobileNavList onClickNavToggler={onClickNavToggler} isActiveNav={isActiveNav} />
-            <UserSettingsList isActiveSettings={isActiveSettings} onCLickSettingsToggler={onCLickSettingsToggler} />
             {(isActiveNav || isActiveSettings) && <div className={styles.mask} onClick={maskClickHandler}></div>}
         </>
     );

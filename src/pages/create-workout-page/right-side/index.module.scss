@@ -1,34 +1,16 @@
 @import '../../../variables.scss';
 
-.rightSide {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: calc(100vh - $headerHeight);
+.block {
+    margin: 15px 0;
+    overflow: auto;
     @media (max-width: $mobileWidth) {
-        width: 100%;
-        height: calc(50vh - $headerHeight + 20px / 2);
+        margin: 8px 0;
     }
-    .title {
-        margin-top: 10px;
-        text-align: center;
+    .content {
+        padding: 15px;
+        height: 100%;
         @media (max-width: $mobileWidth) {
-            font-size: 15px;
-            margin-top: 0;
-        }
-    }
-    .block {
-        margin: 15px 0;
-        overflow: auto;
-        @media (max-width: $mobileWidth) {
-            margin: 8px 0;
-        }
-        .content {
-            padding: 15px;
-            height: 100%;
-            @media (max-width: $mobileWidth) {
-                padding: 0 15px 0 0;
-            }
+            padding: 0 15px 0 0;
         }
     }
 }

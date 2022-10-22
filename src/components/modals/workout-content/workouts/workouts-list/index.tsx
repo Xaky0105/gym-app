@@ -5,6 +5,7 @@ import { setStepWorkoutModale, setTempIdWorkout } from '../../../../../store/sli
 import { getSelectedDay, getWorkoutsForCalendar } from '../../../../../store/selectors';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
 import _ from 'lodash';
+import { getWorkoutForTheDay } from '../../../../../utils/workout';
 import styles from './index.module.scss';
 
 type WorkoutListPropsType = {
@@ -16,7 +17,9 @@ export const WorkoutsList: FC<WorkoutListPropsType> = ({ deleteWorkoutClickHandl
     const daySelected = useAppSelector(getSelectedDay);
     const workoutsOnCalendar = useAppSelector(getWorkoutsForCalendar);
 
-    const workoutsForTheDay = _.toArray(workoutsOnCalendar).filter((workout) => workout.date === daySelected);
+    const workoutsOnCalendarArr = _.toArray(workoutsOnCalendar);
+
+    const workoutsForTheDay = getWorkoutForTheDay(daySelected, workoutsOnCalendarArr);
 
     const workoutClickHandler = (id: string) => {
         dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES));
@@ -25,7 +28,9 @@ export const WorkoutsList: FC<WorkoutListPropsType> = ({ deleteWorkoutClickHandl
 
     return (
         <div className={styles.list}>
-            {workoutsForTheDay.length !== 0 ? (
+            {_.isEmpty(workoutsForTheDay) ? (
+                <p>Нет активных тренировок</p>
+            ) : (
                 <ul>
                     {workoutsForTheDay.map((workout) => (
                         <li key={workout.id} onClick={() => workoutClickHandler(workout.id)} className={styles.item}>
@@ -36,8 +41,6 @@ export const WorkoutsList: FC<WorkoutListPropsType> = ({ deleteWorkoutClickHandl
                         </li>
                     ))}
                 </ul>
-            ) : (
-                <p>Нет активных тренировок</p>
             )}
         </div>
     );

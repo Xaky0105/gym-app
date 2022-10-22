@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Container } from '../../compound/container';
 import { useAppSelector } from '../../hooks/redux-hook';
 import { getWorkouts } from '../../store/selectors';
-import { Exercise } from '../../types/workout';
+import { ExerciseInWorkout } from '../../types/workout';
 import _ from 'lodash';
-import styles from './index.module.scss';
 import { LeftSide } from './left-side';
 import { RightSide } from './right-side';
+import { ContainerTwoPart } from '../../compound/container-two-part';
+import { getSortedExerciseByPosition } from '../../utils/exercise';
 
 interface CustomUseLocationState {
     editableWorkoutId: string;
@@ -19,32 +19,34 @@ export const CreateWorkoutPage: FC = () => {
     const editableWorkoutId = state ? state.editableWorkoutId : '';
 
     const userWorkouts = useAppSelector(getWorkouts);
-    const [temporaryExercise, setTemporaryExercise] = useState<Exercise[]>(() => {
-        return state ? _.toArray(userWorkouts[editableWorkoutId].exercises) : [];
+    const [temporaryExercise, setTemporaryExercise] = useState<ExerciseInWorkout[]>(() => {
+        return state ? getSortedExerciseByPosition(userWorkouts[editableWorkoutId].exercises) : [];
     });
+    console.log(temporaryExercise);
     const clearTemporaryExercise = () => {
         setTemporaryExercise([]);
     };
-    const togglerTemporaryExercise = (exercise: Exercise) => {
+    const setTemporaryExerciseHandler = (exercise: ExerciseInWorkout) => {
         setTemporaryExercise((prevEx) => {
-            if (!prevEx.find((ex) => ex.id === exercise.id)) {
-                return [...prevEx, exercise];
+            if (prevEx.find((ex) => ex.id === exercise.id)) {
+                return [...prevEx.filter((ex) => ex.id !== exercise.id).map((ex, i) => ({ ...ex, position: i + 1 }))];
             } else {
-                return [...prevEx.filter((ex) => ex.id !== exercise.id)];
+                return [...prevEx, { ...exercise, position: temporaryExercise.length + 1 }];
             }
         });
     };
     return (
-        <Container>
-            <div className={styles.wrapper}>
-                <LeftSide
-                    temporaryExercise={temporaryExercise}
-                    togglerTemporaryExercise={togglerTemporaryExercise}
-                    clearTemporaryExercise={clearTemporaryExercise}
-                    editableWorkoutId={editableWorkoutId}
-                />
-                <RightSide temporaryExercise={temporaryExercise} togglerTemporaryExercise={togglerTemporaryExercise} />
-            </div>
-        </Container>
+        <ContainerTwoPart>
+            <LeftSide
+                temporaryExercise={temporaryExercise}
+                setTemporaryExerciseHandler={setTemporaryExerciseHandler}
+                clearTemporaryExercise={clearTemporaryExercise}
+                editableWorkoutId={editableWorkoutId}
+            />
+            <RightSide
+                temporaryExercise={temporaryExercise}
+                setTemporaryExerciseHandler={setTemporaryExerciseHandler}
+            />
+        </ContainerTwoPart>
     );
 };

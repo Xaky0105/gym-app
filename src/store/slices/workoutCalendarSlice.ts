@@ -1,4 +1,4 @@
-import { UserWorkoutsStateType, Workout } from '../../types/workout';
+import { ExerciseInWorkoutOnCalendar, UserWorkoutsStateType, WorkoutOnCalendar } from '../../types/workout';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type WorkoutCalendarState = {
@@ -17,20 +17,20 @@ const workoutsCalendarSlice = createSlice({
     name: 'workoutCalendar',
     initialState,
     reducers: {
-        setIsLoadingWorkoutCalendar(state, action) {
+        setIsLoadingWorkoutCalendar(state, action: PayloadAction<boolean>) {
             state.isLoading = action.payload;
         },
-        addWorkoutToCalendar(state, action) {
+        addWorkoutToCalendar(state, action: PayloadAction<WorkoutOnCalendar>) {
             const id = action.payload.id;
             state.workoutsOnTheCalendar[id] = action.payload;
         },
-        addSomeWorkoutsToCalendar(state, action: PayloadAction<Workout[]>) {
+        addSomeWorkoutsToCalendar(state, action: PayloadAction<WorkoutOnCalendar[]>) {
             const arrWorkouts = action.payload;
             arrWorkouts.forEach((workout) => {
                 state.workoutsOnTheCalendar[workout.id] = workout;
             });
         },
-        workoutsToCalendarFetchComplete(state, action) {
+        workoutsToCalendarFetchComplete(state, action: PayloadAction<{ [key: string]: WorkoutOnCalendar }>) {
             state.workoutsOnTheCalendar = action.payload;
         },
         deleteWorkoutFromCalendar(state, action: PayloadAction<string>) {
@@ -41,11 +41,18 @@ const workoutsCalendarSlice = createSlice({
                 delete state.workoutsOnTheCalendar[id];
             });
         },
-        updateExercise(state, action) {
+        updateExercise(
+            state,
+            action: PayloadAction<{
+                idSelectedWorkout: string;
+                idSelectedExercise: string;
+                exercise: ExerciseInWorkoutOnCalendar;
+            }>,
+        ) {
             const { idSelectedWorkout, idSelectedExercise, exercise } = action.payload;
             state.workoutsOnTheCalendar[idSelectedWorkout].exercises[idSelectedExercise] = exercise;
         },
-        setWorkoutCalendarError(state, action) {
+        setWorkoutCalendarError(state, action: PayloadAction<string>) {
             state.error = action.payload;
         },
     },

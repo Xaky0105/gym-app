@@ -1,0 +1,17 @@
+@import '../../../variables.scss';
+
+.list {
+    margin: 20px 0;
+    p {
+        text-align: center;
+        font-size: 15px;
+        margin-top: 30px;
+    }
+    .item {
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 0 10px 0 #ccc;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+}

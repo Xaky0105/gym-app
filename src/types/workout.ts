@@ -1,27 +1,45 @@
-export type Exercise = {
+export interface BasicExercise {
     id: string;
     name: string;
     category: string;
-    sets?: SetsType[];
-};
+}
+
+export interface ExerciseInWorkout extends BasicExercise {
+    position: number;
+}
+
+export interface ExerciseInWorkoutOnCalendar extends ExerciseInWorkout {
+    sets: SetsType[];
+    date: string;
+}
+
 export type SetsType = {
     weight: number;
     amount: number;
     index?: number;
 };
-export type Workout = {
+export interface Workout {
     workoutName: string;
     id: string;
-    date?: string;
     exercises: {
-        [key: string]: Exercise;
+        [key: string]: ExerciseInWorkout;
     };
-};
+}
+
+export interface WorkoutOnCalendar extends Workout {
+    date: string;
+    addingTime: string;
+    exercises: {
+        [key: string]: ExerciseInWorkoutOnCalendar;
+    };
+}
+
 export type ExerciseListType = {
-    [key: string]: Exercise[];
+    [key: string]: ExerciseInWorkoutOnCalendar[];
 };
+
 export type UserWorkoutsStateType = {
-    [key: string]: Workout;
+    [key: string]: WorkoutOnCalendar;
 };
 
 export enum DELETE_WORKOUT_FROM_CALENDAR {

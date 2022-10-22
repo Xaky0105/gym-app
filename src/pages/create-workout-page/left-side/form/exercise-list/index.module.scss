@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import '../../../../../variables.scss';
 .exerciseList {
     margin: 15px 0;
     overflow: auto;
@@ -47,5 +47,8 @@
                 }
             }
         }
+    }
+    .active {
+        box-shadow: 3px 3px 6px 0px #000;
     }
 }

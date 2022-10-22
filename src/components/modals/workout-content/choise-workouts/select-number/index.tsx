@@ -2,7 +2,7 @@ import { FC } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 type SelectNumberProps = {
     repeatClickHandler: (repeatValue: number) => void;
@@ -27,8 +27,8 @@ const intervalData: IntervalDataType[] = [
 ];
 
 export const SelectNumber: FC<SelectNumberProps> = ({ repeatClickHandler, repeatInterval }) => {
-    const handleChange = (event: any) => {
-        repeatClickHandler(event.target.value);
+    const handleChange = (e: SelectChangeEvent<number>) => {
+        repeatClickHandler(Number(e.target.value));
     };
 
     return (

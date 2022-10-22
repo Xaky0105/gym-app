@@ -18,6 +18,14 @@
                 }
             }
         }
+        .disabled {
+            svg {
+                cursor: auto;
+                &:hover {
+                    color: #ccc;
+                }
+            }
+        }
     }
     .groupRight {
         display: flex;

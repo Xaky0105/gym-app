@@ -7,6 +7,7 @@ import { setErrorUser, setIsLoadingUser, removeUser, setUser } from '../slices/u
 import { exerciseListFetchComplete } from '../slices/workoutSlice';
 import { Dispatch } from '@reduxjs/toolkit';
 import { uuidv4 } from '@firebase/util';
+import _ from 'lodash';
 
 const USER_AUTH_CONFIG = {
     register: createUserWithEmailAndPassword,
@@ -36,17 +37,16 @@ export const userAuth = (email: string, password: string, type: 'signin' | 'regi
                 }),
             );
             if (type === 'register') {
-                // await setDoc(doc(db, "users", user.uid), {id: user.uid})
                 const userExerciseListDoc = doc(db, `users/${user.uid}/exerciseList/${uuidv4()}`);
                 await setDoc(userExerciseListDoc, basicExerciseList); // При регистрации добавляю юзеру базовый список упражнений
             }
             await getExercisesList(dispatch, user.uid);
             dispatch(setIsLoadingUser(false));
-        } catch (err: any) {
-            dispatch(setErrorUser(err.message));
-            setTimeout(() => {
-                dispatch(setErrorUser(null));
-            }, 1500);
+        } catch ({ message }) {
+            if (typeof message === 'string') {
+                dispatch(setErrorUser(message));
+                _.delay(() => dispatch(setErrorUser(null)), 1500);
+            }
         }
     };
 };
@@ -64,9 +64,7 @@ export const loginWithGoogle = () => {
             const exerciseListCollectionRef = collection(db, `users/${user.uid}/exerciseList`);
             const exerciseListQuery = query(exerciseListCollectionRef);
             const exerciseListCollectionData = await getDocs(exerciseListQuery);
-            // await setDoc(doc(db, "users", user.uid), {
-            //     id: user.uid,
-            // });
+
             if (!exerciseListCollectionData.size) {
                 const userExerciseListDoc = doc(db, `users/${user.uid}/exerciseList/${uuidv4()}`);
                 await setDoc(userExerciseListDoc, basicExerciseList); // При регистрации добавляю юзеру базовый список упражнений
@@ -74,11 +72,13 @@ export const loginWithGoogle = () => {
 
             await getExercisesList(dispatch, user.uid);
             dispatch(setIsLoadingUser(false));
-        } catch (err: any) {
-            dispatch(setErrorUser(err.message));
-            setTimeout(() => {
-                dispatch(setErrorUser(null));
-            }, 1500);
+        } catch ({ message }) {
+            if (typeof message === 'string') {
+                dispatch(setErrorUser(message));
+                _.delay(() => dispatch(setErrorUser(null)), 1500);
+            } else {
+                console.log(message);
+            }
         }
     };
 };
@@ -88,8 +88,13 @@ export const userSignOut = () => {
         try {
             auth.signOut();
             dispatch(removeUser());
-        } catch (err: any) {
-            console.log(err);
+        } catch ({ message }) {
+            if (typeof message === 'string') {
+                dispatch(setErrorUser(message));
+                _.delay(() => dispatch(setErrorUser(null)), 1500);
+            } else {
+                console.log(message);
+            }
         }
     };
 };

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook';
 import { setStepWorkoutModale, setModaleWorkoutIsOpen } from '../../../../store/slices/modaleSlice';
 import { getIsLoadingWorkoutsCalendar, getSelectedDay, getWorkouts } from '../../../../store/selectors';
 import { MdArrowBack } from 'react-icons/md';
-import { HOW_TO_REPEAT, Workout } from '../../../../types/workout';
+import { HOW_TO_REPEAT, Workout, WorkoutOnCalendar } from '../../../../types/workout';
 import { generateWorkout } from '../../../../utils/workout';
 import { addWorkoutToCalendarAsync } from '../../../../store/asyncActions/workoutAsyncAction';
 import _ from 'lodash';
@@ -16,7 +16,7 @@ import { SelectNumber } from './select-number';
 import styles from './index.module.scss';
 
 export const ChoiseWorkouts: FC = () => {
-    const [selectWorkout, setSelectWorkout] = useState<Workout | null>(null);
+    const [selectWorkout, setSelectWorkout] = useState<WorkoutOnCalendar | null>(null);
     const [howToRepeat, setHowToRepeat] = useState(HOW_TO_REPEAT.DONT_REPEAT);
     const [repeatInterval, setRepeatInterval] = useState(2);
 
@@ -29,7 +29,7 @@ export const ChoiseWorkouts: FC = () => {
 
     const userWorkoutArr = _.toArray(userWorkout);
 
-    const selectWorkoutClickHandler = (workout: Workout) => {
+    const selectWorkoutClickHandler = (workout: WorkoutOnCalendar) => {
         setSelectWorkout(workout);
     };
 
@@ -42,7 +42,7 @@ export const ChoiseWorkouts: FC = () => {
     };
 
     const addWorkoutOnCalendarClickHandler = async () => {
-        const workout = generateWorkout(daySelected, selectWorkout as Workout);
+        const workout = generateWorkout(daySelected, selectWorkout as WorkoutOnCalendar);
         await dispatch(addWorkoutToCalendarAsync(workout, howToRepeat, repeatInterval));
         dispatch(setModaleWorkoutIsOpen(false));
     };

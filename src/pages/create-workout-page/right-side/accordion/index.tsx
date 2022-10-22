@@ -5,9 +5,9 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import Typography from '@mui/material/Typography';
 import { CheckboxList } from './list';
-import { Exercise } from '../../types/workout';
-import { useAppSelector } from '../../hooks/redux-hook';
-import { getExerciseList } from '../../store/selectors';
+import { ExerciseInWorkout } from '../../../../types/workout';
+import { useAppSelector } from '../../../../hooks/redux-hook';
+import { getExerciseList } from '../../../../store/selectors';
 import _ from 'lodash';
 import { styled } from '@mui/material/styles';
 
@@ -52,11 +52,14 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 type ExerciseAccordionPropsType = {
-    temporaryExercise: Exercise[];
-    togglerTemporaryExercise: (exercise: Exercise) => void;
+    temporaryExercise: ExerciseInWorkout[];
+    setTemporaryExerciseHandler: (exercise: ExerciseInWorkout) => void;
 };
 
-export const ExerciseAccordion: FC<ExerciseAccordionPropsType> = ({ temporaryExercise, togglerTemporaryExercise }) => {
+export const ExerciseAccordion: FC<ExerciseAccordionPropsType> = ({
+    temporaryExercise,
+    setTemporaryExerciseHandler,
+}) => {
     const exerciseList = useAppSelector(getExerciseList);
     return (
         <>
@@ -69,7 +72,7 @@ export const ExerciseAccordion: FC<ExerciseAccordionPropsType> = ({ temporaryExe
                         <CheckboxList
                             exercisesGroup={exercisesGroup}
                             temporaryExercise={temporaryExercise}
-                            togglerTemporaryExercise={togglerTemporaryExercise}
+                            setTemporaryExerciseHandler={setTemporaryExerciseHandler}
                         />
                     </AccordionDetails>
                 </Accordion>
