@@ -1,25 +1,25 @@
 import { FC } from 'react';
-import { ExerciseAccordion } from '../../../components/exercise-accordion';
-import { Exercise } from '../../../types/workout';
+import { ExerciseAccordion } from './accordion';
+import { Right } from '../../../compound/container-two-part/right';
+import { ExerciseInWorkout } from '../../../types/workout';
 import styles from './index.module.scss';
 
 type RightSideType = {
-    temporaryExercise: Exercise[];
-    togglerTemporaryExercise: (exercise: Exercise) => void;
+    temporaryExercise: ExerciseInWorkout[];
+    setTemporaryExerciseHandler: (exercise: ExerciseInWorkout) => void;
 };
 
-export const RightSide: FC<RightSideType> = ({ temporaryExercise, togglerTemporaryExercise }) => {
+export const RightSide: FC<RightSideType> = ({ temporaryExercise, setTemporaryExerciseHandler }) => {
     return (
-        <div className={styles.rightSide}>
-            <h2 className={styles.title}>Список упражнений</h2>
+        <Right title="Список упражнений">
             <div className={styles.block}>
                 <div className={styles.content}>
                     <ExerciseAccordion
                         temporaryExercise={temporaryExercise}
-                        togglerTemporaryExercise={togglerTemporaryExercise}
+                        setTemporaryExerciseHandler={setTemporaryExerciseHandler}
                     />
                 </div>
             </div>
-        </div>
+        </Right>
     );
 };

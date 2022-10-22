@@ -5,20 +5,20 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
-import { Exercise } from '../../../types/workout';
+import { ExerciseInWorkout } from '../../../../../types/workout';
 
 type CheckBoxListPropsType = {
-    exercisesGroup: Exercise[];
-    togglerTemporaryExercise: (exercise: Exercise) => void;
-    temporaryExercise: Exercise[];
+    exercisesGroup: ExerciseInWorkout[];
+    setTemporaryExerciseHandler: (exercise: ExerciseInWorkout) => void;
+    temporaryExercise: ExerciseInWorkout[];
 };
 
 export const CheckboxList: FC<CheckBoxListPropsType> = ({
     exercisesGroup,
-    togglerTemporaryExercise,
+    setTemporaryExerciseHandler,
     temporaryExercise,
 }) => {
-    const isChecked = (exercise: Exercise) => {
+    const isChecked = (exercise: ExerciseInWorkout) => {
         return !!temporaryExercise.find((ex) => ex.id === exercise.id);
     };
 
@@ -33,7 +33,7 @@ export const CheckboxList: FC<CheckBoxListPropsType> = ({
             {exercisesGroup.map((exercise) => {
                 return (
                     <ListItem key={exercise.id} disablePadding>
-                        <ListItemButton onClick={() => togglerTemporaryExercise(exercise)} dense>
+                        <ListItemButton onClick={() => setTemporaryExerciseHandler(exercise)} dense>
                             <ListItemIcon>
                                 <Checkbox edge="start" checked={isChecked(exercise)} />
                             </ListItemIcon>

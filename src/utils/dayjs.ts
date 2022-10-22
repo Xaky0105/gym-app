@@ -36,3 +36,9 @@ export const getCurrentDay = () => {
 export const getMonthIndexFromZeroToEleven = (monthIndex: number) => {
     return dayjs().month(monthIndex).month();
 };
+
+export const convertDateToNumber = (date: string) => {
+    const splitDate = date.split('-');
+    const [year, month, day] = splitDate;
+    return new Date().setFullYear(+year, +month, +day);
+};

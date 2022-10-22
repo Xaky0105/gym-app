@@ -26,7 +26,7 @@ export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
     const selectExercise = useAppSelector(getExerciseById);
 
     const deactivateEditMode = () => {
-        const newSets = selectExercise.sets!.map((set, i) => (i === index ? { amount, weight } : set));
+        const newSets = selectExercise.sets.map((set, i) => (i === index ? { amount, weight } : set));
         const exercise = {
             ...selectExercise,
             sets: newSets,
@@ -43,10 +43,11 @@ export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
     const onAmountChange: React.ChangeEventHandler<HTMLInputElement> = ({ target: { value } }) => {
         setAmount((prevAmont) => (prevAmont = Number(value)));
     };
+    const cn = selectExercise.sets.length > 1 ? `${styles.crossWrapper}` : `${styles.crossWrapper} ${styles.disabled}`
     return (
         <li className={styles.block}>
             <div className={styles.groupLeft}>
-                <div className={styles.crossWrapper}>
+                <div className={cn}>
                     <AiOutlineCloseSquare
                         size={20}
                         onClick={() => {

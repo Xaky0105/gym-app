@@ -23,7 +23,7 @@ const modaleSlice = createSlice({
     name: 'modal',
     initialState,
     reducers: {
-        setModaleWorkoutIsOpen(state, action) {
+        setModaleWorkoutIsOpen(state, action: PayloadAction<boolean>) {
             state.modaleWorkoutIsOpen = action.payload;
             if (!state.modaleWorkoutIsOpen) {
                 state.idSelectedExercise = '';
@@ -31,16 +31,16 @@ const modaleSlice = createSlice({
                 state.daySelected = '';
             }
         },
-        setConfirmModaleIsOpen(state, action) {
+        setConfirmModaleIsOpen(state, action: PayloadAction<boolean>) {
             state.confirmModaleIsOpen = action.payload;
         },
-        setStepWorkoutModale(state, action) {
+        setStepWorkoutModale(state, action: PayloadAction<STEP_MODAL>) {
             state.stepWorkoutModale = action.payload;
         },
-        setTempIdWorkout(state, action) {
+        setTempIdWorkout(state, action: PayloadAction<string>) {
             state.idSelectedWorkout = action.payload;
         },
-        setTempIdExercise(state, action) {
+        setTempIdExercise(state, action: PayloadAction<string>) {
             state.idSelectedExercise = action.payload;
         },
         changeDaySelected(state, action: PayloadAction<string>) {

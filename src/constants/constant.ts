@@ -1,9 +1,9 @@
 import { ROUTE_PATH } from './../types/route';
 import { v4 as uuidv4 } from 'uuid';
-import { Exercise } from '../types/workout';
+import { BasicExercise } from '../types/workout';
 
 export type basicExerciseListType = {
-    [key: string]: Exercise[];
+    [key: string]: BasicExercise[];
 };
 
 export const navigation = [

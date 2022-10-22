@@ -1,35 +1,13 @@
 @import '../../../variables.scss';
 
-.leftSide {
-    width: 50%;
-    border-right: 1px solid $lightGray;
-    display: flex;
-    flex-direction: column;
-    padding-right: 15px;
-    height: calc(100vh - $headerHeight);
-    @media (max-width: $mobileWidth) {
-        width: 100%;
-        height: calc(50vh - $headerHeight + 20px / 2);
-        padding-right: 0;
-        border-right: none;
-        border-bottom: 1px solid $lightGray;
-    }
-    .title {
-        margin-top: 10px;
-        text-align: center;
-        @media (max-width: $mobileWidth) {
-            display: none;
-        }
-    }
-    @media (max-width: $mobileWidth) {
-        form {
-            button {
-                position: absolute;
-                bottom: 0;
-                left: 50%;
-                transform: translate(-50%);
-                width: 90%;
-            }
+@media (max-width: $mobileWidth) {
+    form {
+        button {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%);
+            width: 90%;
         }
     }
 }

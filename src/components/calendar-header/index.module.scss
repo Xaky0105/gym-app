@@ -4,6 +4,9 @@
     flex-wrap: wrap;
     align-items: center;
     height: $calendarHeaderHeight;
+    @media (max-width: $mobileWidth) {
+        height: $calendarHeaderHeightMobile;
+    }
     padding: 10px 0;
     .wrapperGroupBtn {
         display: flex;

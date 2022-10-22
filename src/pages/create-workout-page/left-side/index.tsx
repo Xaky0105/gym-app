@@ -1,30 +1,29 @@
 import { FC } from 'react';
-import { Exercise } from '../../../types/workout';
-import { Form } from '../form';
-import styles from './index.module.scss';
+import { Left } from '../../../compound/container-two-part/left';
+import { ExerciseInWorkout } from '../../../types/workout';
+import { Form } from './form';
 
 type LeftSideType = {
-    temporaryExercise: Exercise[];
-    togglerTemporaryExercise: (exercise: Exercise) => void;
+    temporaryExercise: ExerciseInWorkout[];
+    setTemporaryExerciseHandler: (exercise: ExerciseInWorkout) => void;
     clearTemporaryExercise: () => void;
     editableWorkoutId: string;
 };
 
 export const LeftSide: FC<LeftSideType> = ({
     temporaryExercise,
-    togglerTemporaryExercise,
+    setTemporaryExerciseHandler,
     clearTemporaryExercise,
     editableWorkoutId,
 }) => {
     return (
-        <div className={styles.leftSide}>
-            <h2 className={styles.title}>Моя тренировка</h2>
+        <Left title="Моя тренировка">
             <Form
                 temporaryExercise={temporaryExercise}
-                togglerTemporaryExercise={togglerTemporaryExercise}
+                setTemporaryExerciseHandler={setTemporaryExerciseHandler}
                 clearTemporaryExercise={clearTemporaryExercise}
                 editableWorkoutId={editableWorkoutId}
             />
-        </div>
+        </Left>
     );
 };

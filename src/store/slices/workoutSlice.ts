@@ -1,4 +1,4 @@
-import { ExerciseListType, UserWorkoutsStateType } from '../../types/workout';
+import { ExerciseListType, UserWorkoutsStateType, Workout, WorkoutOnCalendar } from '../../types/workout';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type WorkoutState = {
@@ -17,19 +17,19 @@ const workoutsSlice = createSlice({
     name: 'workout',
     initialState,
     reducers: {
-        addOrEditUserWorkout(state, action) {
+        addOrEditUserWorkout(state, action: PayloadAction<WorkoutOnCalendar>) {
             state.userWorkouts[action.payload.id] = action.payload;
         },
-        workoutsFetchComplete(state, action) {
+        workoutsFetchComplete(state, action: PayloadAction<UserWorkoutsStateType>) {
             state.userWorkouts = action.payload;
         },
         deleteUserWorkout(state, action: PayloadAction<string>) {
             delete state.userWorkouts[action.payload];
         },
-        setIsLoadingWorkout(state, action) {
+        setIsLoadingWorkout(state, action: PayloadAction<boolean>) {
             state.isLoading = action.payload;
         },
-        exerciseListFetchComplete(state, action) {
+        exerciseListFetchComplete(state, action: PayloadAction<ExerciseListType>) {
             state.exerciseList = action.payload;
         },
     },

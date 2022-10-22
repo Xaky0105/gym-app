@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type User = {
     [key: string]: string;
@@ -27,10 +27,10 @@ const userSlice = createSlice({
             state.user = null;
             state.error = null;
         },
-        setIsLoadingUser(state, action) {
+        setIsLoadingUser(state, action: PayloadAction<boolean>) {
             state.isLoading = action.payload;
         },
-        setErrorUser(state, action) {
+        setErrorUser(state, action: PayloadAction<string | null>) {
             state.isLoading = false;
             state.error = action.payload;
         },

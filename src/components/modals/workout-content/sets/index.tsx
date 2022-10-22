@@ -23,12 +23,14 @@ export const Sets: FC = () => {
         dispatch(updateExerciseAsync(updateExercise));
     };
     const removeSet = (setIndex: number) => {
-        const newSets = selectExercise.sets!.filter((_, i) => i !== setIndex);
-        const exercise = {
-            ...selectExercise,
-            sets: newSets,
-        };
-        dispatch(updateExerciseAsync(exercise));
+        if (selectExercise.sets.length > 1) {
+            const newSets = selectExercise.sets.filter((_, i) => i !== setIndex);
+            const exercise = {
+                ...selectExercise,
+                sets: newSets,
+            };
+            dispatch(updateExerciseAsync(exercise));
+        }
     };
     return (
         <div className={styles.content}>
@@ -38,7 +40,7 @@ export const Sets: FC = () => {
                 </span>
                 <h3 className={styles.title}>{selectExercise.name}</h3>
                 <ul className={styles.list}>
-                    {selectExercise.sets!.map((set, index) => (
+                    {selectExercise.sets.map((set, index) => (
                         <Set set={set} index={index} key={index} removeSet={removeSet} />
                     ))}
                 </ul>

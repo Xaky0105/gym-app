@@ -1,29 +1,29 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { Exercise } from '../../types/workout';
 import { RootState } from './../index';
 
-export const getMonthIndex = (state: RootState) => state.month.monthIndex;
+export const getMonthIndex = ({ month: { monthIndex } }: RootState) => monthIndex;
 
-export const getSelectedDay = (state: RootState) => state.modal.daySelected;
-export const getIsOpenModalWorkout = (state: RootState) => state.modal.modaleWorkoutIsOpen;
-export const getIsOpenConfirmModale = (state: RootState) => state.modal.confirmModaleIsOpen;
-export const getStepWorkoutModale = (state: RootState) => state.modal.stepWorkoutModale;
-export const getTempIdWorkout = (state: RootState) => state.modal.idSelectedWorkout;
-export const getTempIdExercise = (state: RootState) => state.modal.idSelectedExercise;
+export const getSelectedDay = ({ modal: { daySelected } }: RootState) => daySelected;
+export const getIsOpenModalWorkout = ({ modal: { modaleWorkoutIsOpen } }: RootState) => modaleWorkoutIsOpen;
+export const getIsOpenConfirmModale = ({ modal: { confirmModaleIsOpen } }: RootState) => confirmModaleIsOpen;
+export const getStepWorkoutModale = ({ modal: { stepWorkoutModale } }: RootState) => stepWorkoutModale;
+export const getTempIdWorkout = ({ modal: { idSelectedWorkout } }: RootState) => idSelectedWorkout;
+export const getTempIdExercise = ({ modal: { idSelectedExercise } }: RootState) => idSelectedExercise;
 
-export const getWorkouts = (state: RootState) => state.workout.userWorkouts;
-export const getIsLoadingWorkouts = (state: RootState) => state.workout.isLoading;
-export const getExerciseList = (state: RootState) => state.workout.exerciseList;
+export const getWorkouts = ({ workout: { userWorkouts } }: RootState) => userWorkouts;
+export const getIsLoadingWorkouts = ({ workout: { isLoading } }: RootState) => isLoading;
+export const getExerciseList = ({ workout: { exerciseList } }: RootState) => exerciseList;
 
-export const getWorkoutsForCalendar = (state: RootState) => state.workoutCalendar.workoutsOnTheCalendar;
-export const getIsLoadingWorkoutsCalendar = (state: RootState) => state.workoutCalendar.isLoading;
-export const getWorkoutCalendarError = (state: RootState) => state.workoutCalendar.error;
+export const getWorkoutsForCalendar = ({ workoutCalendar: { workoutsOnTheCalendar } }: RootState) =>
+    workoutsOnTheCalendar;
+export const getIsLoadingWorkoutsCalendar = ({ workoutCalendar: { isLoading } }: RootState) => isLoading;
+export const getWorkoutCalendarError = ({ workoutCalendar: { error } }: RootState) => error;
 
-export const getUser = (state: RootState) => state.user.user;
-export const getUserError = (state: RootState) => state.user.error;
-export const getUserIsLoading = (state: RootState) => state.user.isLoading;
-export const getUserEmail = (state: RootState) => state.user.user!.email;
-export const getUserPhoto = (state: RootState) => state.user.user!.photoURL;
+export const getUser = ({ user: { user } }: RootState) => user;
+export const getUserError = ({ user: { error } }: RootState) => error;
+export const getUserIsLoading = ({ user: { isLoading } }: RootState) => isLoading;
+export const getUserEmail = (state: RootState) => state.user.user?.email;
+export const getUserPhoto = (state: RootState) => state.user.user?.photoURL;
 
 export const getUserPhotoByEmail = createSelector(getUserEmail, getUserPhoto, (email, photo) => {
     return (
@@ -37,5 +37,5 @@ export const getWorkoutById = createSelector(getWorkoutsForCalendar, getTempIdWo
 });
 
 export const getExerciseById = createSelector(getWorkoutById, getTempIdExercise, (workout, exerciseId) => {
-    return workout.exercises[exerciseId] as Exercise;
+    return workout.exercises[exerciseId];
 });

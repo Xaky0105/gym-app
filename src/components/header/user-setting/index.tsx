@@ -14,7 +14,7 @@ export const UserSetting: FC<UserSettingsPropsType> = ({ onCLickSettingsToggler,
     return (
         <div className={styles.user} onClick={onCLickSettingsToggler}>
             <img src={userPhoto} alt="user" />
-            <UserSettingsList onCLickSettingsToggler={onCLickSettingsToggler} isActiveSettings={isActiveSettings}/>
+            <UserSettingsList onCLickSettingsToggler={onCLickSettingsToggler} isActiveSettings={isActiveSettings} />
         </div>
     );
 };

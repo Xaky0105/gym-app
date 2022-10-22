@@ -29,7 +29,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
     const onClickEditWorkout = (id: string) => {
         navigate(ROUTE_PATH.EDIT_WORKOUT, { state: { editableWorkoutId: id } });
     };
-    const onClickDeleteIcon = (id: string) => (e: any) => {
+    const onClickDeleteIcon = (id: string) => (e: React.SyntheticEvent) => {
         e.stopPropagation();
         dispatch(setConfirmModaleIsOpen(true));
         setWorkoutId(id);

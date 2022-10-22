@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import TextField from '@mui/material/TextField';
 
 type InputTextProps = {
     value: string;
-    onChangeHandler: (e: any) => void;
+    onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
     placeholder: string;
     error: string;
 };

@@ -5,13 +5,9 @@ import { DAY_FORMAT } from '../../../types/day';
 import { getSelectedDay } from '../../../store/selectors';
 import styles from './index.module.scss';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hook';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { setModaleWorkoutIsOpen } from '../../../store/slices/modaleSlice';
 
-type HeaderType = {
-    setModaleWorkoutIsOpen: (isOpened: boolean) => PayloadAction;
-};
-
-export const Header: FC<HeaderType> = ({ setModaleWorkoutIsOpen }) => {
+export const Header: FC = () => {
     const daySelected = useAppSelector(getSelectedDay);
     const dispatch = useAppDispatch();
     return (

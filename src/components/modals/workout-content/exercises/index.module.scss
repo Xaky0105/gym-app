@@ -23,7 +23,7 @@
         max-height: 250px;
         padding: 5px 10px;
         overflow: auto;
-        li {
+        .item {
             padding: 5px;
             border-radius: 5px;
             cursor: pointer;
@@ -32,6 +32,20 @@
             transition: all 0.1s linear;
             &:hover {
                 background-color: $lightGray;
+            }
+        }
+        .complete {
+            background-color: #d0f1da;
+            transition: all 0.1s linear;
+            &:hover {
+                background-color: #b6dfc2;
+            }
+        }
+        .partly {
+            background-color: #f1eeba;
+            transition: all 0.1s linear;
+            &:hover {
+                background-color: #d8d496;
             }
         }
     }

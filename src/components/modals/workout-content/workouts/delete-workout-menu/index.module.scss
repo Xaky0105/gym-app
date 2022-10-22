@@ -25,12 +25,9 @@
             box-shadow: 0px 0px 7px 1px #ccc;
             margin-bottom: 10px;
             transition: all 0.2s linear;
-            &:hover {
-                box-shadow: 0px 0px 7px 1px $ocean;
-            }
         }
         .active {
-            box-shadow: 0px 0px 7px 1px $pink;
+            box-shadow: 0px 0px 11px -2px $pink;
         }
     }
     button {

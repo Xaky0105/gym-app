@@ -3,7 +3,6 @@ import { Container } from '../../compound/container';
 import { Burger } from './burger';
 import { NavList } from './nav-list';
 import { UserSetting } from './user-setting';
-import { UserSettingsList } from './user-settings-list';
 import { MobileNavList } from './mobile-nav-list';
 import styles from './index.module.scss';
 

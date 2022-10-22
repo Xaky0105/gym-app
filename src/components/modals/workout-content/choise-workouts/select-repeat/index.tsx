@@ -2,7 +2,7 @@ import { FC } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { HOW_TO_REPEAT } from '../../../../../types/workout';
 
 type SelectRepeatProps = {
@@ -23,8 +23,8 @@ const howToRepeatData: HowToRepeatType[] = [
 ];
 
 export const SelectRepeat: FC<SelectRepeatProps> = ({ howToRepeatCLickHandler, howToRepeat }) => {
-    const handleChange = (event: any) => {
-        howToRepeatCLickHandler(event.target.value);
+    const handleChange = (e: SelectChangeEvent) => {
+        howToRepeatCLickHandler(e.target.value as HOW_TO_REPEAT);
     };
 
     return (
