@@ -1,6 +1,6 @@
 import { basicExerciseList } from '../../constants/constant';
 import { ExerciseListType } from '../../types/workout';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { browserSessionPersistence, createUserWithEmailAndPassword, setPersistence, signInWithEmailAndPassword, signInWithPopup, browserLocalPersistence } from 'firebase/auth';
 import { auth, db, provider } from '../../firebase';
 import { doc, setDoc, collection, query, getDocs } from 'firebase/firestore';
 import { setErrorUser, setIsLoadingUser, removeUser, setUser } from '../slices/userSlice';
@@ -25,11 +25,12 @@ const getExercisesList = async (dispatch: Dispatch, uid: string) => {
     dispatch(exerciseListFetchComplete(initExerciseList));
 };
 
-export const userAuth = (email: string, password: string, type: 'signin' | 'register') => {
+export const userAuth = (email?: string, password?: string, type?: 'signin' | 'register') => {
     return async (dispatch: Dispatch) => {
         dispatch(setIsLoadingUser(true));
         try {
-            const user = (await USER_AUTH_CONFIG[type](auth, email, password)).user;
+            await setPersistence(auth, browserLocalPersistence)
+            const user = (await USER_AUTH_CONFIG[type!](auth, email!, password!)).user;
             const userCopy = JSON.parse(JSON.stringify(user)); // делаю копию юзера, потому что toolkit ругается на то что объект не сериализуемый
             dispatch(
                 setUser({
@@ -54,6 +55,7 @@ export const userAuth = (email: string, password: string, type: 'signin' | 'regi
 export const loginWithGoogle = () => {
     return async (dispatch: Dispatch) => {
         try {
+            await setPersistence(auth, browserLocalPersistence)
             const user = (await signInWithPopup(auth, provider)).user;
             const userCopy = JSON.parse(JSON.stringify(user)); // делаю копию юзера, потому что toolkit ругается на то что объект не сериализуемый
             dispatch(
