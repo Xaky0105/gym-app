@@ -6,11 +6,11 @@
     height: 50px;
     border-radius: 50%;
     background-color: #fff;
-    cursor: pointer;
     border: 1px solid #fff;
     position: relative;
     img {
         border-radius: 50%;
+        cursor: pointer;
     }
     @media (max-width: $tabletWidth) {
         width: 35px;

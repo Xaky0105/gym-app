@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { useFormik } from 'formik';
 import { createWorkoutSchema } from '../../../../sheme';
 import TextField from '@mui/material/TextField';
@@ -12,22 +12,17 @@ import { ButtonStandart } from '../../../../components/buttons/button-standart';
 import { getWorkouts } from '../../../../store/selectors';
 import { createOrEditWorkout } from '../../../../store/asyncActions/workoutAsyncAction';
 import styles from './index.module.scss';
+import { Context } from '../..';
 
 type FormPropsType = {
-    temporaryExercise: ExerciseInWorkout[];
-    setTemporaryExerciseHandler: (exercise: ExerciseInWorkout) => void;
     clearTemporaryExercise: () => void;
     editableWorkoutId?: string;
 };
 
-export const Form: FC<FormPropsType> = ({
-    temporaryExercise,
-    setTemporaryExerciseHandler,
-    clearTemporaryExercise,
-    editableWorkoutId,
-}) => {
+export const Form: FC<FormPropsType> = ({ clearTemporaryExercise, editableWorkoutId }) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { temporaryExercise } = useContext(Context);
     const userWorkouts = useAppSelector(getWorkouts);
     const isDisabledBtn = () => temporaryExercise.length === 0;
     const formik = useFormik({
@@ -81,11 +76,9 @@ export const Form: FC<FormPropsType> = ({
                     onChange={formik.handleChange}
                     error={formik.touched.workoutName && Boolean(formik.errors.workoutName)}
                     helperText={formik.touched.workoutName && formik.errors.workoutName}
+                    color="success"
                 />
-                <ExerciseList
-                    temporaryExercise={temporaryExercise}
-                    setTemporaryExerciseHandler={setTemporaryExerciseHandler}
-                />
+                <ExerciseList />
             </div>
             <ButtonStandart
                 handleClick={() => {}}

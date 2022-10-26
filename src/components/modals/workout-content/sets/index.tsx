@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook';
 import { setStepWorkoutModale } from '../../../../store/slices/modaleSlice';
 import { getExerciseById } from '../../../../store/selectors';
 import { Set } from './set';
-import { updateExerciseAsync } from '../../../../store/asyncActions/workoutAsyncAction';
+import { updateExerciseInWorkoutOnCalendarAsync } from '../../../../store/asyncActions/workoutAsyncAction';
 import styles from './index.module.scss';
 
 export const Sets: FC = () => {
@@ -20,7 +20,7 @@ export const Sets: FC = () => {
             ...selectExercise,
             sets: [...selectExercise.sets!, { amount: 0, weight: 0 }],
         };
-        dispatch(updateExerciseAsync(updateExercise));
+        dispatch(updateExerciseInWorkoutOnCalendarAsync(updateExercise));
     };
     const removeSet = (setIndex: number) => {
         if (selectExercise.sets.length > 1) {
@@ -29,7 +29,7 @@ export const Sets: FC = () => {
                 ...selectExercise,
                 sets: newSets,
             };
-            dispatch(updateExerciseAsync(exercise));
+            dispatch(updateExerciseInWorkoutOnCalendarAsync(exercise));
         }
     };
     return (

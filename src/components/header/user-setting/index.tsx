@@ -12,9 +12,9 @@ type UserSettingsPropsType = {
 export const UserSetting: FC<UserSettingsPropsType> = ({ onCLickSettingsToggler, isActiveSettings }) => {
     const userPhoto = useAppSelector(getUserPhotoByEmail);
     return (
-        <div className={styles.user} onClick={onCLickSettingsToggler}>
-            <img src={userPhoto} alt="user" />
-            <UserSettingsList onCLickSettingsToggler={onCLickSettingsToggler} isActiveSettings={isActiveSettings} />
+        <div className={styles.user}>
+            <img src={userPhoto} alt="user" onClick={onCLickSettingsToggler} />
+            <UserSettingsList isActiveSettings={isActiveSettings} />
         </div>
     );
 };

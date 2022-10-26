@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { WorkoutOnCalendar, ExerciseInWorkoutOnCalendar } from './../types/workout';
+import { WorkoutOnCalendar, ExerciseInWorkoutOnCalendar, EXERCISE_CATEGORY } from './../types/workout';
 import { convertDateToNumber } from './dayjs';
 
 export const getListOfCompletedExercise = (workouts: { [key: string]: WorkoutOnCalendar }) => {
@@ -29,4 +29,21 @@ export const getSortedExerciseByPosition = (exercises: {
     [key: string]: ExerciseInWorkoutOnCalendar;
 }): ExerciseInWorkoutOnCalendar[] => {
     return _.toArray(exercises).sort((a, b) => a.position - b.position);
+};
+
+export const getCategoryExercise = (name: EXERCISE_CATEGORY) => {
+    switch (name) {
+        case EXERCISE_CATEGORY.arms:
+            return 'arms';
+        case EXERCISE_CATEGORY.back:
+            return 'back';
+        case EXERCISE_CATEGORY.breast:
+            return 'breast';
+        case EXERCISE_CATEGORY.legs:
+            return 'legs';
+        case EXERCISE_CATEGORY.shouldres:
+            return 'shouldres';
+        case EXERCISE_CATEGORY.core:
+            return 'core';
+    }
 };

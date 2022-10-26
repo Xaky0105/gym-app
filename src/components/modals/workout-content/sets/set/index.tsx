@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux-hook';
-import { updateExerciseAsync } from '../../../../../store/asyncActions/workoutAsyncAction';
+import { updateExerciseInWorkoutOnCalendarAsync } from '../../../../../store/asyncActions/workoutAsyncAction';
 import { getExerciseById } from '../../../../../store/selectors';
 import { SetsType } from '../../../../../types/workout';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
@@ -32,7 +32,7 @@ export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
             sets: newSets,
         };
         if (!_.isEqual(selectExercise, exercise)) {
-            dispatch(updateExerciseAsync(exercise));
+            dispatch(updateExerciseInWorkoutOnCalendarAsync(exercise));
         }
         setEditWeight(false);
         setEditAmount(false);
@@ -43,7 +43,7 @@ export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
     const onAmountChange: React.ChangeEventHandler<HTMLInputElement> = ({ target: { value } }) => {
         setAmount((prevAmont) => (prevAmont = Number(value)));
     };
-    const cn = selectExercise.sets.length > 1 ? `${styles.crossWrapper}` : `${styles.crossWrapper} ${styles.disabled}`
+    const cn = selectExercise.sets.length > 1 ? `${styles.crossWrapper}` : `${styles.crossWrapper} ${styles.disabled}`;
     return (
         <li className={styles.block}>
             <div className={styles.groupLeft}>

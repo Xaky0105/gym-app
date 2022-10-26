@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import { AppRouter } from './app-router';
 import { Provider } from 'react-redux';
-import store from './store';
+import { store } from './store';
 import './firebase';
 import './index.scss';
 

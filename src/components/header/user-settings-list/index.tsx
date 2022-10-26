@@ -7,11 +7,10 @@ import { workoutsFetchComplete } from '../../../store/slices/workoutSlice';
 import { getUserEmail } from '../../../store/selectors';
 
 type UserSettingsListPropsType = {
-    onCLickSettingsToggler: () => void;
     isActiveSettings: boolean;
 };
 
-export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActiveSettings, onCLickSettingsToggler }) => {
+export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActiveSettings }) => {
     const dispatch = useAppDispatch();
     const userEmail = useAppSelector(getUserEmail);
     const cn = isActiveSettings ? `${styles.userSettings} ${styles.active}` : `${styles.userSettings}`;
@@ -20,7 +19,7 @@ export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActive
         dispatch(workoutsFetchComplete({}));
     };
     return (
-        <div className={cn} onClick={onCLickSettingsToggler}>
+        <div className={cn}>
             <p className={styles.loggedInText}>Вы вошли как:</p>
             <p className={styles.email}>
                 <b>{userEmail?.split('@')[0]}</b>

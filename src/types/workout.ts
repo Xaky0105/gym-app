@@ -52,3 +52,18 @@ export enum HOW_TO_REPEAT {
     INTERVAL = 'INTERVAL',
     EVERY_DAY = 'EVERY_DAY',
 }
+
+export enum HOW_TO_CHANGE_EXERCISE {
+    CREATE = 'CREATE',
+    UPDATE = 'UPDATE',
+    DELETE = 'DELETE',
+}
+
+export enum EXERCISE_CATEGORY {
+    legs = 'Ноги',
+    arms = 'Руки',
+    back = 'Спина',
+    shouldres = 'Плечи',
+    breast = 'Грудь',
+    core = 'Пресс',
+}

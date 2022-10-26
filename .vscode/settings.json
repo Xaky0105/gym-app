@@ -1,4 +1,7 @@
 {
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode" // Prettier, как форматтер по умолчанию
+    },
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true,
     },

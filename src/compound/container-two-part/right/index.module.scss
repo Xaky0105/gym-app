@@ -5,7 +5,7 @@
     height: calc(100vh - $headerHeight);
     width: 50%;
     @media (max-width: $mobileWidth) {
-        height: calc(50vh - $headerHeight + 20px / 2);
+        height: calc(50vh - $headerHeightMobile + 20px / 2);
         width: 100%;
     }
     .title {
