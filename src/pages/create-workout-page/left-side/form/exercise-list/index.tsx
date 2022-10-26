@@ -1,15 +1,11 @@
-import { FC } from 'react';
-import { ExerciseInWorkout } from '../../../../../types/workout';
+import { FC, useContext } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import { MdClose } from 'react-icons/md';
 import styles from './index.module.scss';
+import { Context } from '../../..';
 
-type ExerciseListPropsType = {
-    temporaryExercise: ExerciseInWorkout[];
-    setTemporaryExerciseHandler: (exercise: ExerciseInWorkout) => void;
-};
-
-export const ExerciseList: FC<ExerciseListPropsType> = ({ temporaryExercise, setTemporaryExerciseHandler }) => {
+export const ExerciseList: FC = () => {
+    const { temporaryExercise, setTemporaryExerciseHandler } = useContext(Context);
     return (
         <ul className={styles.exerciseList}>
             {temporaryExercise.map((exercise, i) => (

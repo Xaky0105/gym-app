@@ -11,7 +11,7 @@ import _ from 'lodash';
 import styles from './index.module.scss';
 import { setConfirmModaleIsOpen } from '../../../store/slices/modaleSlice';
 import { ConfirmPopup } from '../../../compound/confirm-popup';
-import { DeleteWorkoutContent } from '../../../components/modals/confirm-content/delete-workout';
+import { DeleteContent } from '../../../components/modals/confirm-content/delete-workout';
 
 type WorkoutListPropTypes = {
     setWorkoutClickHandlerCallback: (id: string | null) => void;
@@ -73,7 +73,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
                 </ul>
             )}
             <ConfirmPopup onClose={onCloseConfirmPopup} isOpened={isOpenConfirmModale}>
-                <DeleteWorkoutContent message="Вы уверены что хотите удалить тренировку?" onOk={onClickDeleteWorkout} />
+                <DeleteContent message="Вы уверены что хотите удалить тренировку?" onOk={onClickDeleteWorkout} />
             </ConfirmPopup>
         </>
     );

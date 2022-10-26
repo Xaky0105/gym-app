@@ -8,7 +8,7 @@
     height: calc(100vh - $headerHeight);
     @media (max-width: $mobileWidth) {
         width: 100%;
-        height: calc(50vh - $headerHeight + 20px / 2);
+        height: calc(50vh - $headerHeightMobile + 20px / 2);
         padding-right: 0;
         border-right: none;
         border-bottom: 1px solid $lightGray;

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { createContext, FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/redux-hook';
 import { getWorkouts } from '../../store/selectors';
@@ -13,6 +13,13 @@ interface CustomUseLocationState {
     editableWorkoutId: string;
 }
 
+interface ContextInterface {
+    temporaryExercise: ExerciseInWorkout[];
+    setTemporaryExerciseHandler: (exercise: ExerciseInWorkout) => void;
+}
+
+export const Context = createContext<ContextInterface>({} as ContextInterface);
+
 export const CreateWorkoutPage: FC = () => {
     const location = useLocation();
     const state = location.state as CustomUseLocationState;
@@ -22,7 +29,7 @@ export const CreateWorkoutPage: FC = () => {
     const [temporaryExercise, setTemporaryExercise] = useState<ExerciseInWorkout[]>(() => {
         return state ? getSortedExerciseByPosition(userWorkouts[editableWorkoutId].exercises) : [];
     });
-    console.log(temporaryExercise);
+
     const clearTemporaryExercise = () => {
         setTemporaryExercise([]);
     };
@@ -36,17 +43,11 @@ export const CreateWorkoutPage: FC = () => {
         });
     };
     return (
-        <ContainerTwoPart>
-            <LeftSide
-                temporaryExercise={temporaryExercise}
-                setTemporaryExerciseHandler={setTemporaryExerciseHandler}
-                clearTemporaryExercise={clearTemporaryExercise}
-                editableWorkoutId={editableWorkoutId}
-            />
-            <RightSide
-                temporaryExercise={temporaryExercise}
-                setTemporaryExerciseHandler={setTemporaryExerciseHandler}
-            />
-        </ContainerTwoPart>
+        <Context.Provider value={{ temporaryExercise, setTemporaryExerciseHandler }}>
+            <ContainerTwoPart>
+                <LeftSide clearTemporaryExercise={clearTemporaryExercise} editableWorkoutId={editableWorkoutId} />
+                <RightSide />
+            </ContainerTwoPart>
+        </Context.Provider>
     );
 };

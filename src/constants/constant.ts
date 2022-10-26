@@ -45,4 +45,10 @@ export const basicExerciseList: basicExerciseListType = {
         },
         { id: uuidv4(), name: 'Отжимания на брусьях', category: 'Руки' },
     ],
+    core: [
+        { id: uuidv4(), name: 'Скручивания', category: 'Пресс' },
+        { id: uuidv4(), name: 'Прямая планка', category: 'Пресс' },
+        { id: uuidv4(), name: 'Боковая планка', category: 'Пресс' },
+        { id: uuidv4(), name: 'Подъем ног', category: 'Пресс' },
+    ],
 };

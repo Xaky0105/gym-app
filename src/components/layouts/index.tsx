@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
-import { loadWorkouts } from '../../store/asyncActions/workoutAsyncAction';
+import { loadWorkoutsData } from '../../store/asyncActions/workoutAsyncAction';
 import { getIsLoadingWorkouts } from '../../store/selectors';
 import { Header } from '../header';
 import { Preloader } from '../preloader';
@@ -11,7 +11,7 @@ export const Layout: React.FC = () => {
     const dispatch = useAppDispatch();
     const workoutsIsLoading = useAppSelector(getIsLoadingWorkouts);
     useEffect(() => {
-        dispatch(loadWorkouts());
+        dispatch(loadWorkoutsData());
     }, [dispatch]);
     return (
         <React.Fragment>

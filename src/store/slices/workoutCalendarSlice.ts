@@ -41,7 +41,7 @@ const workoutsCalendarSlice = createSlice({
                 delete state.workoutsOnTheCalendar[id];
             });
         },
-        updateExercise(
+        updateExerciseInWorkoutOnCalendar(
             state,
             action: PayloadAction<{
                 idSelectedWorkout: string;
@@ -65,7 +65,7 @@ export const {
     workoutsToCalendarFetchComplete,
     deleteWorkoutFromCalendar,
     deleteSomeWorkoutFromCalendar,
-    updateExercise,
+    updateExerciseInWorkoutOnCalendar,
     setWorkoutCalendarError,
 } = workoutsCalendarSlice.actions;
 export default workoutsCalendarSlice.reducer;

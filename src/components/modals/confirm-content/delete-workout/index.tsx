@@ -4,12 +4,12 @@ import { setConfirmModaleIsOpen } from '../../../../store/slices/modaleSlice';
 import { ButtonStandart } from '../../../buttons/button-standart';
 import styles from './index.module.scss';
 
-type DeleteWorkoutContentType = {
+type DeleteContentType = {
     message: string;
     onOk: () => void;
 };
 
-export const DeleteWorkoutContent: FC<DeleteWorkoutContentType> = ({ message, onOk }) => {
+export const DeleteContent: FC<DeleteContentType> = ({ message, onOk }) => {
     const dispatch = useAppDispatch();
     const onClickHandler = () => {
         onOk();

@@ -8,7 +8,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { ROUTE_PATH } from '../../types/route';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
 import { getUser, getUserError, getUserIsLoading } from '../../store/selectors';
-import { loginWithGoogle, userAuth } from '../../store/asyncActions/userAsyncAction';
+import { autoSignIn, loginWithGoogle, userAuth } from '../../store/asyncActions/userAsyncAction';
 import { AuthError } from '../../components/errors/auth-error';
 import styles from './index.module.scss';
 
@@ -40,6 +40,10 @@ export const LoginPage: FC = () => {
             navigate(ROUTE_PATH.CALENDAR);
         }
     });
+
+    useEffect(() => {
+        dispatch(autoSignIn());
+    }, []);
 
     return (
         <div className={styles.loginWrapper}>
