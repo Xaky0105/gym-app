@@ -1,23 +1,27 @@
-import { FC } from 'react';
+import { FC, useState, useContext } from 'react';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import Typography from '@mui/material/Typography';
 import { CheckboxList } from './list';
-import { ExerciseInWorkout } from '../../../../types/workout';
-import { useAppSelector } from '../../../../hooks/redux-hook';
-import { getExerciseList } from '../../../../store/selectors';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook';
+import { getExerciseList, getIsOpenConfirmModale } from '../../../../store/selectors';
 import _ from 'lodash';
 import { styled } from '@mui/material/styles';
+import { ConfirmPopup } from '../../../../compound/confirm-popup';
+import { DeleteContent } from '../../../../components/modals/confirm-content/delete-workout';
+import { setConfirmModaleIsOpen } from '../../../../store/slices/modaleSlice';
+import { ExerciseInWorkout, HOW_TO_CHANGE_EXERCISE } from '../../../../types/workout';
+import { changeExerciseAsync } from '../../../../store/asyncActions/workoutAsyncAction';
+import { Context } from '../..';
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
     ({ theme }) => ({
-        border: `1px solid ${theme.palette.divider}`,
-        marginBottom: 15,
         marginRight: 10,
         padding: 0,
-        borderRadius: 6,
+        borderRadius: 0,
+        boxShadow: '0 0 10px 0 #ccc',
         [theme.breakpoints.down('sm')]: {
             marginBottom: 0,
             marginRight: 0,
@@ -28,7 +32,7 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
     <MuiAccordionSummary expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '1.8rem' }} />} {...props} />
 ))(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'light' ? 'rgba(255, 255, 255, .05)' : 'rgba(0, 0, 0, .03)',
+    backgroundColor: '#f1f3f4',
     flexDirection: 'row-reverse',
     '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
         transform: 'rotate(180deg)',
@@ -48,35 +52,48 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
     padding: theme.spacing(0),
-    borderTop: '2px solid rgba(0, 0, 0, .125)',
+    borderTop: '2px solid #d1d1d1',
+    backgroundColor: 'Highlight',
 }));
 
-type ExerciseAccordionPropsType = {
-    temporaryExercise: ExerciseInWorkout[];
-    setTemporaryExerciseHandler: (exercise: ExerciseInWorkout) => void;
-};
-
-export const ExerciseAccordion: FC<ExerciseAccordionPropsType> = ({
-    temporaryExercise,
-    setTemporaryExerciseHandler,
-}) => {
+export const ExerciseAccordion: FC = () => {
     const exerciseList = useAppSelector(getExerciseList);
+    const isOpenConfirmModale = useAppSelector(getIsOpenConfirmModale);
+    const dispatch = useAppDispatch();
+
+    const [selectExercise, setSelectExercise] = useState<ExerciseInWorkout | null>(null);
+    const { temporaryExercise, setTemporaryExerciseHandler } = useContext(Context);
+
+    const onCloseConfirmPopup = () => {
+        dispatch(setConfirmModaleIsOpen(false));
+    };
+    const changeSelectExercise = (exercise: ExerciseInWorkout) => {
+        setSelectExercise(exercise);
+    };
+    const deleteExerciseHandler = () => {
+        dispatch(changeExerciseAsync(selectExercise!, HOW_TO_CHANGE_EXERCISE.DELETE));
+        if (temporaryExercise.find((ex) => ex.id === selectExercise!.id)) {
+            setTemporaryExerciseHandler(selectExercise!);
+        }
+    };
     return (
         <>
             {_.toArray(exerciseList).map((exercisesGroup) => (
                 <Accordion key={exercisesGroup[0].id}>
                     <AccordionSummary>
-                        <Typography>{exercisesGroup[0].category}</Typography>
+                        <Typography fontWeight={'bold'}>{exercisesGroup[0].category}</Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ padding: 0 }}>
-                        <CheckboxList
-                            exercisesGroup={exercisesGroup}
-                            temporaryExercise={temporaryExercise}
-                            setTemporaryExerciseHandler={setTemporaryExerciseHandler}
-                        />
+                        <CheckboxList exercisesGroup={exercisesGroup} changeSelectExercise={changeSelectExercise} />
                     </AccordionDetails>
                 </Accordion>
             ))}
+            <ConfirmPopup onClose={onCloseConfirmPopup} isOpened={isOpenConfirmModale}>
+                <DeleteContent
+                    message={`Вы уверены что хотите удалить упражнение ${selectExercise?.name}?`}
+                    onOk={deleteExerciseHandler}
+                />
+            </ConfirmPopup>
         </>
     );
 };

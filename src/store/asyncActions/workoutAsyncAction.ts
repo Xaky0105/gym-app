@@ -1,6 +1,9 @@
+import { ExerciseListType, HOW_TO_CHANGE_EXERCISE } from './../../types/workout';
 import {
+    BasicExercise,
     DELETE_WORKOUT_FROM_CALENDAR,
     ExerciseInWorkoutOnCalendar,
+    EXERCISE_CATEGORY,
     HOW_TO_REPEAT,
     Workout,
     WorkoutOnCalendar,
@@ -17,6 +20,8 @@ import {
     DocumentData,
     QuerySnapshot,
     writeBatch,
+    arrayUnion,
+    arrayRemove,
 } from 'firebase/firestore';
 import { Dispatch } from '@reduxjs/toolkit';
 import { generateArrWorkoutsForCalendar, getArrWorkoutsIdToDelete, getWorkoutsDates } from '../../utils/workout';
@@ -25,7 +30,11 @@ import { RootState } from '..';
 import {
     addOrEditUserWorkout,
     deleteUserWorkout,
+    exerciseListFetchComplete,
+    removeExercise,
     setIsLoadingWorkout,
+    setNewExercise,
+    updateExercise,
     workoutsFetchComplete,
 } from '../slices/workoutSlice';
 import {
@@ -33,12 +42,13 @@ import {
     addSomeWorkoutsToCalendar,
     addWorkoutToCalendar,
     deleteWorkoutFromCalendar,
-    updateExercise,
+    updateExerciseInWorkoutOnCalendar,
     deleteSomeWorkoutFromCalendar,
     setIsLoadingWorkoutCalendar,
     setWorkoutCalendarError,
 } from '../slices/workoutCalendarSlice';
 import _ from 'lodash';
+import { getCategoryExercise } from '../../utils/exercise';
 
 const getCurrentUserId = (getState: any) => {
     const {
@@ -51,11 +61,9 @@ const getCurrentUserId = (getState: any) => {
 
 export const createOrEditWorkout = (workout: WorkoutOnCalendar | Workout, type: 'edit' | 'create') => {
     return async (dispatch: Dispatch, getState: any) => {
+        const uid = getCurrentUserId(getState);
         try {
-            const uid = getCurrentUserId(getState);
-
             const userWorkoutDoc = doc(db, `users/${uid}/workouts/${workout.id}`);
-
             if (type === 'create') {
                 setDoc(userWorkoutDoc, workout);
             } else {
@@ -70,8 +78,8 @@ export const createOrEditWorkout = (workout: WorkoutOnCalendar | Workout, type: 
 
 export const deleteWorkout = (id: string) => {
     return async (dispatch: Dispatch, getState: any) => {
+        const uid = getCurrentUserId(getState);
         try {
-            const uid = getCurrentUserId(getState);
             const userWorkoutsDoc = doc(db, `users/${uid}/workouts/${id}`);
             deleteDoc(userWorkoutsDoc);
             dispatch(deleteUserWorkout(id));
@@ -81,41 +89,37 @@ export const deleteWorkout = (id: string) => {
     };
 };
 
-export const loadWorkouts = () => {
+export const loadWorkoutsData = () => {
     return async (dispatch: Dispatch, getState: any) => {
+        dispatch(setIsLoadingWorkout(true));
+        const uid = getCurrentUserId(getState);
         try {
-            dispatch(setIsLoadingWorkout(true));
-            const uid = getCurrentUserId(getState);
-            const userWorkoutsCollectionReference = collection(db, `users/${uid}/workouts`);
-            const userWorkoutsOnCalendarCollectionRef = collection(db, `users/${uid}/workoutsOnCalendar`);
-            const workoutsQuery = query(userWorkoutsCollectionReference);
-            const workoutsOnCalendarQuery = query(userWorkoutsOnCalendarCollectionRef);
-            const workoutsCollectionData = await getDocs(workoutsQuery);
-            const workoutsOnCalendarCollectionData = await getDocs(workoutsOnCalendarQuery);
-            const formattingWorkoutsData = (data: QuerySnapshot<DocumentData>) => {
-                type WorkoutType = {
-                    [key: string]: object;
-                };
-                const workouts: WorkoutType = {};
-                data.forEach((workout) => {
-                    workouts[workout.id] = workout.data();
-                });
-                return workouts;
-            };
-            const setWorkoutsData = (collection: QuerySnapshot<DocumentData>, reducer: any) => {
-                if (collection.size) {
-                    const workouts = formattingWorkoutsData(collection);
+            const workoutsData = await getDocs(query(collection(db, `users/${uid}/workouts`)));
+            const workoutsOnCalendarData = await getDocs(query(collection(db, `users/${uid}/workoutsOnCalendar`)));
+            const exerciseListData = await getDocs(query(collection(db, `users/${uid}/exerciseList`)));
+
+            const setWorkoutsData = (snap: QuerySnapshot<DocumentData>, reducer: any) => {
+                if (snap.size) {
+                    const workouts = snap.docs.reduce((result, workout) => {
+                        return {
+                            ...result,
+                            [workout.id]: workout.data(),
+                        };
+                    }, {});
                     dispatch(reducer(workouts));
                 } else {
                     dispatch(reducer({}));
                 }
             };
-            setWorkoutsData(workoutsCollectionData, workoutsFetchComplete);
-            setWorkoutsData(workoutsOnCalendarCollectionData, workoutsToCalendarFetchComplete);
-            dispatch(setIsLoadingWorkout(false));
+
+            const exerciseList: ExerciseListType = exerciseListData.docs.reduce((res, list) => (res = list.data()), {});
+            dispatch(exerciseListFetchComplete(exerciseList));
+            setWorkoutsData(workoutsData, workoutsFetchComplete);
+            setWorkoutsData(workoutsOnCalendarData, workoutsToCalendarFetchComplete);
         } catch (err) {
             console.log(err);
         }
+        dispatch(setIsLoadingWorkout(false));
     };
 };
 
@@ -125,25 +129,25 @@ export const addWorkoutToCalendarAsync = (
     repeatInterval: number,
 ) => {
     return async (dispatch: Dispatch, getState: any) => {
+        const uid = getCurrentUserId(getState);
+        const setWorkoutsData = async (
+            howToRepeat: HOW_TO_REPEAT,
+            workout: WorkoutOnCalendar,
+            repeatInterval?: number,
+        ) => {
+            dispatch(setIsLoadingWorkoutCalendar(true));
+            const workoutDates = getWorkoutsDates(howToRepeat, workout, repeatInterval);
+            const workoutsArr = generateArrWorkoutsForCalendar(workout, workoutDates);
+            const batch = writeBatch(db);
+            workoutsArr.forEach((workout) => {
+                const userWorkoutDoc = doc(db, `users/${uid}/workoutsOnCalendar/${workout.id}`);
+                batch.set(userWorkoutDoc, workout);
+            });
+            await batch.commit();
+            dispatch(setIsLoadingWorkoutCalendar(false));
+            dispatch(addSomeWorkoutsToCalendar(workoutsArr));
+        };
         try {
-            const uid = getCurrentUserId(getState);
-            const setWorkoutsData = async (
-                howToRepeat: HOW_TO_REPEAT,
-                workout: WorkoutOnCalendar,
-                repeatInterval?: number,
-            ) => {
-                dispatch(setIsLoadingWorkoutCalendar(true));
-                const workoutDates = getWorkoutsDates(howToRepeat, workout, repeatInterval);
-                const workoutsArr = generateArrWorkoutsForCalendar(workout, workoutDates);
-                const batch = writeBatch(db);
-                workoutsArr.forEach((workout) => {
-                    const userWorkoutDoc = doc(db, `users/${uid}/workoutsOnCalendar/${workout.id}`);
-                    batch.set(userWorkoutDoc, workout);
-                });
-                await batch.commit();
-                dispatch(setIsLoadingWorkoutCalendar(false));
-                dispatch(addSomeWorkoutsToCalendar(workoutsArr));
-            };
             switch (howToRepeat) {
                 case HOW_TO_REPEAT.DONT_REPEAT:
                     dispatch(setIsLoadingWorkoutCalendar(true));
@@ -175,18 +179,17 @@ export const addWorkoutToCalendarAsync = (
 
 export const deleteWorkoutFromCalendarAsync = (id: string, type: DELETE_WORKOUT_FROM_CALENDAR) => {
     return async (dispatch: Dispatch, getState: any) => {
+        dispatch(setIsLoadingWorkoutCalendar(true));
+        const uid = getCurrentUserId(getState);
+        const {
+            workoutCalendar: { workoutsOnTheCalendar },
+        } = getState() as RootState;
         try {
-            dispatch(setIsLoadingWorkoutCalendar(true));
-            const state = getState() as RootState;
-            const uid = getCurrentUserId(getState);
             if (type === DELETE_WORKOUT_FROM_CALENDAR.ONLY_ONE) {
                 const userWorkoutDoc = doc(db, `users/${uid}/workoutsOnCalendar/${id}`);
                 await deleteDoc(userWorkoutDoc);
                 dispatch(deleteWorkoutFromCalendar(id));
             } else if (type === DELETE_WORKOUT_FROM_CALENDAR.THIS_AND_NEXT) {
-                const {
-                    workoutCalendar: { workoutsOnTheCalendar },
-                } = state;
                 const arrIdToRemove = getArrWorkoutsIdToDelete(workoutsOnTheCalendar, id);
                 const batch = writeBatch(db);
                 arrIdToRemove.forEach((id) => {
@@ -197,29 +200,34 @@ export const deleteWorkoutFromCalendarAsync = (id: string, type: DELETE_WORKOUT_
                 dispatch(deleteSomeWorkoutFromCalendar(arrIdToRemove));
             }
         } catch ({ message }) {
-            dispatch(setWorkoutCalendarError(message as string));
-            _.delay(() => dispatch(setWorkoutCalendarError('')), 2000);
+            if (typeof message === 'string') {
+                dispatch(setWorkoutCalendarError(message));
+                _.delay(() => dispatch(setWorkoutCalendarError('')), 2000);
+            } else {
+                console.log(message);
+            }
         }
         dispatch(setIsLoadingWorkoutCalendar(false));
     };
 };
 
-export const updateExerciseAsync = (exercise: ExerciseInWorkoutOnCalendar) => {
+export const updateExerciseInWorkoutOnCalendarAsync = (exercise: ExerciseInWorkoutOnCalendar) => {
     return async (dispatch: Dispatch, getState: any) => {
+        const {
+            user: {
+                user: { uid },
+            },
+            modal: { idSelectedExercise, idSelectedWorkout },
+        } = getState();
+
         try {
-            const {
-                user: {
-                    user: { uid },
-                },
-                modal: { idSelectedExercise, idSelectedWorkout },
-            } = getState();
             const field = `exercises.${idSelectedExercise}`;
             const userWorkoutRef = doc(db, `users/${uid}/workoutsOnCalendar/${idSelectedWorkout}`);
             updateDoc(userWorkoutRef, {
                 [field]: exercise,
             });
             dispatch(
-                updateExercise({
+                updateExerciseInWorkoutOnCalendar({
                     exercise,
                     idSelectedExercise,
                     idSelectedWorkout,
@@ -227,6 +235,46 @@ export const updateExerciseAsync = (exercise: ExerciseInWorkoutOnCalendar) => {
             );
         } catch (err) {
             console.log(err);
+        }
+    };
+};
+
+export const changeExerciseAsync = (exercise: BasicExercise, howToChange: HOW_TO_CHANGE_EXERCISE) => {
+    return async (dispatch: Dispatch, getState: any) => {
+        const uid = getCurrentUserId(getState);
+        const {
+            workout: { exerciseList },
+        } = getState();
+        const category = getCategoryExercise(exercise.category as EXERCISE_CATEGORY);
+        try {
+            const exerciseListDoc = await getDocs(query(collection(db, `users/${uid}/exerciseList`)));
+            const listId = exerciseListDoc.docs.reduce((acc, data) => (acc = data.id), '');
+            const userExerciseListRef = doc(db, `users/${uid}/exerciseList/${listId}`);
+            switch (howToChange) {
+                case HOW_TO_CHANGE_EXERCISE.CREATE:
+                    updateDoc(userExerciseListRef, {
+                        [category]: arrayUnion(exercise),
+                    });
+                    dispatch(setNewExercise({ exercise, category }));
+                    return;
+                case HOW_TO_CHANGE_EXERCISE.DELETE:
+                    updateDoc(userExerciseListRef, {
+                        [category]: arrayRemove(exercise),
+                    });
+                    dispatch(removeExercise({ exercise, category }));
+                    return;
+                case HOW_TO_CHANGE_EXERCISE.UPDATE:
+                    const updatedExerciseCategory: BasicExercise[] = exerciseList[category].map((ex: BasicExercise) =>
+                        ex.id === exercise.id ? exercise : ex,
+                    );
+                    updateDoc(userExerciseListRef, {
+                        [category]: updatedExerciseCategory,
+                    });
+                    dispatch(updateExercise({ updatedExerciseCategory, category }));
+                    return;
+            }
+        } catch ({ message }) {
+            console.log(message);
         }
     };
 };
