@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Dayjs } from 'dayjs';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { getMonthIndex } from '@/store/selectors';
+import { getMonthIndex, getSelectedDay, getTempIdWorkout } from '@/store/selectors';
 import {
     changeDaySelected,
     setModaleWorkoutIsOpen,
@@ -24,15 +24,24 @@ interface DayProps {
 }
 
 export const Day: FC<DayProps> = ({ day, row, workoutsForMonth }) => {
+    console.log('render');
     const dispatch = useAppDispatch();
     const monthIndex = useAppSelector(getMonthIndex);
+    const selectedWorkoutId = useAppSelector(getTempIdWorkout);
+    const daySelected = useAppSelector(getSelectedDay);
+
     const dayFormat = day.format(DAY_FORMAT.YYYY_MM_DD);
 
-    const workoutsForTheDay = getWorkoutForTheDay(dayFormat, workoutsForMonth);
+    const workoutsForTheDay = useMemo(() => getWorkoutForTheDay(dayFormat, workoutsForMonth), [workoutsForMonth]);
 
     const currentDayClass = dayFormat === getCurrentDay() ? `${styles.currentDay}` : '';
+
     const dayNotThisMonth =
         day.month() !== getMonthIndexFromZeroToEleven(monthIndex) ? `${styles.dayOfTheLastMonth}` : '';
+
+    const workoutSelected = (id: string) => (selectedWorkoutId === id ? `${styles.selectWorkout}` : '');
+
+    const daySelectedClass = daySelected === dayFormat ? `${styles.daySelect}` : '';
 
     const dayClickHandler = () => {
         if (!dayNotThisMonth) {
@@ -50,19 +59,22 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth }) => {
     };
 
     return (
-        <div className={`${styles.wrapper} ${currentDayClass} ${dayNotThisMonth}`} onClick={dayClickHandler}>
+        <div
+            className={`${styles.wrapper} ${currentDayClass} ${dayNotThisMonth} ${daySelectedClass}`}
+            onClick={dayClickHandler}
+        >
             <div className={styles.dayHeader}>
                 {row === 0 && <span className={styles.dayWeek}>{day.format('dd').toUpperCase()}</span>}
                 <span className={styles.number}>{day.format('DD')}</span>
             </div>
             <div className={styles.workoutList}>
-                {workoutsForTheDay.map((workout) => (
+                {workoutsForTheDay.map(({ id, workoutName }) => (
                     <div
-                        key={workout.id}
-                        className={`${styles.workout}`}
-                        onMouseDown={() => workoutOnClick(workout.id)}
+                        key={id}
+                        className={`${styles.workout} ${workoutSelected(id)}`}
+                        onMouseDown={() => workoutOnClick(id)}
                     >
-                        {workout.workoutName}
+                        {workoutName}
                     </div>
                 ))}
             </div>
