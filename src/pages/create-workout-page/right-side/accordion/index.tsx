@@ -21,12 +21,16 @@ import { CheckboxList } from './list';
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
     ({ theme }) => ({
         marginRight: 10,
+        marginBottom: 14,
         padding: 0,
-        borderRadius: 0,
-        boxShadow: '0 0 10px 0 #ccc',
+        borderRadius: 5,
+        boxShadow: '0px 5px 10px 2px rgba(34, 53, 67, 0.2)',
         [theme.breakpoints.down('sm')]: {
-            marginBottom: 0,
             marginRight: 0,
+            boxShadow: '2px 2px 9px 1px rgba(34, 53, 67, 0.2)',
+        },
+        '&:before': {
+            display: 'none',
         },
     }),
 );
@@ -34,7 +38,7 @@ const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
     <MuiAccordionSummary expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '1.8rem' }} />} {...props} />
 ))(({ theme }) => ({
-    backgroundColor: '#f1f3f4',
+    backgroundColor: '#fff',
     flexDirection: 'row-reverse',
     '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
         transform: 'rotate(180deg)',

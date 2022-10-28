@@ -15,6 +15,9 @@
         padding: 2px;
         height: calc((100vw - 40px) / 6);
     }
+    @media (max-height: 950px) {
+        padding: 0;
+    }
 }
 .dayHeader {
     display: flex;
@@ -22,10 +25,16 @@
     @media (max-width: $mobileWidth) {
         flex-direction: row;
     }
+    @media (max-height: 950px) {
+        flex-direction: row;
+    }
     .dayWeek {
         @media (max-width: $tabletWidth) {
             font-size: 10px;
             margin-right: 0;
+        }
+        @media (max-height: 950px) {
+            margin-right: 20px;
         }
         @media (max-width: $mobileWidth) {
             margin-right: 10px;
@@ -72,11 +81,14 @@
             background-color: #9d9d9d;
         }
     }
+    .selectWorkout {
+        background-color: $deepWater;
+    }
 }
 .currentDay {
-    border: 2px solid $pink;
+    border: 1px solid $pink;
 }
-.selected {
+.daySelect {
     border: 1px solid $wave;
 }
 // .darkned {
