@@ -54,7 +54,7 @@ export const getArrWorkoutsIdToDelete: GetWorkoutsIdToDelete = (workoutsOnTheCal
 export const getWorkoutsDates = (type: HOW_TO_REPEAT, workout: WorkoutOnCalendar, repeatInterval?: number) => {
     const workoutDate = workout.date;
     const dateArr: string[] = [];
-    const limit = 2419200000; // Примерно месяц. Потом сделать точное время
+    const limit = 15778800000; // Примерно пол года. Потом сделать точное время
     if (type === HOW_TO_REPEAT.ONCE_A_WEEK) {
         const weeks = 30;
         for (let i = 0; i < weeks; i++) {
