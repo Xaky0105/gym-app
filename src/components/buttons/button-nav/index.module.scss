@@ -7,12 +7,21 @@
     transition: $fastTransition;
     margin-right: 10px;
     border-radius: 5px;
-    font-weight: 700;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: $textColor;
+    display: flex;
+    align-items: center;
     &:hover {
         background-color: $lightGray;
+    }
+    .img {
+        margin-right: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .text {
+        font-size: 14px;
+        text-transform: uppercase;
+        color: $textColor;
     }
     @media (max-width: $tabletWidth) {
         margin-right: 0;

@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import styles from './index.module.scss';
 
 type ButtonNavType = {
@@ -7,9 +8,10 @@ type ButtonNavType = {
     to?: string;
     onClick?: () => void;
     marginRight?: string;
+    icon?: ReactNode;
 };
 
-export const ButtonNav: FC<ButtonNavType> = ({ name, to, marginRight, onClick }) => {
+export const ButtonNav: FC<ButtonNavType> = ({ name, to, marginRight, onClick, icon }) => {
     const navigate = useNavigate();
     const btnClickHandler = () => {
         onClick && onClick();
@@ -17,7 +19,8 @@ export const ButtonNav: FC<ButtonNavType> = ({ name, to, marginRight, onClick })
     };
     return (
         <button className={styles.btn} onClick={btnClickHandler} style={{ marginRight: marginRight }}>
-            {name}
+            {icon && <div className={styles.img}>{icon}</div>}
+            <p className={styles.text}>{name}</p>
         </button>
     );
 };
