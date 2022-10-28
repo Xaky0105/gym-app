@@ -6,8 +6,9 @@
     height: 50px;
     border-radius: 50%;
     background-color: #fff;
-    border: 1px solid #fff;
+    box-shadow: 0 0 10px 0 #2d2d2d;
     position: relative;
+    transition: all .1s linear;
     img {
         border-radius: 50%;
         cursor: pointer;
@@ -16,4 +17,7 @@
         width: 35px;
         height: 35px;
     }
+}
+.active {
+    box-shadow: 0 0 10px 0 #adadad;
 }

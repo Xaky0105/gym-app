@@ -1,15 +1,16 @@
 import { FC, memo } from 'react';
-import { ButtonOutline } from '../buttons/button-outline';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
-import { resetMonthIndex, decMonthIndex, incMonthIndex } from '../../store/slices/monthSlice';
-import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
-import { getCurrentDay, getYear } from '../../utils/dayjs';
-import { getMonthIndex, getWorkoutCalendarError } from '../../store/selectors';
-import { changeDaySelected } from '../../store/slices/modaleSlice';
-import { setStepWorkoutModale, setModaleWorkoutIsOpen } from '../../store/slices/modaleSlice';
-import { STEP_MODAL } from '../modals/workout-content';
+
+import { ButtonOutline } from '@/components/buttons/button-outline';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { getMonthIndex, getWorkoutCalendarError } from '@/store/selectors';
+import { changeDaySelected, setModaleWorkoutIsOpen, setStepWorkoutModale } from '@/store/slices/modaleSlice';
+import { decMonthIndex, incMonthIndex, resetMonthIndex } from '@/store/slices/monthSlice';
+import { STEP_MODAL } from '@/types/modal';
+import { getCurrentDay, getYear } from '@/utils/dayjs';
 import Alert from '@mui/material/Alert';
+import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
+
 import styles from './index.module.scss';
 
 export const CalendarHeader: FC = memo(() => {

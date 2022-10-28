@@ -1,7 +1,9 @@
 import { FC } from 'react';
-import { ButtonNav } from '../../buttons/button-nav';
-import { navigation } from '../../../constants/constant';
 import { v4 as uuidv4 } from 'uuid';
+
+import { ButtonNav } from '@/components/buttons/button-nav';
+import { navigation } from '@/constants/constant';
+
 import styles from './index.module.scss';
 
 type NavListPropsType = {
@@ -16,7 +18,7 @@ export const MobileNavList: FC<NavListPropsType> = ({ isActiveNav, onClickNavTog
             <ul>
                 {navigation.map((nav) => (
                     <li key={uuidv4()}>
-                        <ButtonNav name={nav.name} to={nav.path} onClick={onClickNavToggler} />
+                        <ButtonNav name={nav.name} to={nav.path} onClick={onClickNavToggler} icon={nav.icon} />
                     </li>
                 ))}
             </ul>

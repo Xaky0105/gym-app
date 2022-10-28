@@ -1,7 +1,9 @@
 import { FC } from 'react';
-import { useAppDispatch } from '../../../../hooks/redux-hook';
-import { setConfirmModaleIsOpen } from '../../../../store/slices/modaleSlice';
-import { ButtonStandart } from '../../../buttons/button-standart';
+
+import { ButtonStandart } from '@/components/buttons/button-standart';
+import { useAppDispatch } from '@/hooks/redux-hook';
+import { setConfirmModaleIsOpen } from '@/store/slices/modaleSlice';
+
 import styles from './index.module.scss';
 
 type DeleteContentType = {

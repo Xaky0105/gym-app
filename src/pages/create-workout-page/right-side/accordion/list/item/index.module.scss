@@ -9,13 +9,13 @@
         padding: 0 10px 0 20px;
     }
     &:last-child {
-        border-bottom: none
+        border-bottom: none;
     }
     .leftGroup {
         display: flex;
         align-items: center;
         width: 100%;
-        input[type=text] {
+        input[type='text'] {
             font-size: 14px;
             letter-spacing: normal;
             color: $deepWater;
@@ -34,7 +34,7 @@
             margin-left: 15px;
             color: $wave;
             cursor: pointer;
-            transition: all .1s linear;
+            transition: all 0.1s linear;
             &:hover {
                 color: $deepWater;
             }
@@ -57,7 +57,7 @@
         margin: 10px 0;
         margin-right: 20px;
         cursor: pointer;
-        transition: all .1s linear;
+        transition: all 0.1s linear;
         color: $wave;
         &:hover {
             color: $deepWater;

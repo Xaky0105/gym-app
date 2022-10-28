@@ -1,15 +1,21 @@
 import { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
-import { getMonthIndexFromZeroToEleven, getCurrentDay } from '../../utils/dayjs';
 import { Dayjs } from 'dayjs';
-import { getMonthIndex } from '../../store/selectors';
-import { setStepWorkoutModale, setTempIdWorkout, setModaleWorkoutIsOpen } from '../../store/slices/modaleSlice';
-import { changeDaySelected } from '../../store/slices/modaleSlice';
-import { STEP_MODAL } from '../modals/workout-content';
-import { DAY_FORMAT } from '../../types/day';
-import { WorkoutOnCalendar } from '../../types/workout';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { getMonthIndex } from '@/store/selectors';
+import {
+    changeDaySelected,
+    setModaleWorkoutIsOpen,
+    setStepWorkoutModale,
+    setTempIdWorkout,
+} from '@/store/slices/modaleSlice';
+import { DAY_FORMAT } from '@/types/day';
+import { STEP_MODAL } from '@/types/modal';
+import { WorkoutOnCalendar } from '@/types/workout';
+import { getCurrentDay, getMonthIndexFromZeroToEleven } from '@/utils/dayjs';
+import { getWorkoutForTheDay } from '@/utils/workout';
+
 import styles from './index.module.scss';
-import { getWorkoutForTheDay } from '../../utils/workout';
 
 interface DayProps {
     day: Dayjs;
@@ -36,8 +42,7 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth }) => {
         }
     };
 
-    const workoutOnClick = (id: string) => (e: React.MouseEvent) => {
-        e.stopPropagation();
+    const workoutOnClick = (id: string) => {
         dispatch(setTempIdWorkout(id));
         dispatch(changeDaySelected(dayFormat));
         dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES));
@@ -52,7 +57,11 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth }) => {
             </div>
             <div className={styles.workoutList}>
                 {workoutsForTheDay.map((workout) => (
-                    <div key={workout.id} className={`${styles.workout}`} onClick={workoutOnClick(workout.id)}>
+                    <div
+                        key={workout.id}
+                        className={`${styles.workout}`}
+                        onMouseDown={() => workoutOnClick(workout.id)}
+                    >
                         {workout.workoutName}
                     </div>
                 ))}

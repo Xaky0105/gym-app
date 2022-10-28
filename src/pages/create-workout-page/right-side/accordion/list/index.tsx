@@ -1,6 +1,8 @@
 import { FC } from 'react';
+
+import { ExerciseInWorkout } from '@/types/workout';
 import List from '@mui/material/List';
-import { ExerciseInWorkout } from '../../../../../types/workout';
+
 import { Item } from './item';
 
 type CheckBoxListPropsType = {

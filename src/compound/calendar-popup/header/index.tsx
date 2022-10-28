@@ -1,11 +1,13 @@
 import { FC } from 'react';
-import { MdOutlineClose } from 'react-icons/md';
 import dayjs from 'dayjs';
-import { DAY_FORMAT } from '../../../types/day';
-import { getSelectedDay } from '../../../store/selectors';
+import { MdOutlineClose } from 'react-icons/md';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { getSelectedDay } from '@/store/selectors';
+import { setModaleWorkoutIsOpen } from '@/store/slices/modaleSlice';
+import { DAY_FORMAT } from '@/types/day';
+
 import styles from './index.module.scss';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hook';
-import { setModaleWorkoutIsOpen } from '../../../store/slices/modaleSlice';
 
 export const Header: FC = () => {
     const daySelected = useAppSelector(getSelectedDay);

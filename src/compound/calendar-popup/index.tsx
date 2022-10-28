@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
+
+import { Header } from '@/compound/calendar-popup/header';
+import { Overlay } from '@/compound/overlay';
+
 import styles from './index.module.scss';
-import { Overlay } from '../overlay';
-import { Header } from './header';
 
 type CalendarPopupType = {
     children: React.ReactNode;

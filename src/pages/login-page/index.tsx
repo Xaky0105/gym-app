@@ -1,15 +1,17 @@
 import { FC, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { ButtonStandart } from '../../components/buttons/button-standart';
-import TextField from '@mui/material/TextField';
-import { loginSchema } from '../../sheme';
-import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-import { ROUTE_PATH } from '../../types/route';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
-import { getUser, getUserError, getUserIsLoading } from '../../store/selectors';
-import { autoSignIn, loginWithGoogle, userAuth } from '../../store/asyncActions/userAsyncAction';
-import { AuthError } from '../../components/errors/auth-error';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { ButtonStandart } from '@/components/buttons/button-standart';
+import { AuthError } from '@/components/errors/auth-error';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { loginSchema } from '@/sheme';
+import { autoSignIn, loginWithGoogle, userAuth } from '@/store/asyncActions/userAsyncAction';
+import { getUser, getUserError, getUserIsLoading } from '@/store/selectors';
+import { ROUTE_PATH } from '@/types/route';
+import TextField from '@mui/material/TextField';
+
 import styles from './index.module.scss';
 
 type OnClickSubmitFn = (values: { email: string; password: string }) => void;

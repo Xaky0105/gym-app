@@ -1,17 +1,19 @@
 import { FC, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { ButtonStandart } from '../../components/buttons/button-standart';
-import TextField from '@mui/material/TextField';
-import { registerSchema } from '../../sheme';
 import { Link, useNavigate } from 'react-router-dom';
-import { ROUTE_PATH } from '../../types/route';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
-import { userAuth } from '../../store/asyncActions/userAsyncAction';
-import { getUser, getUserError, getUserIsLoading } from '../../store/selectors';
-import { AuthError } from '../../components/errors/auth-error';
+
+import { ButtonStandart } from '@/components/buttons/button-standart';
+import { AuthError } from '@/components/errors/auth-error';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { registerSchema } from '@/sheme';
+import { userAuth } from '@/store/asyncActions/userAsyncAction';
+import { getUser, getUserError, getUserIsLoading } from '@/store/selectors';
+import { ROUTE_PATH } from '@/types/route';
+import TextField from '@mui/material/TextField';
+
 import styles from './index.module.scss';
 
-type OnClickSubmitFn = (values: { email: string; password: string }) => void;
+type OnClickSubmitFn = (values: { email: string; password: string; name: string }) => void;
 
 export const RegisterPage: FC = () => {
     const navigate = useNavigate();
@@ -21,11 +23,12 @@ export const RegisterPage: FC = () => {
     const userError = useAppSelector(getUserError);
     const userIsLoading = useAppSelector(getUserIsLoading);
 
-    const onClickSubmit: OnClickSubmitFn = ({ email, password }) => {
-        dispatch(userAuth(email, password, 'register'));
+    const onClickSubmit: OnClickSubmitFn = ({ email, password, name }) => {
+        dispatch(userAuth(email, password, 'register', name));
     };
     const formik = useFormik({
         initialValues: {
+            name: '',
             email: '',
             password: '',
             confirmPassword: '',
@@ -45,6 +48,24 @@ export const RegisterPage: FC = () => {
             <form onSubmit={formik.handleSubmit} className={styles.form}>
                 <h2>Регистрация</h2>
                 <div className={styles.inputWrapper}>
+                    <TextField
+                        variant={'standard'}
+                        sx={{
+                            marginBottom: '20px',
+                            '& .MuiFormHelperText-root': {
+                                position: 'absolute',
+                                top: '100%',
+                            },
+                        }}
+                        fullWidth
+                        id="name"
+                        name="name"
+                        label="Введите ваше имя"
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                        error={formik.touched.name && Boolean(formik.errors.name)}
+                        helperText={formik.touched.name && formik.errors.name}
+                    />
                     <TextField
                         variant={'standard'}
                         sx={{

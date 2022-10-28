@@ -1,7 +1,9 @@
-import { FC, useState, useCallback } from 'react';
-import { RightSide } from './right-side';
+import { FC, useCallback, useState } from 'react';
+
+import { ContainerTwoPart } from '@/compound/container-two-part';
+
 import { LeftSide } from './left-side';
-import { ContainerTwoPart } from '../../compound/container-two-part';
+import { RightSide } from './right-side';
 
 export const WorkoutsPage: FC = () => {
     const [workoutId, setWorkoutId] = useState<string | null>(null);

@@ -5,7 +5,7 @@ export interface BasicExercise {
 }
 
 export interface ExerciseInWorkout extends BasicExercise {
-    position: number;
+    order: number;
 }
 
 export interface ExerciseInWorkoutOnCalendar extends ExerciseInWorkout {

@@ -1,13 +1,16 @@
 import { FC } from 'react';
-import { STEP_MODAL } from '..';
-import { MdArrowBack } from 'react-icons/md';
 import { BsPlusSquareDotted } from 'react-icons/bs';
+import { MdArrowBack } from 'react-icons/md';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { updateExerciseInWorkoutOnCalendarAsync } from '@/store/asyncActions/workoutAsyncAction';
+import { getExerciseById } from '@/store/selectors';
+import { setStepWorkoutModale } from '@/store/slices/modaleSlice';
+import { STEP_MODAL } from '@/types/modal';
 import Tooltip from '@mui/material/Tooltip';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook';
-import { setStepWorkoutModale } from '../../../../store/slices/modaleSlice';
-import { getExerciseById } from '../../../../store/selectors';
+
 import { Set } from './set';
-import { updateExerciseInWorkoutOnCalendarAsync } from '../../../../store/asyncActions/workoutAsyncAction';
+
 import styles from './index.module.scss';
 
 export const Sets: FC = () => {

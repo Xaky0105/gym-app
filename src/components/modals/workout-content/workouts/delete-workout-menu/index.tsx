@@ -1,10 +1,12 @@
 import { FC, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux-hook';
-import { deleteWorkoutFromCalendarAsync } from '../../../../../store/asyncActions/workoutAsyncAction';
-import { getIsLoadingWorkoutsCalendar } from '../../../../../store/selectors';
-import { setModaleWorkoutIsOpen } from '../../../../../store/slices/modaleSlice';
-import { DELETE_WORKOUT_FROM_CALENDAR } from '../../../../../types/workout';
-import { ButtonStandart } from '../../../../buttons/button-standart';
+
+import { ButtonStandart } from '@/components/buttons/button-standart';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { deleteWorkoutFromCalendarAsync } from '@/store/asyncActions/workoutAsyncAction';
+import { getIsLoadingWorkoutsCalendar } from '@/store/selectors';
+import { setModaleWorkoutIsOpen } from '@/store/slices/modaleSlice';
+import { DELETE_WORKOUT_FROM_CALENDAR } from '@/types/workout';
+
 import styles from './index.module.scss';
 
 type DeleteModalPropsType = {

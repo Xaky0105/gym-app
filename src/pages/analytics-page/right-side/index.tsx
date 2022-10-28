@@ -1,7 +1,10 @@
 import { FC } from 'react';
-import { Right } from '../../../compound/container-two-part/right';
-import { ExerciseInWorkoutOnCalendar } from '../../../types/workout';
+
+import { Right } from '@/compound/container-two-part/right';
+import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
+
 import { Table } from '../table';
+
 import styles from './index.module.scss';
 
 type RightSideType = {

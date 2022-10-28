@@ -1,5 +1,5 @@
+import { STEP_MODAL } from '@/types/modal';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { STEP_MODAL } from '../../components/modals/workout-content';
 
 type ModaleState = {
     modaleWorkoutIsOpen: boolean;

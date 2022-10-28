@@ -1,13 +1,15 @@
 import { createContext, FC, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/redux-hook';
-import { getWorkouts } from '../../store/selectors';
-import { ExerciseInWorkout } from '../../types/workout';
 import _ from 'lodash';
+import { useLocation } from 'react-router-dom';
+
+import { ContainerTwoPart } from '@/compound/container-two-part';
+import { useAppSelector } from '@/hooks/redux-hook';
+import { getWorkouts } from '@/store/selectors';
+import { ExerciseInWorkout } from '@/types/workout';
+import { getSortedExerciseByPosition } from '@/utils/exercise';
+
 import { LeftSide } from './left-side';
 import { RightSide } from './right-side';
-import { ContainerTwoPart } from '../../compound/container-two-part';
-import { getSortedExerciseByPosition } from '../../utils/exercise';
 
 interface CustomUseLocationState {
     editableWorkoutId: string;

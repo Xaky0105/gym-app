@@ -1,5 +1,7 @@
 import { FC, ReactNode } from 'react';
-import { Container } from '../container';
+
+import { Container } from '@/compound/container';
+
 import styles from './index.module.scss';
 
 type ContainerTwoPartType = {

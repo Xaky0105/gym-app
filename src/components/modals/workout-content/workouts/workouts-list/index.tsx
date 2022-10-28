@@ -1,15 +1,17 @@
 import { FC } from 'react';
-import { STEP_MODAL } from '../..';
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux-hook';
-import { setStepWorkoutModale, setTempIdWorkout } from '../../../../../store/slices/modaleSlice';
-import { getSelectedDay, getWorkoutsForCalendar } from '../../../../../store/selectors';
-import { AiOutlineCloseSquare } from 'react-icons/ai';
 import _ from 'lodash';
-import { getWorkoutForTheDay } from '../../../../../utils/workout';
+import { AiOutlineCloseSquare } from 'react-icons/ai';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { getSelectedDay, getWorkoutsForCalendar } from '@/store/selectors';
+import { setStepWorkoutModale, setTempIdWorkout } from '@/store/slices/modaleSlice';
+import { STEP_MODAL } from '@/types/modal';
+import { getWorkoutForTheDay } from '@/utils/workout';
+
 import styles from './index.module.scss';
 
 type WorkoutListPropsType = {
-    deleteWorkoutClickHandler: (workoutId: string) => (e: React.MouseEvent) => void;
+    deleteWorkoutClickHandler: (workoutId: string) => void;
 };
 
 export const WorkoutsList: FC<WorkoutListPropsType> = ({ deleteWorkoutClickHandler }) => {
@@ -36,7 +38,10 @@ export const WorkoutsList: FC<WorkoutListPropsType> = ({ deleteWorkoutClickHandl
                         <li key={workout.id} onClick={() => workoutClickHandler(workout.id)} className={styles.item}>
                             <span className={styles.itemText}>{workout.workoutName}</span>
                             <span className={styles.crossWrapper}>
-                                <AiOutlineCloseSquare size={16} onClick={deleteWorkoutClickHandler(workout.id)} />
+                                <AiOutlineCloseSquare
+                                    size={16}
+                                    onMouseDown={() => deleteWorkoutClickHandler(workout.id)}
+                                />
                             </span>
                         </li>
                     ))}

@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { ROUTE_PATH } from '../../types/route';
-import { useAppSelector } from '../../hooks/redux-hook';
 import { Navigate, Outlet } from 'react-router-dom';
-import { getUser } from '../../store/selectors';
+
+import { useAppSelector } from '@/hooks/redux-hook';
+import { getUser } from '@/store/selectors';
+import { ROUTE_PATH } from '@/types/route';
 
 export const PrivateRoute: FC = () => {
     const user = useAppSelector(getUser);

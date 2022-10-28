@@ -1,18 +1,20 @@
 import { FC, useState } from 'react';
-import Tooltip from '@mui/material/Tooltip';
 import { BsPlusSquareDotted } from 'react-icons/bs';
-import { WorkoutsList } from './workouts-list';
-import { useAppDispatch } from '../../../../hooks/redux-hook';
-import { setStepWorkoutModale } from '../../../../store/slices/modaleSlice';
-import { STEP_MODAL } from '..';
+
+import { useAppDispatch } from '@/hooks/redux-hook';
+import { setStepWorkoutModale } from '@/store/slices/modaleSlice';
+import { STEP_MODAL } from '@/types/modal';
+import Tooltip from '@mui/material/Tooltip';
+
 import { DeleteWorkoutMenu } from './delete-workout-menu';
+import { WorkoutsList } from './workouts-list';
+
 import styles from './index.module.scss';
 
 export const Workouts: FC = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [workoutId, setWorkoutId] = useState('');
-    const deleteWorkoutClickHandler = (id: string) => (e: React.MouseEvent) => {
-        e.stopPropagation();
+    const deleteWorkoutClickHandler = (id: string) => {
         setIsDeleteModalOpen(!isDeleteModalOpen);
         setWorkoutId(id);
     };

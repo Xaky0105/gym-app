@@ -1,9 +1,10 @@
 import { FC } from 'react';
+
+import { HOW_TO_REPEAT } from '@/types/workout';
+import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { HOW_TO_REPEAT } from '../../../../../types/workout';
 
 type SelectRepeatProps = {
     howToRepeatCLickHandler: (repeat: HOW_TO_REPEAT) => void;

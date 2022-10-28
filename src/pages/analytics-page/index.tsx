@@ -1,12 +1,14 @@
-import _ from 'lodash';
 import { FC, useState } from 'react';
-import { useAppSelector } from '../../hooks/redux-hook';
-import { getWorkoutsForCalendar } from '../../store/selectors';
-import { ExerciseInWorkoutOnCalendar } from '../../types/workout';
-import { getListOfCompletedExercise } from '../../utils/exercise';
+import _ from 'lodash';
+
+import { ContainerTwoPart } from '@/compound/container-two-part';
+import { useAppSelector } from '@/hooks/redux-hook';
+import { getWorkoutsForCalendar } from '@/store/selectors';
+import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
+import { getListOfCompletedExercise } from '@/utils/exercise';
+
 import { LeftSide } from './left-side';
 import { RightSide } from './right-side';
-import { ContainerTwoPart } from '../../compound/container-two-part';
 
 export const AnalyticsPage: FC = () => {
     const [selectedExerciseGroup, setSelectedExerciseGroup] = useState<ExerciseInWorkoutOnCalendar[] | null>(null);

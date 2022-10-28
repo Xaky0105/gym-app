@@ -1,32 +1,30 @@
-import { ExerciseListType, HOW_TO_CHANGE_EXERCISE } from './../../types/workout';
 import {
-    BasicExercise,
-    DELETE_WORKOUT_FROM_CALENDAR,
-    ExerciseInWorkoutOnCalendar,
-    EXERCISE_CATEGORY,
-    HOW_TO_REPEAT,
-    Workout,
-    WorkoutOnCalendar,
-} from '../../types/workout';
-import { db } from '../../firebase';
-import {
-    doc,
-    setDoc,
-    collection,
-    query,
-    getDocs,
-    updateDoc,
-    deleteDoc,
-    DocumentData,
-    QuerySnapshot,
-    writeBatch,
-    arrayUnion,
     arrayRemove,
+    arrayUnion,
+    collection,
+    deleteDoc,
+    doc,
+    DocumentData,
+    getDocs,
+    query,
+    QuerySnapshot,
+    setDoc,
+    updateDoc,
+    writeBatch,
 } from 'firebase/firestore';
-import { Dispatch } from '@reduxjs/toolkit';
-import { generateArrWorkoutsForCalendar, getArrWorkoutsIdToDelete, getWorkoutsDates } from '../../utils/workout';
+import _ from 'lodash';
 
-import { RootState } from '..';
+import { db } from '@/firebase';
+import {
+    addSomeWorkoutsToCalendar,
+    addWorkoutToCalendar,
+    deleteSomeWorkoutFromCalendar,
+    deleteWorkoutFromCalendar,
+    setIsLoadingWorkoutCalendar,
+    setWorkoutCalendarError,
+    updateExerciseInWorkoutOnCalendar,
+    workoutsToCalendarFetchComplete,
+} from '@/store/slices/workoutCalendarSlice';
 import {
     addOrEditUserWorkout,
     deleteUserWorkout,
@@ -36,19 +34,22 @@ import {
     setNewExercise,
     updateExercise,
     workoutsFetchComplete,
-} from '../slices/workoutSlice';
+} from '@/store/slices/workoutSlice';
 import {
-    workoutsToCalendarFetchComplete,
-    addSomeWorkoutsToCalendar,
-    addWorkoutToCalendar,
-    deleteWorkoutFromCalendar,
-    updateExerciseInWorkoutOnCalendar,
-    deleteSomeWorkoutFromCalendar,
-    setIsLoadingWorkoutCalendar,
-    setWorkoutCalendarError,
-} from '../slices/workoutCalendarSlice';
-import _ from 'lodash';
-import { getCategoryExercise } from '../../utils/exercise';
+    BasicExercise,
+    DELETE_WORKOUT_FROM_CALENDAR,
+    EXERCISE_CATEGORY,
+    ExerciseInWorkoutOnCalendar,
+    HOW_TO_REPEAT,
+    Workout,
+    WorkoutOnCalendar,
+} from '@/types/workout';
+import { ExerciseListType, HOW_TO_CHANGE_EXERCISE } from '@/types/workout';
+import { getCategoryExercise } from '@/utils/exercise';
+import { generateArrWorkoutsForCalendar, getArrWorkoutsIdToDelete, getWorkoutsDates } from '@/utils/workout';
+import { Dispatch } from '@reduxjs/toolkit';
+
+import { RootState } from '..';
 
 const getCurrentUserId = (getState: any) => {
     const {

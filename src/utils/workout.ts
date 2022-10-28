@@ -1,14 +1,11 @@
 import dayjs from 'dayjs';
-import {
-    WorkoutOnCalendar,
-    UserWorkoutsStateType,
-    HOW_TO_REPEAT,
-    ExerciseInWorkoutOnCalendar,
-} from './../types/workout';
-import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+
+import { DAY_FORMAT } from '@/types/day';
+import { ExerciseInWorkoutOnCalendar, HOW_TO_REPEAT, UserWorkoutsStateType, WorkoutOnCalendar } from '@/types/workout';
+
 import { convertDateToNumber, getMonthIndexFromDate, getMonthIndexFromZeroToEleven } from './dayjs';
-import { DAY_FORMAT } from '../types/day';
 
 type GenerateWorkout = (daySelected: string, workout: WorkoutOnCalendar) => WorkoutOnCalendar;
 type GetWorkoutsIdToDelete = (workoutsOnTheCalendar: UserWorkoutsStateType, id: string) => string[];

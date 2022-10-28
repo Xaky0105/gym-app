@@ -1,12 +1,14 @@
 import { FC } from 'react';
-import { STEP_MODAL } from '..';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook';
-import { setStepWorkoutModale, setTempIdExercise } from '../../../../store/slices/modaleSlice';
-import { getWorkoutById } from '../../../../store/selectors';
-import { MdArrowBack } from 'react-icons/md';
 import _ from 'lodash';
-import { ExerciseInWorkoutOnCalendar } from '../../../../types/workout';
-import { getSortedExerciseByPosition } from '../../../../utils/exercise';
+import { MdArrowBack } from 'react-icons/md';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { getWorkoutById } from '@/store/selectors';
+import { setStepWorkoutModale, setTempIdExercise } from '@/store/slices/modaleSlice';
+import { STEP_MODAL } from '@/types/modal';
+import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
+import { getSortedExerciseByPosition } from '@/utils/exercise';
+
 import styles from './index.module.scss';
 
 export const Exercises: FC = () => {
@@ -35,7 +37,7 @@ export const Exercises: FC = () => {
             <ul>
                 {sortByExerciseNumber.map((ex) => (
                     <li key={ex.id} onClick={() => exerciseClickHandler(ex.id)} className={cn(ex)}>
-                        {ex.position}. {ex.name}
+                        {ex.order}. {ex.name}
                     </li>
                 ))}
             </ul>

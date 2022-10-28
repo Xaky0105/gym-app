@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, ReactNode } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 type PortalType = {

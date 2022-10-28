@@ -1,18 +1,21 @@
 import { FC, useState } from 'react';
-import { STEP_MODAL } from '../';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook';
-import { setStepWorkoutModale, setModaleWorkoutIsOpen } from '../../../../store/slices/modaleSlice';
-import { getIsLoadingWorkoutsCalendar, getSelectedDay, getWorkouts } from '../../../../store/selectors';
-import { MdArrowBack } from 'react-icons/md';
-import { HOW_TO_REPEAT, Workout, WorkoutOnCalendar } from '../../../../types/workout';
-import { generateWorkout } from '../../../../utils/workout';
-import { addWorkoutToCalendarAsync } from '../../../../store/asyncActions/workoutAsyncAction';
 import _ from 'lodash';
+import { MdArrowBack } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { ROUTE_PATH } from '../../../../types/route';
-import { SelectRepeat } from './select-repeat';
-import { ButtonStandart } from '../../../buttons/button-standart';
+
+import { ButtonStandart } from '@/components/buttons/button-standart';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { addWorkoutToCalendarAsync } from '@/store/asyncActions/workoutAsyncAction';
+import { getIsLoadingWorkoutsCalendar, getSelectedDay, getWorkouts } from '@/store/selectors';
+import { setModaleWorkoutIsOpen, setStepWorkoutModale } from '@/store/slices/modaleSlice';
+import { STEP_MODAL } from '@/types/modal';
+import { ROUTE_PATH } from '@/types/route';
+import { HOW_TO_REPEAT, Workout, WorkoutOnCalendar } from '@/types/workout';
+import { generateWorkout } from '@/utils/workout';
+
 import { SelectNumber } from './select-number';
+import { SelectRepeat } from './select-repeat';
+
 import styles from './index.module.scss';
 
 export const ChoiseWorkouts: FC = () => {

@@ -1,4 +1,4 @@
-import { ExerciseListType, UserWorkoutsStateType, Workout, WorkoutOnCalendar } from '../../types/workout';
+import { ExerciseListType, UserWorkoutsStateType, Workout, WorkoutOnCalendar } from '@/types/workout';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type WorkoutState = {

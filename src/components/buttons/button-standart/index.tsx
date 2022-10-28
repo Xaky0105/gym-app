@@ -1,5 +1,7 @@
 import { FC } from 'react';
-import { Preloader } from '../../preloader';
+
+import { Preloader } from '@/components/preloader';
+
 import styles from './index.module.scss';
 
 type ButtonStandartPropsType = {

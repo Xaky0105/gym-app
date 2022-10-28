@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from './../index';
 
 export const getMonthIndex = ({ month: { monthIndex } }: RootState) => monthIndex;
@@ -22,13 +23,13 @@ export const getWorkoutCalendarError = ({ workoutCalendar: { error } }: RootStat
 export const getUser = ({ user: { user } }: RootState) => user;
 export const getUserError = ({ user: { error } }: RootState) => error;
 export const getUserIsLoading = ({ user: { isLoading } }: RootState) => isLoading;
-export const getUserEmail = (state: RootState) => state.user.user?.email;
+export const getUserName = (state: RootState) => state.user.user?.displayName;
 export const getUserPhoto = (state: RootState) => state.user.user?.photoURL;
 
-export const getUserPhotoByEmail = createSelector(getUserEmail, getUserPhoto, (email, photo) => {
+export const getUserPhotoByName = createSelector(getUserName, getUserPhoto, (name, photo) => {
     return (
         photo ||
-        `https://ui-avatars.com/api/?size=128&name=${email}&font-size=0.53&background=ccc&color=fff&rounded=true`
+        `https://ui-avatars.com/api/?size=128&name=${name}&font-size=0.53&background=ccc&color=fff&rounded=true`
     );
 });
 

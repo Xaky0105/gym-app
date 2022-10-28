@@ -1,10 +1,14 @@
 import React from 'react';
-import { ButtonNav } from '../../buttons/button-nav';
+import { TbSettings } from 'react-icons/tb';
+import { VscSignOut } from 'react-icons/vsc';
+
+import { ButtonNav } from '@/components/buttons/button-nav';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { userSignOut } from '@/store/asyncActions/userAsyncAction';
+import { getUserName } from '@/store/selectors';
+import { workoutsFetchComplete } from '@/store/slices/workoutSlice';
+
 import styles from './index.module.scss';
-import { userSignOut } from '../../../store/asyncActions/userAsyncAction';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hook';
-import { workoutsFetchComplete } from '../../../store/slices/workoutSlice';
-import { getUserEmail } from '../../../store/selectors';
 
 type UserSettingsListPropsType = {
     isActiveSettings: boolean;
@@ -12,7 +16,7 @@ type UserSettingsListPropsType = {
 
 export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActiveSettings }) => {
     const dispatch = useAppDispatch();
-    const userEmail = useAppSelector(getUserEmail);
+    const userEmail = useAppSelector(getUserName);
     const cn = isActiveSettings ? `${styles.userSettings} ${styles.active}` : `${styles.userSettings}`;
     const onClickSignOut = () => {
         dispatch(userSignOut());
@@ -22,11 +26,19 @@ export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActive
         <div className={cn}>
             <p className={styles.loggedInText}>Вы вошли как:</p>
             <p className={styles.email}>
-                <b>{userEmail?.split('@')[0]}</b>
+                <b>{userEmail}</b>
             </p>
             <ul>
                 <li>
-                    <ButtonNav name={'Выйти'} marginRight={'0px'} onClick={onClickSignOut} />
+                    <ButtonNav name={'Настройки'} marginRight={'0px'} icon={<TbSettings size={22} />} />
+                </li>
+                <li>
+                    <ButtonNav
+                        name={'Выйти'}
+                        marginRight={'0px'}
+                        onClick={onClickSignOut}
+                        icon={<VscSignOut size={22} />}
+                    />
                 </li>
             </ul>
         </div>

@@ -1,5 +1,7 @@
 import { FC } from 'react';
-import { Left } from '../../../compound/container-two-part/left';
+
+import { Left } from '@/compound/container-two-part/left';
+
 import { Form } from './form';
 
 type LeftSideType = {

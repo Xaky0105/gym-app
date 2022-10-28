@@ -1,12 +1,13 @@
 import { FC } from 'react';
-import { Container } from '../../compound/container';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hook';
-import { Month } from '../../components/month';
-import { CalendarHeader } from '../../components/calendar-header';
-import { getIsOpenModalWorkout } from '../../store/selectors';
-import { CalendarPopup } from '../../compound/calendar-popup';
-import { WorkoutContentModale } from '../../components/modals/workout-content';
-import { setModaleWorkoutIsOpen } from '../../store/slices/modaleSlice';
+
+import { CalendarHeader } from '@/components/calendar-header';
+import { WorkoutContentModale } from '@/components/modals/workout-content';
+import { Month } from '@/components/month';
+import { CalendarPopup } from '@/compound/calendar-popup';
+import { Container } from '@/compound/container';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { getIsOpenModalWorkout } from '@/store/selectors';
+import { setModaleWorkoutIsOpen } from '@/store/slices/modaleSlice';
 
 export const CalendarPage: FC = () => {
     const dispatch = useAppDispatch();

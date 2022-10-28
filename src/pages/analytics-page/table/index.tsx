@@ -1,9 +1,11 @@
+import React, { FC } from 'react';
 import dayjs from 'dayjs';
 import _ from 'lodash';
-import React, { FC } from 'react';
-import { DAY_FORMAT } from '../../../types/day';
-import { ExerciseInWorkoutOnCalendar } from '../../../types/workout';
-import { getSortedExercisesByDate } from '../../../utils/exercise';
+
+import { DAY_FORMAT } from '@/types/day';
+import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
+import { getSortedExercisesByDate } from '@/utils/exercise';
+
 import styles from './index.module.scss';
 
 type TableType = {

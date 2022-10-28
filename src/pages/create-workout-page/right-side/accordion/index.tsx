@@ -1,20 +1,22 @@
-import { FC, useState, useContext } from 'react';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
-import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowDropDownOutlined';
-import Typography from '@mui/material/Typography';
-import { CheckboxList } from './list';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook';
-import { getExerciseList, getIsOpenConfirmModale } from '../../../../store/selectors';
+import { FC, useContext, useState } from 'react';
 import _ from 'lodash';
+
+import { DeleteContent } from '@/components/modals/confirm-content/delete-workout';
+import { ConfirmPopup } from '@/compound/confirm-popup';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { Context } from '@/pages/create-workout-page';
+import { changeExerciseAsync } from '@/store/asyncActions/workoutAsyncAction';
+import { getExerciseList, getIsOpenConfirmModale } from '@/store/selectors';
+import { setConfirmModaleIsOpen } from '@/store/slices/modaleSlice';
+import { ExerciseInWorkout, HOW_TO_CHANGE_EXERCISE } from '@/types/workout';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowDropDownOutlined';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import MuiAccordionSummary, { AccordionSummaryProps } from '@mui/material/AccordionSummary';
 import { styled } from '@mui/material/styles';
-import { ConfirmPopup } from '../../../../compound/confirm-popup';
-import { DeleteContent } from '../../../../components/modals/confirm-content/delete-workout';
-import { setConfirmModaleIsOpen } from '../../../../store/slices/modaleSlice';
-import { ExerciseInWorkout, HOW_TO_CHANGE_EXERCISE } from '../../../../types/workout';
-import { changeExerciseAsync } from '../../../../store/asyncActions/workoutAsyncAction';
-import { Context } from '../..';
+import Typography from '@mui/material/Typography';
+
+import { CheckboxList } from './list';
 
 const Accordion = styled((props: AccordionProps) => <MuiAccordion disableGutters elevation={0} square {...props} />)(
     ({ theme }) => ({

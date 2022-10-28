@@ -1,11 +1,13 @@
-import _ from 'lodash';
 import { FC, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../../hooks/redux-hook';
-import { updateExerciseInWorkoutOnCalendarAsync } from '../../../../../store/asyncActions/workoutAsyncAction';
-import { getExerciseById } from '../../../../../store/selectors';
-import { SetsType } from '../../../../../types/workout';
+import _ from 'lodash';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
 import { VscChromeClose } from 'react-icons/vsc';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { updateExerciseInWorkoutOnCalendarAsync } from '@/store/asyncActions/workoutAsyncAction';
+import { getExerciseById } from '@/store/selectors';
+import { SetsType } from '@/types/workout';
+
 import styles from './index.module.scss';
 
 type TSetProps = {

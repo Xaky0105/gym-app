@@ -1,10 +1,12 @@
-import { type Dayjs } from 'dayjs';
 import React, { memo, useEffect, useState } from 'react';
-import { useAppSelector } from '../../hooks/redux-hook';
-import { getMonthIndex, getWorkoutsForCalendar } from '../../store/selectors';
-import { getMonthMatrix } from '../../utils/dayjs';
-import { getWorkoutsForMonth } from '../../utils/workout';
-import { Day } from '../day';
+import { type Dayjs } from 'dayjs';
+
+import { Day } from '@/components/day';
+import { useAppSelector } from '@/hooks/redux-hook';
+import { getMonthIndex, getWorkoutsForCalendar } from '@/store/selectors';
+import { getMonthMatrix } from '@/utils/dayjs';
+import { getWorkoutsForMonth } from '@/utils/workout';
+
 import styles from './index.module.scss';
 
 export const Month: React.FC = memo(() => {

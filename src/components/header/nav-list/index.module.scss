@@ -1,5 +1,7 @@
 @import '../../../variables.scss';
-
+.navList {
+    display: flex;
+}
 @media (max-width: $tabletWidth) {
     .navList {
         display: none;

@@ -1,17 +1,19 @@
 import { FC, useState } from 'react';
+import _ from 'lodash';
 import { MdClose } from 'react-icons/md';
 import { TiPencil } from 'react-icons/ti';
-import Tooltip from '@mui/material/Tooltip';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hook';
 import { useNavigate } from 'react-router-dom';
-import { ROUTE_PATH } from '../../../types/route';
-import { getIsOpenConfirmModale, getWorkouts } from '../../../store/selectors';
-import { deleteWorkout } from '../../../store/asyncActions/workoutAsyncAction';
-import _ from 'lodash';
+
+import { DeleteContent } from '@/components/modals/confirm-content/delete-workout';
+import { ConfirmPopup } from '@/compound/confirm-popup';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { deleteWorkout } from '@/store/asyncActions/workoutAsyncAction';
+import { getIsOpenConfirmModale, getWorkouts } from '@/store/selectors';
+import { setConfirmModaleIsOpen } from '@/store/slices/modaleSlice';
+import { ROUTE_PATH } from '@/types/route';
+import Tooltip from '@mui/material/Tooltip';
+
 import styles from './index.module.scss';
-import { setConfirmModaleIsOpen } from '../../../store/slices/modaleSlice';
-import { ConfirmPopup } from '../../../compound/confirm-popup';
-import { DeleteContent } from '../../../components/modals/confirm-content/delete-workout';
 
 type WorkoutListPropTypes = {
     setWorkoutClickHandlerCallback: (id: string | null) => void;
@@ -29,8 +31,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
     const onClickEditWorkout = (id: string) => {
         navigate(ROUTE_PATH.EDIT_WORKOUT, { state: { editableWorkoutId: id } });
     };
-    const onClickDeleteIcon = (id: string) => (e: React.SyntheticEvent) => {
-        e.stopPropagation();
+    const onClickDeleteIcon = (id: string) => {
         dispatch(setConfirmModaleIsOpen(true));
         setWorkoutId(id);
     };
@@ -63,7 +64,10 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
                                     </div>
                                 </Tooltip>
                                 <Tooltip title="Удалить" disableInteractive enterDelay={500}>
-                                    <div className={styles.itemWrapper} onClick={onClickDeleteIcon(workout.id)}>
+                                    <div
+                                        className={styles.itemWrapper}
+                                        onMouseDown={() => onClickDeleteIcon(workout.id)}
+                                    >
                                         <MdClose className={styles.settingItem} />
                                     </div>
                                 </Tooltip>

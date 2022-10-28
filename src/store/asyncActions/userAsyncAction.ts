@@ -1,33 +1,40 @@
-import { basicExerciseList } from '../../constants/constant';
 import {
     browserLocalPersistence,
     createUserWithEmailAndPassword,
     setPersistence,
     signInWithEmailAndPassword,
     signInWithPopup,
+    updateProfile,
 } from 'firebase/auth';
-import { auth, db, provider } from '../../firebase';
-import { doc, setDoc, collection, query, getDocs } from 'firebase/firestore';
-import { setErrorUser, setIsLoadingUser, removeUser, setUser } from '../slices/userSlice';
-import { Dispatch } from '@reduxjs/toolkit';
-import { uuidv4 } from '@firebase/util';
+import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
 import _ from 'lodash';
+
+import { basicExerciseList } from '@/constants/constant';
+import { auth, db, provider } from '@/firebase';
+import { removeUser, setErrorUser, setIsLoadingUser, setUser } from '@/store/slices/userSlice';
+import { uuidv4 } from '@firebase/util';
+import { Dispatch } from '@reduxjs/toolkit';
 
 const USER_AUTH_CONFIG = {
     register: createUserWithEmailAndPassword,
     signin: signInWithEmailAndPassword,
 };
 
-export const userAuth = (email: string, password: string, type: 'signin' | 'register') => {
+export const userAuth = (email: string, password: string, type: 'signin' | 'register', name?: string) => {
     return async (dispatch: Dispatch) => {
         dispatch(setIsLoadingUser(true));
         try {
             await setPersistence(auth, browserLocalPersistence);
             const user = (await USER_AUTH_CONFIG[type](auth, email, password)).user;
-            dispatch(setUser({ user }));
             if (type === 'register') {
+                await updateProfile(user, {
+                    displayName: name,
+                });
+                dispatch(setUser({ user: { ...user, displayName: name } }));
                 const userExerciseListDoc = doc(db, `users/${user.uid}/exerciseList/${uuidv4()}`);
                 await setDoc(userExerciseListDoc, basicExerciseList); // При регистрации добавляю юзеру базовый список упражнений
+            } else if (type === 'signin') {
+                dispatch(setUser({ user }));
             }
             dispatch(setIsLoadingUser(false));
         } catch ({ message }) {

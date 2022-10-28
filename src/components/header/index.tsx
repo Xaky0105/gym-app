@@ -1,9 +1,11 @@
 import { FC, useState } from 'react';
-import { Container } from '../../compound/container';
-import { Burger } from './burger';
-import { NavList } from './nav-list';
-import { UserSetting } from './user-setting';
-import { MobileNavList } from './mobile-nav-list';
+
+import { Burger } from '@/components/header/burger';
+import { MobileNavList } from '@/components/header/mobile-nav-list';
+import { NavList } from '@/components/header/nav-list';
+import { UserSetting } from '@/components/header/user-setting';
+import { Container } from '@/compound/container';
+
 import styles from './index.module.scss';
 
 export const Header: FC = () => {

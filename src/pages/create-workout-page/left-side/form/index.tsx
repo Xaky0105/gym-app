@@ -1,18 +1,21 @@
 import { FC, useContext } from 'react';
 import { useFormik } from 'formik';
-import { createWorkoutSchema } from '../../../../sheme';
-import TextField from '@mui/material/TextField';
-import { ExerciseInWorkout, Workout, WorkoutOnCalendar } from '../../../../types/workout';
-import { ExerciseList } from './exercise-list';
-import { v4 as uuidv4 } from 'uuid';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/redux-hook';
 import { useNavigate } from 'react-router-dom';
-import { ROUTE_PATH } from '../../../../types/route';
-import { ButtonStandart } from '../../../../components/buttons/button-standart';
-import { getWorkouts } from '../../../../store/selectors';
-import { createOrEditWorkout } from '../../../../store/asyncActions/workoutAsyncAction';
+import { v4 as uuidv4 } from 'uuid';
+
+import { ButtonStandart } from '@/components/buttons/button-standart';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
+import { Context } from '@/pages/create-workout-page';
+import { createWorkoutSchema } from '@/sheme';
+import { createOrEditWorkout } from '@/store/asyncActions/workoutAsyncAction';
+import { getWorkouts } from '@/store/selectors';
+import { ROUTE_PATH } from '@/types/route';
+import { ExerciseInWorkout, Workout } from '@/types/workout';
+import TextField from '@mui/material/TextField';
+
+import { ExerciseList } from './exercise-list';
+
 import styles from './index.module.scss';
-import { Context } from '../..';
 
 type FormPropsType = {
     clearTemporaryExercise: () => void;

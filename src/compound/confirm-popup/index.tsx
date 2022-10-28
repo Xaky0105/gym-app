@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react';
-import { Overlay } from '../overlay';
+
+import { Overlay } from '@/compound/overlay';
 
 type ConfirmPopupType = {
     children: ReactNode;

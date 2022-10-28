@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import _ from 'lodash';
-import { useAppSelector } from '../../../hooks/redux-hook';
-import { getWorkouts } from '../../../store/selectors';
-import { Right } from '../../../compound/container-two-part/right';
+
+import { Right } from '@/compound/container-two-part/right';
+import { useAppSelector } from '@/hooks/redux-hook';
+import { getWorkouts } from '@/store/selectors';
+import { getSortedExerciseByPosition } from '@/utils/exercise';
+
 import styles from './index.module.scss';
-import { getSortedExerciseByPosition } from '../../../utils/exercise';
 
 type RightSideTypeProps = {
     workoutId: string | null;
@@ -19,7 +21,7 @@ export const RightSide: FC<RightSideTypeProps> = ({ workoutId }) => {
             <ul className={styles.exerciseList}>
                 {sortedExerciseByPosition.map((exercise) => (
                     <li key={exercise.id} className={styles.exerciseItem}>
-                        {exercise.position}. {exercise.name}
+                        {exercise.order}. {exercise.name}
                     </li>
                 ))}
             </ul>

@@ -1,4 +1,5 @@
 dist
 coverage
 *.yaml
-.eslintrc.json
+.eslintrc.js
+craco.config.js

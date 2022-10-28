@@ -1,21 +1,20 @@
-import { FC, useState, useContext } from 'react';
-import Checkbox from '@mui/material/Checkbox';
+import { FC, useContext, useState } from 'react';
 import { BsPlusSquareDotted } from 'react-icons/bs';
-import { BasicExercise, ExerciseInWorkout, HOW_TO_CHANGE_EXERCISE } from '../../../../../../types/workout';
-import TextField from '@mui/material/TextField';
-import { useAppDispatch, useAppSelector } from '../../../../../../hooks/redux-hook';
-import { changeExerciseAsync } from '../../../../../../store/asyncActions/workoutAsyncAction';
-import { uuidv4 } from '@firebase/util';
-import { Context } from '../../../..';
 import { MdClose } from 'react-icons/md';
 import { TiPencil } from 'react-icons/ti';
 import { VscCheck } from 'react-icons/vsc';
-import styles from './index.module.scss';
-import { ConfirmPopup } from '../../../../../../compound/confirm-popup';
-import { setConfirmModaleIsOpen } from '../../../../../../store/slices/modaleSlice';
-import { DeleteContent } from '../../../../../../components/modals/confirm-content/delete-workout';
-import { getIsOpenConfirmModale } from '../../../../../../store/selectors';
+
+import { useAppDispatch } from '@/hooks/redux-hook';
+import { Context } from '@/pages/create-workout-page';
+import { changeExerciseAsync } from '@/store/asyncActions/workoutAsyncAction';
+import { setConfirmModaleIsOpen } from '@/store/slices/modaleSlice';
+import { BasicExercise, ExerciseInWorkout, HOW_TO_CHANGE_EXERCISE } from '@/types/workout';
+import { uuidv4 } from '@firebase/util';
 import { Tooltip } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+
+import styles from './index.module.scss';
 
 type ItemType = {
     exercisesGroup: ExerciseInWorkout[];

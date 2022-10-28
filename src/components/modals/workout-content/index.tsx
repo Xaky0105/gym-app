@@ -1,17 +1,13 @@
 import { FC } from 'react';
-import { useAppSelector } from '../../../hooks/redux-hook';
-import { getStepWorkoutModale } from '../../../store/selectors';
+
+import { useAppSelector } from '@/hooks/redux-hook';
+import { getStepWorkoutModale } from '@/store/selectors';
+import { STEP_MODAL } from '@/types/modal';
+
 import { ChoiseWorkouts } from './choise-workouts';
 import { Exercises } from './exercises';
 import { Sets } from './sets';
 import { Workouts } from './workouts';
-
-export enum STEP_MODAL {
-    WORKOUTS = 'WORKOUTS',
-    CHOISE_WORKOUTS = 'CHOISE_WORKOUTS',
-    EXERCISES = 'EXERCISES',
-    SETS = 'SETS',
-}
 
 const renderContentModal = (step: STEP_MODAL) => {
     switch (step) {

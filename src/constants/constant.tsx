@@ -1,15 +1,19 @@
-import { ROUTE_PATH } from './../types/route';
+import { BsCalendar3 } from 'react-icons/bs';
+import { MdOutlineFitnessCenter } from 'react-icons/md';
+import { TbDeviceAnalytics } from 'react-icons/tb';
 import { v4 as uuidv4 } from 'uuid';
-import { BasicExercise } from '../types/workout';
+
+import { ROUTE_PATH } from '@/types/route';
+import { BasicExercise } from '@/types/workout';
 
 export type basicExerciseListType = {
     [key: string]: BasicExercise[];
 };
 
 export const navigation = [
-    { name: 'Тренировки', path: ROUTE_PATH.WORKOUT },
-    { name: 'Календарь', path: ROUTE_PATH.CALENDAR },
-    { name: 'Аналитика', path: ROUTE_PATH.ANALYTICS },
+    { name: 'Тренировки', path: ROUTE_PATH.WORKOUT, icon: <MdOutlineFitnessCenter size={20} /> },
+    { name: 'Календарь', path: ROUTE_PATH.CALENDAR, icon: <BsCalendar3 size={20} /> },
+    { name: 'Аналитика', path: ROUTE_PATH.ANALYTICS, icon: <TbDeviceAnalytics size={20} /> },
 ];
 
 export const basicExerciseList: basicExerciseListType = {

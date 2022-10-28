@@ -1,5 +1,7 @@
 import { FC, ReactNode } from 'react';
-import { Portal } from '../portal';
+
+import { Portal } from '@/compound/portal';
+
 import styles from './index.module.scss';
 
 type OverlayType = {

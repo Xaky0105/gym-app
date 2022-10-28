@@ -1,9 +1,12 @@
 import { FC, memo } from 'react';
-import { WorkoutList } from '../workout-list';
-import { ButtonStandart } from '../../../components/buttons/button-standart';
-import { ROUTE_PATH } from '../../../types/route';
 import { useNavigate } from 'react-router-dom';
-import { Left } from '../../../compound/container-two-part/left';
+
+import { ButtonStandart } from '@/components/buttons/button-standart';
+import { Left } from '@/compound/container-two-part/left';
+import { ROUTE_PATH } from '@/types/route';
+
+import { WorkoutList } from '../workout-list';
+
 import styles from './index.module.scss';
 
 type LeftSidePropsType = {

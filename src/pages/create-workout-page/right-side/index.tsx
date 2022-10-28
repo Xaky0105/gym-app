@@ -1,6 +1,9 @@
 import { FC } from 'react';
+
+import { Right } from '@/compound/container-two-part/right';
+
 import { ExerciseAccordion } from './accordion';
-import { Right } from '../../../compound/container-two-part/right';
+
 import styles from './index.module.scss';
 
 export const RightSide: FC = () => {

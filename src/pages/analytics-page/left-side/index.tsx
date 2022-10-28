@@ -1,7 +1,9 @@
-import _ from 'lodash';
 import { FC } from 'react';
-import { Left } from '../../../compound/container-two-part/left';
-import { ExerciseInWorkoutOnCalendar } from '../../../types/workout';
+import _ from 'lodash';
+
+import { Left } from '@/compound/container-two-part/left';
+import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
+
 import styles from './index.module.scss';
 
 type LeftSideType = {
