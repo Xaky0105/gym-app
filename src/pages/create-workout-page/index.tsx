@@ -38,9 +38,9 @@ export const CreateWorkoutPage: FC = () => {
     const setTemporaryExerciseHandler = (exercise: ExerciseInWorkout) => {
         setTemporaryExercise((prevEx) => {
             if (prevEx.find((ex) => ex.id === exercise.id)) {
-                return [...prevEx.filter((ex) => ex.id !== exercise.id).map((ex, i) => ({ ...ex, position: i + 1 }))];
+                return [...prevEx.filter((ex) => ex.id !== exercise.id).map((ex, i) => ({ ...ex, order: i + 1 }))];
             } else {
-                return [...prevEx, { ...exercise, position: temporaryExercise.length + 1 }];
+                return [...prevEx, { ...exercise, order: temporaryExercise.length + 1 }];
             }
         });
     };

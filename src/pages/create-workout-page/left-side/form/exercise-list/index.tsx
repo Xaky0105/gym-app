@@ -10,7 +10,7 @@ export const ExerciseList: FC = () => {
     const { temporaryExercise, setTemporaryExerciseHandler } = useContext(Context);
     return (
         <ul className={styles.exerciseList}>
-            {temporaryExercise.map((exercise, i) => (
+            {temporaryExercise.map((exercise) => (
                 <li key={exercise.id} className={styles.exercise}>
                     <p className={styles.name}>
                         {exercise.order}. {exercise.name}
