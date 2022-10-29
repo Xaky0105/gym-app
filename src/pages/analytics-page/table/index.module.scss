@@ -8,6 +8,9 @@
         max-width: 60%;
         margin: 0 auto;
         box-shadow: 0 0 10px 2px #ccc;
+        @media (max-width: $mobileWidth) {
+            box-shadow: none;
+        }
         th {
             background: $wave;
             padding: 10px 20px;

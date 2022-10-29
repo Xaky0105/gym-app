@@ -4,5 +4,6 @@
     @media (max-width: $mobileWidth) {
         flex-direction: column;
         height: calc(100vh - $headerHeightMobile);
+        position: relative;
     }
 }

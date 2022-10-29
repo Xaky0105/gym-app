@@ -8,6 +8,13 @@
     height: 100%;
     @media (max-width: $mobileWidth) {
         margin: 15px 0 8px 0;
+        button {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translate(-50%);
+            width: 100%;
+        }
     }
     .wrapper {
         display: flex;
