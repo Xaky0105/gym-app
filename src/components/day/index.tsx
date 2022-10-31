@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { Dayjs } from 'dayjs';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { getMonthIndex, getSelectedDay, getTempIdWorkout } from '@/store/selectors';
+import { getSelectedDay, getTempIdWorkout } from '@/store/selectors';
 import {
     changeDaySelected,
     setModaleWorkoutIsOpen,
@@ -12,7 +12,7 @@ import {
 import { DAY_FORMAT } from '@/types/day';
 import { STEP_MODAL } from '@/types/modal';
 import { WorkoutOnCalendar } from '@/types/workout';
-import { getCurrentDay, getMonthIndexFromZeroToEleven } from '@/utils/dayjs';
+import { getCurrentDay, getMonthIndexFromDate, getMonthIndexFromZeroToEleven } from '@/utils/dayjs';
 import { getWorkoutForTheDay } from '@/utils/workout';
 
 import styles from './index.module.scss';
@@ -21,59 +21,60 @@ interface DayProps {
     day: Dayjs;
     row: number;
     workoutsForMonth: WorkoutOnCalendar[];
+    monthIndex: number;
 }
 
-export const Day: FC<DayProps> = ({ day, row, workoutsForMonth }) => {
-    console.log('render');
+export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) => {
     const dispatch = useAppDispatch();
-    const monthIndex = useAppSelector(getMonthIndex);
     const selectedWorkoutId = useAppSelector(getTempIdWorkout);
     const daySelected = useAppSelector(getSelectedDay);
 
     const dayFormat = day.format(DAY_FORMAT.YYYY_MM_DD);
+    const isDayNotThisMonth = day.month() !== getMonthIndexFromZeroToEleven(monthIndex);
 
-    const workoutsForTheDay = useMemo(() => getWorkoutForTheDay(dayFormat, workoutsForMonth), [workoutsForMonth]);
+    const workoutsForTheDay = useMemo(() => {
+        return getWorkoutForTheDay(dayFormat, workoutsForMonth);
+    }, [workoutsForMonth]);
 
-    const currentDayClass = dayFormat === getCurrentDay() ? `${styles.currentDay}` : '';
-
-    const dayNotThisMonth =
-        day.month() !== getMonthIndexFromZeroToEleven(monthIndex) ? `${styles.dayOfTheLastMonth}` : '';
-
-    const workoutSelected = (id: string) => (selectedWorkoutId === id ? `${styles.selectWorkout}` : '');
-
-    const daySelectedClass = daySelected === dayFormat ? `${styles.daySelect}` : '';
-
-    const dayClickHandler = () => {
-        if (!dayNotThisMonth) {
+    const clickHandler = (type: 'workout' | 'day', id?: string) => {
+        if (!isDayNotThisMonth) {
             dispatch(changeDaySelected(dayFormat));
-            dispatch(setStepWorkoutModale(STEP_MODAL.WORKOUTS));
             dispatch(setModaleWorkoutIsOpen(true));
+            if (type === 'workout') {
+                dispatch(setTempIdWorkout(id!));
+                dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES));
+            }
+            if (type === 'day') {
+                dispatch(setStepWorkoutModale(STEP_MODAL.WORKOUTS));
+            }
         }
     };
 
-    const workoutOnClick = (id: string) => {
-        dispatch(setTempIdWorkout(id));
-        dispatch(changeDaySelected(dayFormat));
-        dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES));
-        dispatch(setModaleWorkoutIsOpen(true));
+    const dayCN = () => {
+        const currentDayClass = dayFormat === getCurrentDay() ? `${styles.currentDay}` : '';
+        const dayNotThisMonth = isDayNotThisMonth ? `${styles.dayOfTheLastMonth}` : '';
+        const daySelectedClass = daySelected === dayFormat ? `${styles.daySelect}` : '';
+        return `${styles.wrapper} ${currentDayClass} ${dayNotThisMonth} ${daySelectedClass}`;
+    };
+
+    const workoutCN = (id: string) => {
+        const a =
+            getMonthIndexFromDate(dayFormat) !== getMonthIndexFromZeroToEleven(monthIndex)
+                ? `${styles.workout} ${styles.disabled}`
+                : `${styles.workout}`;
+        const workoutSelected = selectedWorkoutId === id ? `${styles.selectWorkout}` : '';
+        return `${a} ${workoutSelected}`;
     };
 
     return (
-        <div
-            className={`${styles.wrapper} ${currentDayClass} ${dayNotThisMonth} ${daySelectedClass}`}
-            onClick={dayClickHandler}
-        >
+        <div className={dayCN()} onClick={() => clickHandler('day')}>
             <div className={styles.dayHeader}>
                 {row === 0 && <span className={styles.dayWeek}>{day.format('dd').toUpperCase()}</span>}
                 <span className={styles.number}>{day.format('DD')}</span>
             </div>
             <div className={styles.workoutList}>
                 {workoutsForTheDay.map(({ id, workoutName }) => (
-                    <div
-                        key={id}
-                        className={`${styles.workout} ${workoutSelected(id)}`}
-                        onMouseDown={() => workoutOnClick(id)}
-                    >
+                    <div key={id} className={workoutCN(id)} onMouseDown={() => clickHandler('workout', id)}>
                         {workoutName}
                     </div>
                 ))}
