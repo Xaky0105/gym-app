@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { DAY_FORMAT } from '@/types/day';
 import { ExerciseInWorkoutOnCalendar, HOW_TO_REPEAT, UserWorkoutsStateType, WorkoutOnCalendar } from '@/types/workout';
 
-import { convertDateToNumber, getMonthIndexFromDate, getMonthIndexFromZeroToEleven } from './dayjs';
+import { convertDateToNumber, getMonthMatrix } from './dayjs';
 
 type GenerateWorkout = (daySelected: string, workout: WorkoutOnCalendar) => WorkoutOnCalendar;
 type GetWorkoutsIdToDelete = (workoutsOnTheCalendar: UserWorkoutsStateType, id: string) => string[];
@@ -75,9 +75,10 @@ export const getWorkoutsDates = (type: HOW_TO_REPEAT, workout: WorkoutOnCalendar
 };
 
 export const getWorkoutsForMonth = (workouts: UserWorkoutsStateType, monthIndex: number) => {
-    return _.toArray(workouts).filter(
-        (workout) => getMonthIndexFromDate(workout.date!) === getMonthIndexFromZeroToEleven(monthIndex),
-    );
+    const monthDates = getMonthMatrix(monthIndex)
+        .map((row) => row.map((day) => day.format(DAY_FORMAT.YYYY_MM_DD)))
+        .flat(1);
+    return _.toArray(workouts).filter((workout) => monthDates.find((date) => date === workout.date));
 };
 
 export const getWorkoutForTheDay = (date: string, workoutsForMonth: WorkoutOnCalendar[]) => {
