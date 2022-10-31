@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { type Dayjs } from 'dayjs';
 
 import { Day } from '@/components/day';
@@ -10,7 +10,6 @@ import { getWorkoutsForMonth } from '@/utils/workout';
 import styles from './index.module.scss';
 
 export const Month: React.FC = memo(() => {
-    console.log('render');
     const [currentMonth, setCurrentMonth] = useState(getMonthMatrix()); // В стейте двумерный массив
 
     const monthIndex = useAppSelector(getMonthIndex);
@@ -27,7 +26,13 @@ export const Month: React.FC = memo(() => {
             {currentMonth.map((row: Dayjs[], i: number) => (
                 <React.Fragment key={i}>
                     {row.map((day: Dayjs, index: number) => (
-                        <Day day={day} key={index} row={i} workoutsForMonth={workoutsForMonth} />
+                        <Day
+                            day={day}
+                            key={index}
+                            row={i}
+                            workoutsForMonth={workoutsForMonth}
+                            monthIndex={monthIndex}
+                        />
                     ))}
                 </React.Fragment>
             ))}
