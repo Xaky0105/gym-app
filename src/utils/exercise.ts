@@ -49,3 +49,11 @@ export const getCategoryExercise = (name: EXERCISE_CATEGORY) => {
             return 'core';
     }
 };
+
+export const getExerciseTonnage = (exercise: ExerciseInWorkoutOnCalendar) => {
+    return (
+        exercise.sets.reduce((acc, set) => {
+            return (acc += set.amount * set.weight);
+        }, 0) / 1000
+    );
+};

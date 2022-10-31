@@ -5,15 +5,20 @@
         font-size: 14px;
         border-collapse: collapse;
         text-align: center;
-        max-width: 60%;
-        margin: 0 auto;
+        max-width: 100%;
+        min-width: 95%;
+        margin: 10px auto;
         box-shadow: 0 0 10px 2px #ccc;
         @media (max-width: $mobileWidth) {
             box-shadow: none;
+            font-size: 12px;
         }
         th {
             background: $wave;
-            padding: 10px 20px;
+            padding: 10px 5px;
+            @media (max-width: $mobileWidth) {
+                padding: 5px;
+            }
         }
         th,
         td {

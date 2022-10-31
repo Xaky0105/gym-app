@@ -2,6 +2,8 @@
 
 .list {
     margin: 20px 0;
+    overflow: auto;
+    padding: 10px;
     p {
         text-align: center;
         font-size: 15px;

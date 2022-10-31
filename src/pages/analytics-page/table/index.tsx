@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { DAY_FORMAT } from '@/types/day';
 import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
-import { getSortedExercisesByDate } from '@/utils/exercise';
+import { getExerciseTonnage, getSortedExercisesByDate } from '@/utils/exercise';
 
 import styles from './index.module.scss';
 
@@ -27,6 +27,7 @@ export const Table: FC<TableType> = ({ selectedExerciseGroup }) => {
                         <th>Подход</th>
                         <th>Вес, кг</th>
                         <th>Повторений</th>
+                        <th>Тоннаж, т</th>
                     </tr>
                     {sortedExercisesByDate.map((exercise, i) => (
                         <React.Fragment key={i}>
@@ -43,6 +44,14 @@ export const Table: FC<TableType> = ({ selectedExerciseGroup }) => {
                                     <td className={sn(i, exercise)}>{i + 1}</td>
                                     <td className={sn(i, exercise)}>{set.weight}</td>
                                     <td className={sn(i, exercise)}>{set.amount}</td>
+                                    {!i && (
+                                        <td
+                                            className={sn(_.findLastIndex(exercise.sets), exercise)}
+                                            rowSpan={_.size(exercise.sets)}
+                                        >
+                                            {getExerciseTonnage(exercise).toFixed(2)}
+                                        </td>
+                                    )}
                                 </tr>
                             ))}
                         </React.Fragment>
