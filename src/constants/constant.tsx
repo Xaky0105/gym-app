@@ -16,6 +16,8 @@ export const navigation = [
     { name: 'Аналитика', path: ROUTE_PATH.ANALYTICS, icon: <TbDeviceAnalytics size={20} /> },
 ];
 
+export const workoutColors = ['#a9d5ce', '#f0cbcb', '#e1d5f0', '#b9e4f4', '#EAE7DC'];
+
 export const basicExerciseList: basicExerciseListType = {
     legs: [
         { id: uuidv4(), name: 'Приседания со штангой', category: 'Ноги' },

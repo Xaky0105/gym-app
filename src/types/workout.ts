@@ -21,6 +21,7 @@ export type SetsType = {
 export interface Workout {
     workoutName: string;
     id: string;
+    color: string;
     exercises: {
         [key: string]: ExerciseInWorkout;
     };
