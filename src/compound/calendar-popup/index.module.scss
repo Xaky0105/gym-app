@@ -11,6 +11,10 @@
     box-shadow: 0 0 12px 0 #959595;
     animation: 0.3s ease-in-out slidein;
     @media (max-width: $mobileWidth) {
+        transform: translate(-50%);
+        animation: 0.3s ease-in-out slideinMobile;
+        top: auto;
+        bottom: 2%;
         width: 95%;
     }
 }
@@ -23,5 +27,16 @@
     to {
         opacity: 1;
         top: 50%;
+    }
+}
+
+@keyframes slideinMobile {
+    from {
+        opacity: 0;
+        bottom: 25%;
+    }
+    to {
+        opacity: 1;
+        bottom: 2%;
     }
 }

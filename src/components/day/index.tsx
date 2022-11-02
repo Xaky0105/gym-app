@@ -14,6 +14,10 @@ import { STEP_MODAL } from '@/types/modal';
 import { WorkoutOnCalendar } from '@/types/workout';
 import { getCurrentDay, getMonthIndexFromDate, getMonthIndexFromZeroToEleven } from '@/utils/dayjs';
 import { getWorkoutForTheDay } from '@/utils/workout';
+import Fade from '@mui/material/Fade';
+import Grow from '@mui/material/Grow';
+import Slide from '@mui/material/Slide';
+import Zoom from '@mui/material/Zoom';
 
 import styles from './index.module.scss';
 
@@ -36,7 +40,7 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) =>
         return getWorkoutForTheDay(dayFormat, workoutsForMonth);
     }, [workoutsForMonth]);
 
-    const clickHandler = (type: 'workout' | 'day', id?: string) => {
+    const clickHandler = (type: 'workout' | 'day', e?: any, id?: string) => {
         if (!isDayNotThisMonth) {
             dispatch(changeDaySelected(dayFormat));
             dispatch(setModaleWorkoutIsOpen(true));
@@ -58,25 +62,31 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) =>
     };
 
     const workoutCN = (id: string) => {
-        const a =
+        const workoutClass =
             getMonthIndexFromDate(dayFormat) !== getMonthIndexFromZeroToEleven(monthIndex)
                 ? `${styles.workout} ${styles.disabled}`
                 : `${styles.workout}`;
         const workoutSelected = selectedWorkoutId === id ? `${styles.selectWorkout}` : '';
-        return `${a} ${workoutSelected}`;
+        return `${workoutClass} ${workoutSelected}`;
     };
 
     return (
-        <div className={dayCN()} onClick={() => clickHandler('day')}>
+        <div className={dayCN()} onClick={(e) => clickHandler('day', e)}>
             <div className={styles.dayHeader}>
                 {row === 0 && <span className={styles.dayWeek}>{day.format('dd').toUpperCase()}</span>}
                 <span className={styles.number}>{day.format('DD')}</span>
             </div>
             <div className={styles.workoutList}>
-                {workoutsForTheDay.map(({ id, workoutName }) => (
-                    <div key={id} className={workoutCN(id)} onMouseDown={() => clickHandler('workout', id)}>
-                        {workoutName}
-                    </div>
+                {workoutsForTheDay.map(({ id, workoutName, color }) => (
+                    <Slide key={id} direction="right" in={!!workoutName} mountOnEnter unmountOnExit>
+                        <div
+                            style={{ backgroundColor: color }}
+                            className={workoutCN(id)}
+                            onMouseDown={(e) => clickHandler('workout', e, id)}
+                        >
+                            {workoutName}
+                        </div>
+                    </Slide>
                 ))}
             </div>
         </div>
