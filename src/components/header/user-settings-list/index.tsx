@@ -30,15 +30,10 @@ export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActive
             </p>
             <ul>
                 <li>
-                    <ButtonNav name={'Настройки'} marginRight={'0px'} icon={<TbSettings size={22} />} />
+                    <ButtonNav name={'Настройки'} icon={<TbSettings size={22} />} />
                 </li>
                 <li>
-                    <ButtonNav
-                        name={'Выйти'}
-                        marginRight={'0px'}
-                        onClick={onClickSignOut}
-                        icon={<VscSignOut size={22} />}
-                    />
+                    <ButtonNav name={'Выйти'} onClick={onClickSignOut} icon={<VscSignOut size={22} />} />
                 </li>
             </ul>
         </div>

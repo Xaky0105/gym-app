@@ -7,18 +7,17 @@ type ButtonNavType = {
     name: string;
     to?: string;
     onClick?: () => void;
-    marginRight?: string;
     icon?: ReactNode;
 };
 
-export const ButtonNav: FC<ButtonNavType> = ({ name, to, marginRight, onClick, icon }) => {
+export const ButtonNav: FC<ButtonNavType> = ({ name, to, onClick, icon }) => {
     const navigate = useNavigate();
     const btnClickHandler = () => {
         onClick && onClick();
         to && navigate(to);
     };
     return (
-        <button className={styles.btn} onClick={btnClickHandler} style={{ marginRight: marginRight }}>
+        <button className={styles.btn} onClick={btnClickHandler}>
             {icon && <div className={styles.img}>{icon}</div>}
             <p className={styles.text}>{name}</p>
         </button>

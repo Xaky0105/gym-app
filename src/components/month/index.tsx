@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { type Dayjs } from 'dayjs';
 
 import { Day } from '@/components/day';

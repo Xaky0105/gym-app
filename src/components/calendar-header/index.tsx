@@ -30,14 +30,18 @@ export const CalendarHeader: FC = memo(() => {
         <>
             <div className={styles.wrapper}>
                 <div className={styles.wrapperGroupBtn}>
-                    <ButtonOutline text="Тренировка на сегодня" handleClick={workoutForDayClickHandler} />
+                    <div className={styles.btnWrapper}>
+                        <ButtonOutline text="Тренировка на сегодня" handleClick={workoutForDayClickHandler} />
+                    </div>
                 </div>
                 <div className={styles.wrapperGroupBtn}>
-                    <ButtonOutline text="Сегодня" handleClick={() => buttonClickHandler(resetMonthIndex)} />
-                    <div className={styles.btnWrapper} onClick={() => buttonClickHandler(decMonthIndex)}>
+                    <div className={styles.btnWrapper}>
+                        <ButtonOutline text="Сегодня" handleClick={() => buttonClickHandler(resetMonthIndex)} />
+                    </div>
+                    <div className={styles.arrowWrapper} onClick={() => buttonClickHandler(decMonthIndex)}>
                         <MdArrowBackIosNew />
                     </div>
-                    <div className={styles.btnWrapper} onClick={() => buttonClickHandler(incMonthIndex)}>
+                    <div className={styles.arrowWrapper} onClick={() => buttonClickHandler(incMonthIndex)}>
                         <MdArrowForwardIos />
                     </div>
                     <h3 className={styles.data}>{getYear(monthIndex)}</h3>

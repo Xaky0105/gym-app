@@ -21,7 +21,7 @@ export const Table: FC<TableType> = ({ selectedExerciseGroup }) => {
     return (
         <div className={styles.tableWrapper}>
             <table>
-                <tbody>
+                <thead>
                     <tr>
                         <th>Дата</th>
                         <th>Подход</th>
@@ -29,6 +29,8 @@ export const Table: FC<TableType> = ({ selectedExerciseGroup }) => {
                         <th>Повторений</th>
                         <th>Тоннаж, т</th>
                     </tr>
+                </thead>
+                <tbody>
                     {sortedExercisesByDate.map((exercise, i) => (
                         <React.Fragment key={i}>
                             {exercise.sets?.map((set, i) => (

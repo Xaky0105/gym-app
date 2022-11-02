@@ -5,7 +5,6 @@
     background-color: transparent;
     border: none;
     transition: $fastTransition;
-    margin-right: 10px;
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -22,8 +21,5 @@
         font-size: 14px;
         text-transform: uppercase;
         color: $textColor;
-    }
-    @media (max-width: $tabletWidth) {
-        margin-right: 0;
     }
 }

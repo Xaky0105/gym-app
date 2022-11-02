@@ -34,7 +34,9 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
     const dispatch = useAppDispatch();
 
     const editToggler = () => {
-        setIsEdit(!isEdit);
+        if (!isChecked()) {
+            setIsEdit(!isEdit);
+        }
     };
 
     const createExerciseToggler = () => {
@@ -62,6 +64,10 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
         }
     };
 
+    const isChecked = () => {
+        return !!temporaryExercise.find((ex) => ex.id === exercise.id);
+    };
+
     const updateExerciseHandler = () => {
         if (editInputValue !== exercise.name) {
             const updatedExercise: BasicExercise = {
@@ -74,11 +80,8 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
         editToggler();
     };
 
-    const isChecked = () => {
-        return !!temporaryExercise.find((ex) => ex.id === exercise.id);
-    };
-
-    const cn = () => (isEdit || exercisesGroup.length === 1 ? `${styles.disabled}` : '');
+    const closeCN = () => (isEdit || exercisesGroup.length === 1 ? `${styles.disabled}` : '');
+    const pencilCN = () => (isChecked() ? `${styles.disabled}` : '');
     return (
         <>
             <div className={styles.listItem}>
@@ -119,12 +122,12 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
                             <VscCheck />
                         </span>
                     ) : (
-                        <span className={styles.iconWrapper} onClick={editToggler}>
+                        <span className={`${styles.iconWrapper} ${pencilCN()}`} onClick={editToggler}>
                             <TiPencil />
                         </span>
                     )}
 
-                    <span className={`${styles.iconWrapper} ${cn()}`} onClick={onClickDeleteIcon}>
+                    <span className={`${styles.iconWrapper} ${closeCN()}`} onClick={onClickDeleteIcon}>
                         <MdClose />
                     </span>
                 </div>

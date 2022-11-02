@@ -1,6 +1,9 @@
 @import '../../../variables.scss';
 .navList {
     display: flex;
+    .btnWrapper {
+        margin-right: 10px;
+    }
 }
 @media (max-width: $tabletWidth) {
     .navList {

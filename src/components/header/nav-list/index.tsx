@@ -9,7 +9,9 @@ export const NavList: FC = () => {
     return (
         <nav className={styles.navList}>
             {navigation.map((nav, i) => (
-                <ButtonNav key={i} name={nav.name} to={nav.path} icon={nav.icon} />
+                <div key={i} className={styles.btnWrapper}>
+                    <ButtonNav name={nav.name} to={nav.path} icon={nav.icon} />
+                </div>
             ))}
         </nav>
     );
