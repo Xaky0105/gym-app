@@ -6,8 +6,8 @@ import { ButtonStandart } from '@/components/buttons/button-standart';
 import { AuthError } from '@/components/errors/auth-error';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { registerSchema } from '@/sheme';
-import { userAuth } from '@/store/asyncActions/userAsyncAction';
-import { getUser, getUserError, getUserIsLoading } from '@/store/selectors';
+import { userAuth } from '@/store/user/asyncActions';
+import { selectUser, selectUserError, selectUserIsLoading } from '@/store/user/selectors';
 import { ROUTE_PATH } from '@/types/route';
 import TextField from '@mui/material/TextField';
 
@@ -19,9 +19,9 @@ export const RegisterPage: FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const user = useAppSelector(getUser);
-    const userError = useAppSelector(getUserError);
-    const userIsLoading = useAppSelector(getUserIsLoading);
+    const user = useAppSelector(selectUser);
+    const userError = useAppSelector(selectUserError);
+    const userIsLoading = useAppSelector(selectUserIsLoading);
 
     const onClickSubmit: OnClickSubmitFn = ({ email, password, name }) => {
         dispatch(userAuth(email, password, 'register', name));

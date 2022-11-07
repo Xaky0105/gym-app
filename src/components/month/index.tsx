@@ -3,7 +3,8 @@ import { type Dayjs } from 'dayjs';
 
 import { Day } from '@/components/day';
 import { useAppSelector } from '@/hooks/redux-hook';
-import { getMonthIndex, getWorkoutsForCalendar } from '@/store/selectors';
+import { selectMonthIndex } from '@/store/month/selectors';
+import { selectWorkoutsForCalendar } from '@/store/workout-on-calendar/selectors';
 import { getMonthMatrix } from '@/utils/dayjs';
 import { getWorkoutsForMonth } from '@/utils/workout';
 
@@ -12,8 +13,8 @@ import styles from './index.module.scss';
 export const Month: React.FC = memo(() => {
     const [currentMonth, setCurrentMonth] = useState(getMonthMatrix()); // В стейте двумерный массив
 
-    const monthIndex = useAppSelector(getMonthIndex);
-    const workoutsForCalendar = useAppSelector(getWorkoutsForCalendar);
+    const monthIndex = useAppSelector(selectMonthIndex);
+    const workoutsForCalendar = useAppSelector(selectWorkoutsForCalendar);
 
     useEffect(() => {
         setCurrentMonth(getMonthMatrix(monthIndex));

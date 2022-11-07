@@ -3,9 +3,10 @@ import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 
 import { ButtonOutline } from '@/components/buttons/button-outline';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { getMonthIndex, getWorkoutCalendarError } from '@/store/selectors';
-import { changeDaySelected, setModaleWorkoutIsOpen, setStepWorkoutModale } from '@/store/slices/modaleSlice';
-import { decMonthIndex, incMonthIndex, resetMonthIndex } from '@/store/slices/monthSlice';
+import { changeDaySelected, setModalWorkoutIsOpen, setStepWorkoutModal } from '@/store/modal/slice';
+import { selectMonthIndex } from '@/store/month/selectors';
+import { decMonthIndex, incMonthIndex, resetMonthIndex } from '@/store/month/slice';
+import { selectWorkoutCalendarError } from '@/store/workout-on-calendar/selectors';
 import { STEP_MODAL } from '@/types/modal';
 import { getCurrentDay, getYear } from '@/utils/dayjs';
 import Alert from '@mui/material/Alert';
@@ -16,15 +17,15 @@ import styles from './index.module.scss';
 export const CalendarHeader: FC = memo(() => {
     console.log('render');
     const dispatch = useAppDispatch();
-    const monthIndex = useAppSelector(getMonthIndex);
-    const error = useAppSelector(getWorkoutCalendarError);
+    const monthIndex = useAppSelector(selectMonthIndex);
+    const error = useAppSelector(selectWorkoutCalendarError);
     const buttonClickHandler = (reducer: ActionCreatorWithoutPayload<string>) => {
         dispatch(reducer());
     };
     const workoutForDayClickHandler = () => {
         dispatch(changeDaySelected(getCurrentDay()));
-        dispatch(setStepWorkoutModale(STEP_MODAL.WORKOUTS));
-        dispatch(setModaleWorkoutIsOpen(true));
+        dispatch(setStepWorkoutModal(STEP_MODAL.WORKOUTS));
+        dispatch(setModalWorkoutIsOpen(true));
     };
     return (
         <>

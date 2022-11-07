@@ -1,11 +1,7 @@
-import { ExerciseInWorkoutOnCalendar, UserWorkoutsStateType, WorkoutOnCalendar } from '@/types/workout';
+import { ExerciseInWorkoutOnCalendar, WorkoutOnCalendar } from '@/types/workout';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type WorkoutCalendarState = {
-    workoutsOnTheCalendar: UserWorkoutsStateType;
-    isLoading: boolean;
-    error: string;
-};
+import { WorkoutCalendarState } from './types';
 
 const initialState: WorkoutCalendarState = {
     workoutsOnTheCalendar: {},

@@ -2,9 +2,8 @@ import dayjs from 'dayjs';
 
 import { createSlice } from '@reduxjs/toolkit';
 
-type MonthState = {
-    monthIndex: number;
-};
+import { MonthState } from './types';
+
 const initialState: MonthState = {
     monthIndex: dayjs().month(),
 };

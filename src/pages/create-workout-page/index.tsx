@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { ContainerTwoPart } from '@/compound/container-two-part';
 import { useAppSelector } from '@/hooks/redux-hook';
-import { getWorkouts } from '@/store/selectors';
+import { selectWorkouts } from '@/store/workout/selectors';
 import { ExerciseInWorkout } from '@/types/workout';
 import { getSortedExerciseByPosition } from '@/utils/exercise';
 
@@ -27,7 +27,7 @@ export const CreateWorkoutPage: FC = () => {
     const state = location.state as CustomUseLocationState;
     const editableWorkoutId = state ? state.editableWorkoutId : '';
 
-    const userWorkouts = useAppSelector(getWorkouts);
+    const userWorkouts = useAppSelector(selectWorkouts);
     const [temporaryExercise, setTemporaryExercise] = useState<ExerciseInWorkout[]>(() => {
         return state ? getSortedExerciseByPosition(userWorkouts[editableWorkoutId].exercises) : [];
     });

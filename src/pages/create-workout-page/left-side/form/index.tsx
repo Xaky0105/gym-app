@@ -8,8 +8,8 @@ import { workoutColors } from '@/constants/constant';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { Context } from '@/pages/create-workout-page';
 import { createWorkoutSchema } from '@/sheme';
-import { createOrEditWorkout } from '@/store/asyncActions/workoutAsyncAction';
-import { getWorkouts } from '@/store/selectors';
+import { createOrEditWorkout } from '@/store/workout/asyncActions';
+import { selectWorkouts } from '@/store/workout/selectors';
 import { ROUTE_PATH } from '@/types/route';
 import { ExerciseInWorkout, Workout } from '@/types/workout';
 import TextField from '@mui/material/TextField';
@@ -31,7 +31,7 @@ export const Form: FC<FormPropsType> = ({ clearTemporaryExercise, editableWorkou
 
     const { temporaryExercise } = useContext(Context);
 
-    const userWorkouts = useAppSelector(getWorkouts);
+    const userWorkouts = useAppSelector(selectWorkouts);
 
     const [selectColor, setSelectColor] = useState(() =>
         editableWorkoutId ? userWorkouts[editableWorkoutId].color : workoutColors[0],

@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { Right } from '@/compound/container-two-part/right';
 import { useAppSelector } from '@/hooks/redux-hook';
-import { getWorkouts } from '@/store/selectors';
+import { selectWorkouts } from '@/store/workout/selectors';
 import { getSortedExerciseByPosition } from '@/utils/exercise';
 
 import styles from './index.module.scss';
@@ -13,7 +13,7 @@ type RightSideTypeProps = {
 };
 
 export const RightSide: FC<RightSideTypeProps> = ({ workoutId }) => {
-    const workouts = useAppSelector(getWorkouts);
+    const workouts = useAppSelector(selectWorkouts);
     const exercises = workoutId && workouts[workoutId].exercises;
     const sortedExerciseByPosition = exercises ? getSortedExerciseByPosition(exercises) : [];
     return (

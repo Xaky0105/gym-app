@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { BsPlusSquareDotted } from 'react-icons/bs';
 
 import { useAppDispatch } from '@/hooks/redux-hook';
-import { setStepWorkoutModale } from '@/store/slices/modaleSlice';
+import { setStepWorkoutModal } from '@/store/modal/slice';
 import { STEP_MODAL } from '@/types/modal';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -30,7 +30,7 @@ export const Workouts: FC = () => {
             </div>
             <div className={styles.btn}>
                 <Tooltip title={'Выбрать из списка'} disableInteractive enterDelay={500} leaveDelay={200}>
-                    <span onClick={() => dispatch(setStepWorkoutModale(STEP_MODAL.CHOISE_WORKOUTS))}>
+                    <span onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.CHOISE_WORKOUTS))}>
                         <BsPlusSquareDotted size={40} />
                     </span>
                 </Tooltip>

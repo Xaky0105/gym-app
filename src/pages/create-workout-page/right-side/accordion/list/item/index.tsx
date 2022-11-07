@@ -6,8 +6,8 @@ import { VscCheck } from 'react-icons/vsc';
 
 import { useAppDispatch } from '@/hooks/redux-hook';
 import { Context } from '@/pages/create-workout-page';
-import { changeExerciseAsync } from '@/store/asyncActions/workoutAsyncAction';
-import { setConfirmModaleIsOpen } from '@/store/slices/modaleSlice';
+import { changeExerciseAsync } from '@/store/exercises/asyncActions';
+import { setConfirmModalIsOpen } from '@/store/modal/slice';
 import { BasicExercise, ExerciseInWorkout, HOW_TO_CHANGE_EXERCISE } from '@/types/workout';
 import { uuidv4 } from '@firebase/util';
 import { Tooltip } from '@mui/material';
@@ -46,7 +46,7 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
     const onClickDeleteIcon = () => {
         if (!isEdit && exercisesGroup.length !== 1) {
             changeSelectExercise(exercise);
-            dispatch(setConfirmModaleIsOpen(true));
+            dispatch(setConfirmModalIsOpen(true));
         }
     };
 
@@ -57,7 +57,7 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
             name: createInputValue,
         };
         if (createInputValue.length) {
-            await dispatch(changeExerciseAsync(exerciseData, HOW_TO_CHANGE_EXERCISE.CREATE));
+            await dispatch(changeExerciseAsync({ exercise: exerciseData, howToChange: HOW_TO_CHANGE_EXERCISE.CREATE }));
             createExerciseToggler();
         } else {
             createExerciseToggler();
@@ -75,7 +75,7 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
                 name: editInputValue,
             };
             console.log(updatedExercise);
-            dispatch(changeExerciseAsync(updatedExercise, HOW_TO_CHANGE_EXERCISE.UPDATE));
+            dispatch(changeExerciseAsync({ exercise: updatedExercise, howToChange: HOW_TO_CHANGE_EXERCISE.UPDATE }));
         }
         editToggler();
     };

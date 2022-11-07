@@ -4,8 +4,8 @@ import { AiOutlineCloseSquare } from 'react-icons/ai';
 import { VscChromeClose } from 'react-icons/vsc';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { updateExerciseInWorkoutOnCalendarAsync } from '@/store/asyncActions/workoutAsyncAction';
-import { getExerciseById } from '@/store/selectors';
+import { selectExerciseById } from '@/store/exercises/selectors';
+import { updateExerciseInWorkoutOnCalendarAsync } from '@/store/workout-on-calendar/asyncActions';
 import { SetsType } from '@/types/workout';
 
 import styles from './index.module.scss';
@@ -25,7 +25,7 @@ export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
     const inputAmountValue = amount ? amount : '';
 
     const dispatch = useAppDispatch();
-    const selectExercise = useAppSelector(getExerciseById);
+    const selectExercise = useAppSelector(selectExerciseById);
 
     const deactivateEditMode = () => {
         const newSets = selectExercise.sets.map((set, i) => (i === index ? { amount, weight } : set));

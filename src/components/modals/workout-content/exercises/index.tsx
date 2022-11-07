@@ -3,8 +3,8 @@ import _ from 'lodash';
 import { MdArrowBack } from 'react-icons/md';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { getWorkoutById } from '@/store/selectors';
-import { setStepWorkoutModale, setTempIdExercise } from '@/store/slices/modaleSlice';
+import { setStepWorkoutModal, setTempIdExercise } from '@/store/modal/slice';
+import { selectWorkoutById } from '@/store/workout-on-calendar/selectors';
 import { STEP_MODAL } from '@/types/modal';
 import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
 import { getSortedExerciseByPosition } from '@/utils/exercise';
@@ -13,10 +13,10 @@ import styles from './index.module.scss';
 
 export const Exercises: FC = () => {
     const dispatch = useAppDispatch();
-    const { exercises, workoutName } = useAppSelector(getWorkoutById);
+    const { exercises, workoutName } = useAppSelector(selectWorkoutById);
     const sortByExerciseNumber = getSortedExerciseByPosition(exercises);
     const exerciseClickHandler = (id: string) => {
-        dispatch(setStepWorkoutModale(STEP_MODAL.SETS));
+        dispatch(setStepWorkoutModal(STEP_MODAL.SETS));
         dispatch(setTempIdExercise(id));
     };
     const cn = (ex: ExerciseInWorkoutOnCalendar) => {
@@ -30,7 +30,7 @@ export const Exercises: FC = () => {
     };
     return (
         <div className={styles.content}>
-            <span className={styles.back} onClick={() => dispatch(setStepWorkoutModale(STEP_MODAL.WORKOUTS))}>
+            <span className={styles.back} onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.WORKOUTS))}>
                 <MdArrowBack size={20} />
             </span>
             <h3 className={styles.title}>{workoutName}</h3>

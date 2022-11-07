@@ -5,9 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { ButtonStandart } from '@/components/buttons/button-standart';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { addWorkoutToCalendarAsync } from '@/store/asyncActions/workoutAsyncAction';
-import { getIsLoadingWorkoutsCalendar, getSelectedDay, getWorkouts } from '@/store/selectors';
-import { setModaleWorkoutIsOpen, setStepWorkoutModale } from '@/store/slices/modaleSlice';
+import { selectSelectedDay } from '@/store/modal/selectors';
+import { setModalWorkoutIsOpen, setStepWorkoutModal } from '@/store/modal/slice';
+import { selectWorkouts } from '@/store/workout/selectors';
+import { addWorkoutToCalendarAsync } from '@/store/workout-on-calendar/asyncActions';
+import { selectIsLoadingWorkoutsCalendar } from '@/store/workout-on-calendar/selectors';
 import { STEP_MODAL } from '@/types/modal';
 import { ROUTE_PATH } from '@/types/route';
 import { HOW_TO_REPEAT, Workout, WorkoutOnCalendar } from '@/types/workout';
@@ -26,9 +28,9 @@ export const ChoiseWorkouts: FC = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const userWorkout = useAppSelector(getWorkouts);
-    const daySelected = useAppSelector(getSelectedDay);
-    const isLoadingWorkoutCalendar = useAppSelector(getIsLoadingWorkoutsCalendar);
+    const userWorkout = useAppSelector(selectWorkouts);
+    const daySelected = useAppSelector(selectSelectedDay);
+    const isLoadingWorkoutCalendar = useAppSelector(selectIsLoadingWorkoutsCalendar);
 
     const userWorkoutArr = _.toArray(userWorkout);
 
@@ -47,12 +49,12 @@ export const ChoiseWorkouts: FC = () => {
     const addWorkoutOnCalendarClickHandler = async () => {
         const workout = generateWorkout(daySelected, selectWorkout as WorkoutOnCalendar);
         await dispatch(addWorkoutToCalendarAsync(workout, howToRepeat, repeatInterval));
-        dispatch(setModaleWorkoutIsOpen(false));
+        dispatch(setModalWorkoutIsOpen(false));
     };
 
     const createWorkoutClickHandler = () => {
         navigate(ROUTE_PATH.CREATE_WORKOUT);
-        dispatch(setModaleWorkoutIsOpen(false));
+        dispatch(setModalWorkoutIsOpen(false));
     };
 
     const activeWorkoutClass = (workout: Workout) => {
@@ -62,7 +64,7 @@ export const ChoiseWorkouts: FC = () => {
     return (
         <div className={styles.content}>
             <div className={styles.topBlock}>
-                <span className={styles.back} onClick={() => dispatch(setStepWorkoutModale(STEP_MODAL.WORKOUTS))}>
+                <span className={styles.back} onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.WORKOUTS))}>
                     <MdArrowBack size={20} />
                 </span>
                 <h3 className={styles.title}>Выберите тренировку из списка</h3>

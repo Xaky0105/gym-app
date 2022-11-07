@@ -2,9 +2,9 @@ import { FC, useState } from 'react';
 
 import { ButtonStandart } from '@/components/buttons/button-standart';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { deleteWorkoutFromCalendarAsync } from '@/store/asyncActions/workoutAsyncAction';
-import { getIsLoadingWorkoutsCalendar } from '@/store/selectors';
-import { setModaleWorkoutIsOpen } from '@/store/slices/modaleSlice';
+import { setModalWorkoutIsOpen } from '@/store/modal/slice';
+import { deleteWorkoutFromCalendarAsync } from '@/store/workout-on-calendar/asyncActions';
+import { selectIsLoadingWorkoutsCalendar } from '@/store/workout-on-calendar/selectors';
 import { DELETE_WORKOUT_FROM_CALENDAR } from '@/types/workout';
 
 import styles from './index.module.scss';
@@ -30,11 +30,11 @@ const choiseList: ChoiseItemType[] = [
 export const DeleteWorkoutMenu: FC<DeleteModalPropsType> = ({ workoutId, deleteModalToggler }) => {
     const [deleteType, setDeleteType] = useState(DELETE_WORKOUT_FROM_CALENDAR.ONLY_ONE);
     const dispatch = useAppDispatch();
-    const isLoadingWorkoutsCalendar = useAppSelector(getIsLoadingWorkoutsCalendar);
+    const isLoadingWorkoutsCalendar = useAppSelector(selectIsLoadingWorkoutsCalendar);
     const deleteWorkoutClickHandler = async () => {
         await dispatch(deleteWorkoutFromCalendarAsync(workoutId, deleteType));
         deleteModalToggler();
-        dispatch(setModaleWorkoutIsOpen(false));
+        dispatch(setModalWorkoutIsOpen(false));
     };
     const cn = (choise: ChoiseItemType) => {
         return choise.type === deleteType ? `${styles.item} ${styles.active}` : `${styles.item}`;

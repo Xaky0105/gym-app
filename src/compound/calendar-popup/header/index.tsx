@@ -3,14 +3,14 @@ import dayjs from 'dayjs';
 import { MdOutlineClose } from 'react-icons/md';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { getSelectedDay } from '@/store/selectors';
-import { setModaleWorkoutIsOpen } from '@/store/slices/modaleSlice';
+import { selectSelectedDay } from '@/store/modal/selectors';
+import { setModalWorkoutIsOpen } from '@/store/modal/slice';
 import { DAY_FORMAT } from '@/types/day';
 
 import styles from './index.module.scss';
 
 export const Header: FC = () => {
-    const daySelected = useAppSelector(getSelectedDay);
+    const daySelected = useAppSelector(selectSelectedDay);
     const dispatch = useAppDispatch();
     return (
         <div className={styles.header}>
@@ -18,7 +18,7 @@ export const Header: FC = () => {
             <div
                 className={styles.cross}
                 onClick={() => {
-                    dispatch(setModaleWorkoutIsOpen(false));
+                    dispatch(setModalWorkoutIsOpen(false));
                 }}
             >
                 <MdOutlineClose />

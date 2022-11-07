@@ -10,13 +10,13 @@ export const getMonthMatrix = (month = dayjs().month()) => {
     const year = dayjs().locale(ruLocale).year();
     const firstDayOfTheMonth = dayjs(new Date(year, month, 1)).locale(ruLocale).weekday();
     let currentMonthCount = 0 - firstDayOfTheMonth;
-    const daysMatrix = new Array(6).fill([]).map(() => {
+    const monthMatrix = new Array(6).fill([]).map(() => {
         return new Array(7).fill(null).map(() => {
             currentMonthCount++;
             return dayjs(new Date(year, month, currentMonthCount)).locale(ruLocale);
         });
     });
-    return daysMatrix;
+    return monthMatrix;
 };
 
 export const getYear = (monthIndex: number): string => {

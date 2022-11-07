@@ -7,9 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { DeleteContent } from '@/components/modals/confirm-content/delete-workout';
 import { ConfirmPopup } from '@/compound/confirm-popup';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { deleteWorkout } from '@/store/asyncActions/workoutAsyncAction';
-import { getIsOpenConfirmModale, getWorkouts } from '@/store/selectors';
-import { setConfirmModaleIsOpen } from '@/store/slices/modaleSlice';
+import { selectIsOpenConfirmModale } from '@/store/modal/selectors';
+import { setConfirmModalIsOpen } from '@/store/modal/slice';
+import { deleteWorkout } from '@/store/workout/asyncActions';
+import { selectWorkouts } from '@/store/workout/selectors';
 import { ROUTE_PATH } from '@/types/route';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -22,8 +23,8 @@ type WorkoutListPropTypes = {
 export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCallback }) => {
     const [workoutId, setWorkoutId] = useState('');
 
-    const userWorkouts = useAppSelector(getWorkouts);
-    const isOpenConfirmModale = useAppSelector(getIsOpenConfirmModale);
+    const userWorkouts = useAppSelector(selectWorkouts);
+    const isOpenConfirmModale = useAppSelector(selectIsOpenConfirmModale);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
         navigate(ROUTE_PATH.EDIT_WORKOUT, { state: { editableWorkoutId: id } });
     };
     const onClickDeleteIcon = (id: string) => {
-        dispatch(setConfirmModaleIsOpen(true));
+        dispatch(setConfirmModalIsOpen(true));
         setWorkoutId(id);
     };
 
@@ -42,7 +43,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
     };
 
     const onCloseConfirmPopup = () => {
-        dispatch(setConfirmModaleIsOpen(false));
+        dispatch(setConfirmModalIsOpen(false));
     };
     return (
         <>

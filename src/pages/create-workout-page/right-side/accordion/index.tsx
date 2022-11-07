@@ -5,9 +5,10 @@ import { DeleteContent } from '@/components/modals/confirm-content/delete-workou
 import { ConfirmPopup } from '@/compound/confirm-popup';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { Context } from '@/pages/create-workout-page';
-import { changeExerciseAsync } from '@/store/asyncActions/workoutAsyncAction';
-import { getExerciseList, getIsOpenConfirmModale } from '@/store/selectors';
-import { setConfirmModaleIsOpen } from '@/store/slices/modaleSlice';
+import { changeExerciseAsync } from '@/store/exercises/asyncActions';
+import { selectExerciseList } from '@/store/exercises/selectors';
+import { selectIsOpenConfirmModale } from '@/store/modal/selectors';
+import { setConfirmModalIsOpen } from '@/store/modal/slice';
 import { ExerciseInWorkout, HOW_TO_CHANGE_EXERCISE } from '@/types/workout';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
@@ -63,21 +64,21 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export const ExerciseAccordion: FC = () => {
-    const exerciseList = useAppSelector(getExerciseList);
-    const isOpenConfirmModale = useAppSelector(getIsOpenConfirmModale);
+    const exerciseList = useAppSelector(selectExerciseList);
+    const isOpenConfirmModale = useAppSelector(selectIsOpenConfirmModale);
     const dispatch = useAppDispatch();
 
     const [selectExercise, setSelectExercise] = useState<ExerciseInWorkout | null>(null);
     const { temporaryExercise, setTemporaryExerciseHandler } = useContext(Context);
 
     const onCloseConfirmPopup = () => {
-        dispatch(setConfirmModaleIsOpen(false));
+        dispatch(setConfirmModalIsOpen(false));
     };
     const changeSelectExercise = (exercise: ExerciseInWorkout) => {
         setSelectExercise(exercise);
     };
     const deleteExerciseHandler = () => {
-        dispatch(changeExerciseAsync(selectExercise!, HOW_TO_CHANGE_EXERCISE.DELETE));
+        dispatch(changeExerciseAsync({ exercise: selectExercise!, howToChange: HOW_TO_CHANGE_EXERCISE.DELETE }));
         if (temporaryExercise.find((ex) => ex.id === selectExercise!.id)) {
             setTemporaryExerciseHandler(selectExercise!);
         }

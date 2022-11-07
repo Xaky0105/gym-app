@@ -3,9 +3,9 @@ import { BsPlusSquareDotted } from 'react-icons/bs';
 import { MdArrowBack } from 'react-icons/md';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { updateExerciseInWorkoutOnCalendarAsync } from '@/store/asyncActions/workoutAsyncAction';
-import { getExerciseById } from '@/store/selectors';
-import { setStepWorkoutModale } from '@/store/slices/modaleSlice';
+import { selectExerciseById } from '@/store/exercises/selectors';
+import { setStepWorkoutModal } from '@/store/modal/slice';
+import { updateExerciseInWorkoutOnCalendarAsync } from '@/store/workout-on-calendar/asyncActions';
 import { STEP_MODAL } from '@/types/modal';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -16,7 +16,7 @@ import styles from './index.module.scss';
 export const Sets: FC = () => {
     const dispatch = useAppDispatch();
 
-    const selectExercise = useAppSelector(getExerciseById);
+    const selectExercise = useAppSelector(selectExerciseById);
 
     const addSet = () => {
         const updateExercise = {
@@ -38,7 +38,7 @@ export const Sets: FC = () => {
     return (
         <div className={styles.content}>
             <div className={styles.block}>
-                <span className={styles.back} onClick={() => dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES))}>
+                <span className={styles.back} onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.EXERCISES))}>
                     <MdArrowBack size={20} />
                 </span>
                 <h3 className={styles.title}>{selectExercise.name}</h3>

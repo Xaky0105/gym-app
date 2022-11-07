@@ -6,14 +6,14 @@ import { Month } from '@/components/month';
 import { CalendarPopup } from '@/compound/calendar-popup';
 import { Container } from '@/compound/container';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { getIsOpenModalWorkout } from '@/store/selectors';
-import { setModaleWorkoutIsOpen } from '@/store/slices/modaleSlice';
+import { selectIsOpenModalWorkout } from '@/store/modal/selectors';
+import { setModalWorkoutIsOpen } from '@/store/modal/slice';
 
 export const CalendarPage: FC = () => {
     const dispatch = useAppDispatch();
-    const isOpenModalWorkout = useAppSelector(getIsOpenModalWorkout);
+    const isOpenModalWorkout = useAppSelector(selectIsOpenModalWorkout);
     const onCloseWorkoutModal = () => {
-        dispatch(setModaleWorkoutIsOpen(false));
+        dispatch(setModalWorkoutIsOpen(false));
     };
     return (
         <Container>

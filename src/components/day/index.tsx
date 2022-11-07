@@ -2,22 +2,14 @@ import { FC, useMemo } from 'react';
 import { Dayjs } from 'dayjs';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { getSelectedDay, getTempIdWorkout } from '@/store/selectors';
-import {
-    changeDaySelected,
-    setModaleWorkoutIsOpen,
-    setStepWorkoutModale,
-    setTempIdWorkout,
-} from '@/store/slices/modaleSlice';
+import { selectSelectedDay, selectTempIdWorkout } from '@/store/modal/selectors';
+import { changeDaySelected, setModalWorkoutIsOpen, setStepWorkoutModal, setTempIdWorkout } from '@/store/modal/slice';
 import { DAY_FORMAT } from '@/types/day';
 import { STEP_MODAL } from '@/types/modal';
 import { WorkoutOnCalendar } from '@/types/workout';
 import { getCurrentDay, getMonthIndexFromDate, getMonthIndexFromZeroToEleven } from '@/utils/dayjs';
 import { getWorkoutForTheDay } from '@/utils/workout';
-import Fade from '@mui/material/Fade';
-import Grow from '@mui/material/Grow';
 import Slide from '@mui/material/Slide';
-import Zoom from '@mui/material/Zoom';
 
 import styles from './index.module.scss';
 
@@ -30,8 +22,8 @@ interface DayProps {
 
 export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) => {
     const dispatch = useAppDispatch();
-    const selectedWorkoutId = useAppSelector(getTempIdWorkout);
-    const daySelected = useAppSelector(getSelectedDay);
+    const selectedWorkoutId = useAppSelector(selectTempIdWorkout);
+    const daySelected = useAppSelector(selectSelectedDay);
 
     const dayFormat = day.format(DAY_FORMAT.YYYY_MM_DD);
     const isDayNotThisMonth = day.month() !== getMonthIndexFromZeroToEleven(monthIndex);
@@ -43,13 +35,13 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) =>
     const clickHandler = (type: 'workout' | 'day', e?: any, id?: string) => {
         if (!isDayNotThisMonth) {
             dispatch(changeDaySelected(dayFormat));
-            dispatch(setModaleWorkoutIsOpen(true));
+            dispatch(setModalWorkoutIsOpen(true));
             if (type === 'workout') {
                 dispatch(setTempIdWorkout(id!));
-                dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES));
+                dispatch(setStepWorkoutModal(STEP_MODAL.EXERCISES));
             }
             if (type === 'day') {
-                dispatch(setStepWorkoutModale(STEP_MODAL.WORKOUTS));
+                dispatch(setStepWorkoutModal(STEP_MODAL.WORKOUTS));
             }
         }
     };

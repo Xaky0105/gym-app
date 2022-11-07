@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { UserSettingsList } from '@/components/header/user-settings-list';
 import { useAppSelector } from '@/hooks/redux-hook';
-import { getUserPhotoByName } from '@/store/selectors';
+import { selectUserPhotoByName } from '@/store/user/selectors';
 
 import styles from './index.module.scss';
 
@@ -12,7 +12,7 @@ type UserSettingsPropsType = {
 };
 
 export const UserSetting: FC<UserSettingsPropsType> = ({ onCLickSettingsToggler, isActiveSettings }) => {
-    const userPhoto = useAppSelector(getUserPhotoByName);
+    const userPhoto = useAppSelector(selectUserPhotoByName);
     const cn = isActiveSettings ? `${styles.user} ${styles.active}` : `${styles.user}`;
     return (
         <div className={cn}>

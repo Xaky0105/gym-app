@@ -3,8 +3,9 @@ import _ from 'lodash';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { getSelectedDay, getWorkoutsForCalendar } from '@/store/selectors';
-import { setStepWorkoutModale, setTempIdWorkout } from '@/store/slices/modaleSlice';
+import { selectSelectedDay } from '@/store/modal/selectors';
+import { setStepWorkoutModal, setTempIdWorkout } from '@/store/modal/slice';
+import { selectWorkoutsForCalendar } from '@/store/workout-on-calendar/selectors';
 import { STEP_MODAL } from '@/types/modal';
 import { getWorkoutForTheDay } from '@/utils/workout';
 
@@ -16,15 +17,15 @@ type WorkoutListPropsType = {
 
 export const WorkoutsList: FC<WorkoutListPropsType> = ({ deleteWorkoutClickHandler }) => {
     const dispatch = useAppDispatch();
-    const daySelected = useAppSelector(getSelectedDay);
-    const workoutsOnCalendar = useAppSelector(getWorkoutsForCalendar);
+    const daySelected = useAppSelector(selectSelectedDay);
+    const workoutsOnCalendar = useAppSelector(selectWorkoutsForCalendar);
 
     const workoutsOnCalendarArr = _.toArray(workoutsOnCalendar);
 
     const workoutsForTheDay = getWorkoutForTheDay(daySelected, workoutsOnCalendarArr);
 
     const workoutClickHandler = (id: string) => {
-        dispatch(setStepWorkoutModale(STEP_MODAL.EXERCISES));
+        dispatch(setStepWorkoutModal(STEP_MODAL.EXERCISES));
         dispatch(setTempIdWorkout(id));
     };
 

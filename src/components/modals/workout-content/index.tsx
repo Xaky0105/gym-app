@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { useAppSelector } from '@/hooks/redux-hook';
-import { getStepWorkoutModale } from '@/store/selectors';
+import { selectStepWorkoutModale } from '@/store/modal/selectors';
 import { STEP_MODAL } from '@/types/modal';
 
 import { ChoiseWorkouts } from './choise-workouts';
@@ -25,6 +25,6 @@ const renderContentModal = (step: STEP_MODAL) => {
 };
 
 export const WorkoutContentModale: FC = () => {
-    const stepWorkoutModale = useAppSelector(getStepWorkoutModale);
+    const stepWorkoutModale = useAppSelector(selectStepWorkoutModale);
     return renderContentModal(stepWorkoutModale);
 };

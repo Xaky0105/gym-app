@@ -4,9 +4,9 @@ import { VscSignOut } from 'react-icons/vsc';
 
 import { ButtonNav } from '@/components/buttons/button-nav';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { userSignOut } from '@/store/asyncActions/userAsyncAction';
-import { getUserName } from '@/store/selectors';
-import { workoutsFetchComplete } from '@/store/slices/workoutSlice';
+import { userSignOut } from '@/store/user/asyncActions';
+import { selectUserName } from '@/store/user/selectors';
+import { workoutsFetchComplete } from '@/store/workout/slice';
 
 import styles from './index.module.scss';
 
@@ -16,7 +16,7 @@ type UserSettingsListPropsType = {
 
 export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActiveSettings }) => {
     const dispatch = useAppDispatch();
-    const userEmail = useAppSelector(getUserName);
+    const userEmail = useAppSelector(selectUserName);
     const cn = isActiveSettings ? `${styles.userSettings} ${styles.active}` : `${styles.userSettings}`;
     const onClickSignOut = () => {
         dispatch(userSignOut());

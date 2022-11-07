@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import styles from './index.module.scss';
+import Alert from '@mui/material/Alert';
+import Fade from '@mui/material/Fade';
 
 type AuthErrorPropsType = {
     errorMessage: string;
@@ -20,8 +21,14 @@ export const AuthError: FC<AuthErrorPropsType> = ({ errorMessage }) => {
         }
     };
     return (
-        <div className={styles.error}>
-            <p className={styles.message}>{showFormatError()}</p>
-        </div>
+        <Fade in={!!errorMessage}>
+            <Alert
+                variant="outlined"
+                sx={{ position: 'absolute', top: '-25%', left: '50%', translate: '-50%', width: '100%' }}
+                severity="error"
+            >
+                {showFormatError()}
+            </Alert>
+        </Fade>
     );
 };

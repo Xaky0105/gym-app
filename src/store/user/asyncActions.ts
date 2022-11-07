@@ -11,7 +11,7 @@ import _ from 'lodash';
 
 import { basicExerciseList } from '@/constants/constant';
 import { auth, db, provider } from '@/firebase';
-import { removeUser, setErrorUser, setIsLoadingUser, setUser } from '@/store/slices/userSlice';
+import { removeUser, setErrorUser, setIsLoadingUser, setUser } from '@/store/user/slice';
 import { uuidv4 } from '@firebase/util';
 import { Dispatch } from '@reduxjs/toolkit';
 
@@ -48,6 +48,7 @@ export const userAuth = (email: string, password: string, type: 'signin' | 'regi
 
 export const loginWithGoogle = () => {
     return async (dispatch: Dispatch) => {
+        dispatch(setIsLoadingUser(true));
         try {
             await setPersistence(auth, browserLocalPersistence);
             const user = (await signInWithPopup(auth, provider)).user;

@@ -1,14 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type User = {
-    [key: string]: string;
-};
-
-type UserState = {
-    user: User | null;
-    error: string | null;
-    isLoading: boolean;
-};
+import { UserState } from './types';
 
 const initialState: UserState = {
     user: null,
