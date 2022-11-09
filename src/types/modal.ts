@@ -4,3 +4,8 @@ export enum STEP_MODAL {
     EXERCISES = 'EXERCISES',
     SETS = 'SETS',
 }
+
+export type Coordinates = {
+    x: number;
+    y: number;
+};

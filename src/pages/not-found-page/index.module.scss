@@ -1,0 +1,9 @@
+@import '../../variables.scss';
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(237, 237, 237);
+    height: 100vh
+}

@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 import styles from './index.module.scss';
 
 type ButtonOutlinePropsType = {
-    handleClick: () => void;
+    handleClick: (e?: ChangeEvent<any>) => void;
     text: string;
 };
 

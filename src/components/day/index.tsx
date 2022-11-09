@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, RefObject, useMemo, useRef } from 'react';
 import { Dayjs } from 'dayjs';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
@@ -18,12 +18,15 @@ interface DayProps {
     row: number;
     workoutsForMonth: WorkoutOnCalendar[];
     monthIndex: number;
+    changeDayRef: (ref: RefObject<any>) => void;
 }
 
-export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) => {
+export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex, changeDayRef }) => {
     const dispatch = useAppDispatch();
     const selectedWorkoutId = useAppSelector(selectTempIdWorkout);
     const daySelected = useAppSelector(selectSelectedDay);
+
+    const dayRef = useRef(null);
 
     const dayFormat = day.format(DAY_FORMAT.YYYY_MM_DD);
     const isDayNotThisMonth = day.month() !== getMonthIndexFromZeroToEleven(monthIndex);
@@ -32,8 +35,9 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) =>
         return getWorkoutForTheDay(dayFormat, workoutsForMonth);
     }, [workoutsForMonth]);
 
-    const clickHandler = (type: 'workout' | 'day', e?: any, id?: string) => {
+    const clickHandler = (type: 'workout' | 'day', id?: string) => {
         if (!isDayNotThisMonth) {
+            changeDayRef(dayRef);
             dispatch(changeDaySelected(dayFormat));
             dispatch(setModalWorkoutIsOpen(true));
             if (type === 'workout') {
@@ -63,7 +67,7 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) =>
     };
 
     return (
-        <div className={dayCN()} onClick={(e) => clickHandler('day', e)}>
+        <div className={dayCN()} onClick={() => clickHandler('day')} ref={dayRef}>
             <div className={styles.dayHeader}>
                 {row === 0 && <span className={styles.dayWeek}>{day.format('dd').toUpperCase()}</span>}
                 <span className={styles.number}>{day.format('DD')}</span>
@@ -74,7 +78,7 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex }) =>
                         <div
                             style={{ backgroundColor: color }}
                             className={workoutCN(id)}
-                            onMouseDown={(e) => clickHandler('workout', e, id)}
+                            onMouseDown={() => clickHandler('workout', id)}
                         >
                             {workoutName}
                         </div>

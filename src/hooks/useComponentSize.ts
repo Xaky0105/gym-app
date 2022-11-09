@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 
 export const useComponentSize = (containerRef: React.RefObject<any>) => {
-    const getDimensions = () => ({
-        x: containerRef.current.offsetWidth,
-        y: containerRef.current.offsetHeight,
-    });
-
     const [dimensions, setDimensions] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         const handleResize = () => {
-            setDimensions(getDimensions());
+            setDimensions({
+                x: containerRef?.current?.offsetWidth,
+                y: containerRef?.current?.offsetHeight,
+            });
         };
 
         if (containerRef.current) {
@@ -22,7 +20,7 @@ export const useComponentSize = (containerRef: React.RefObject<any>) => {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, [containerRef]);
+    }, [containerRef.current]);
 
     return dimensions;
 };
