@@ -1,4 +1,5 @@
 import React, { FC, RefObject, useRef } from 'react';
+import { TransitionGroup } from 'react-transition-group';
 
 import { Header } from '@/compound/calendar-popup/header';
 import { Overlay } from '@/compound/overlay';
@@ -6,6 +7,7 @@ import { useComponentCoordinates } from '@/hooks/useComponentCoordinates';
 import { useComponentSize } from '@/hooks/useComponentSize';
 import { useWindowSize } from '@/hooks/useWondowSize';
 import { getCalendarPopupCoordinates } from '@/utils/modal';
+import Slide from '@mui/material/Slide';
 
 import styles from './index.module.scss';
 
@@ -34,10 +36,12 @@ export const CalendarPopup: FC<CalendarPopupType> = ({ children, onClose, isOpen
 
     return (
         <Overlay isOpened={isOpen} onClose={onClose}>
-            <div className={styles.modale} style={{ left: modalPosition.x, top: modalPosition.y }} ref={ref}>
-                <Header />
-                {children}
-            </div>
+            <Slide direction="up" in={isOpen} mountOnEnter unmountOnExit>
+                <div className={styles.modale} style={{ left: modalPosition.x, top: modalPosition.y }} ref={ref}>
+                    <Header />
+                    {children}
+                </div>
+            </Slide>
         </Overlay>
     );
 };

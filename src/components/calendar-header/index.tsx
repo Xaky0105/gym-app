@@ -30,6 +30,7 @@ export const CalendarHeader: FC<CalendarHeaderType> = memo(({ changeDayRef }) =>
         const daysArr: HTMLElement[] = Array.from(daysNode);
         const currentNode = daysArr.find((day) => Array.from(day.classList).find((cl) => cl.includes('current')));
         changeDayRef({ current: currentNode });
+
         dispatch(changeDaySelected(getCurrentDay()));
         dispatch(setStepWorkoutModal(STEP_MODAL.WORKOUTS));
         dispatch(setModalWorkoutIsOpen(true));
@@ -38,7 +39,7 @@ export const CalendarHeader: FC<CalendarHeaderType> = memo(({ changeDayRef }) =>
         <>
             <div className={styles.wrapper}>
                 <div className={styles.wrapperGroupBtn}>
-                    <div className={styles.btnWrapper}>
+                    <div className={styles.btnWrapper} onMouseDown={() => dispatch(resetMonthIndex())}>
                         <ButtonOutline text="Тренировка на сегодня" handleClick={(e) => workoutForDayClickHandler(e)} />
                     </div>
                 </div>
