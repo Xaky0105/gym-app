@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import cnBind from 'classnames/bind';
 import _ from 'lodash';
 import { AiOutlineCloseSquare } from 'react-icons/ai';
 import { VscChromeClose } from 'react-icons/vsc';
@@ -10,19 +11,29 @@ import { SetsType } from '@/types/workout';
 
 import styles from './index.module.scss';
 
-type TSetProps = {
+interface IState {
+    weight: number;
+    amount: number;
+    editWeight: boolean;
+    editAmount: boolean;
+}
+
+type SetProps = {
     set: SetsType;
     index: number;
     removeSet: (setIndex: number) => void;
 };
 
-export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
-    const [editWeight, setEditWeight] = useState(false);
-    const [editAmount, setEditAmount] = useState(false);
-    const [weight, setWeight] = useState(set.weight);
-    const [amount, setAmount] = useState(set.amount);
-    const inputWeightValue = weight ? weight : '';
-    const inputAmountValue = amount ? amount : '';
+const cx = cnBind.bind(styles);
+
+export const Set: FC<SetProps> = ({ set, index, removeSet }) => {
+    const [state, setState] = useState<IState>({
+        weight: set.weight,
+        amount: set.amount,
+        editWeight: false,
+        editAmount: false,
+    });
+    const { weight, amount, editWeight, editAmount } = state;
 
     const dispatch = useAppDispatch();
     const selectExercise = useAppSelector(selectExerciseById);
@@ -36,16 +47,15 @@ export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
         if (!_.isEqual(selectExercise, exercise)) {
             dispatch(updateExerciseInWorkoutOnCalendarAsync(exercise));
         }
-        setEditWeight(false);
-        setEditAmount(false);
+        setState((prevState) => ({
+            ...prevState,
+            editWeight: false,
+            editAmount: false,
+        }));
     };
-    const onWeightChange: React.ChangeEventHandler<HTMLInputElement> = ({ target: { value } }) => {
-        setWeight((prevWeight) => (prevWeight = Number(value)));
-    };
-    const onAmountChange: React.ChangeEventHandler<HTMLInputElement> = ({ target: { value } }) => {
-        setAmount((prevAmont) => (prevAmont = Number(value)));
-    };
-    const cn = selectExercise.sets.length > 1 ? `${styles.crossWrapper}` : `${styles.crossWrapper} ${styles.disabled}`;
+
+    const cn = cx('crossWrapper', { disabled: selectExercise.sets.length === 1 });
+
     return (
         <li className={styles.block}>
             <div className={styles.groupLeft}>
@@ -64,13 +74,15 @@ export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
                     {editWeight ? (
                         <input
                             type="number"
-                            onChange={onWeightChange}
-                            value={inputWeightValue}
+                            onChange={(e) => setState((prevState) => ({ ...prevState, weight: +e.target.value }))}
+                            value={weight ? weight : ''}
                             onBlur={deactivateEditMode}
                             autoFocus
                         />
                     ) : (
-                        <span onClick={() => setEditWeight(true)}>{set.weight ? set.weight : '-'}</span>
+                        <span onClick={() => setState({ ...state, editWeight: true })}>
+                            {set.weight ? set.weight : '-'}
+                        </span>
                     )}
                     {index === 0 && <span className={styles.title}>Вес, кг</span>}
                 </div>
@@ -81,13 +93,15 @@ export const Set: FC<TSetProps> = ({ set, index, removeSet }) => {
                     {editAmount ? (
                         <input
                             type="number"
-                            onChange={onAmountChange}
-                            value={inputAmountValue}
+                            onChange={(e) => setState((prevState) => ({ ...prevState, amount: +e.target.value }))}
+                            value={amount ? amount : ''}
                             onBlur={deactivateEditMode}
                             autoFocus
                         />
                     ) : (
-                        <span onClick={() => setEditAmount(true)}>{set.amount ? set.amount : '-'}</span>
+                        <span onClick={() => setState({ ...state, editAmount: true })}>
+                            {set.amount ? set.amount : '-'}
+                        </span>
                     )}
                     {index === 0 && <span className={styles.title}>Кол-во</span>}
                 </div>

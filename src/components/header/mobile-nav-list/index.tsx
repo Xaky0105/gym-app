@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import cnBind from 'classnames/bind';
 import { v4 as uuidv4 } from 'uuid';
 
 import { ButtonNav } from '@/components/buttons/button-nav';
@@ -11,8 +12,10 @@ type NavListPropsType = {
     onClickNavToggler: () => void;
 };
 
+const cx = cnBind.bind(styles);
+
 export const MobileNavList: FC<NavListPropsType> = ({ isActiveNav, onClickNavToggler }) => {
-    const cn = isActiveNav ? `${styles.navList} ${styles.active}` : `${styles.navList}`;
+    const cn = cx('navList', { active: isActiveNav });
     return (
         <nav className={cn}>
             <ul>

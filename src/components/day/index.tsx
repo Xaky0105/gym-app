@@ -1,4 +1,5 @@
 import { FC, RefObject, useMemo, useRef } from 'react';
+import cnBind from 'classnames/bind';
 import { Dayjs } from 'dayjs';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
@@ -20,6 +21,8 @@ interface DayProps {
     monthIndex: number;
     changeDayRef: (ref: RefObject<any>) => void;
 }
+
+const cx = cnBind.bind(styles);
 
 export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex, changeDayRef }) => {
     const dispatch = useAppDispatch();
@@ -50,24 +53,20 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex, chan
         }
     };
 
-    const dayCN = () => {
-        const currentDayClass = dayFormat === getCurrentDay() ? `${styles.currentDay}` : '';
-        const dayNotThisMonth = isDayNotThisMonth ? `${styles.dayOfTheLastMonth}` : '';
-        const daySelectedClass = daySelected === dayFormat ? `${styles.daySelect}` : '';
-        return `${styles.wrapper} ${currentDayClass} ${dayNotThisMonth} ${daySelectedClass}`;
-    };
+    const dayClasses = cx('wrapper', {
+        currentDay: dayFormat === getCurrentDay(),
+        dayOfTheLastMonth: isDayNotThisMonth,
+        daySelect: daySelected === dayFormat,
+    });
 
-    const workoutCN = (id: string) => {
-        const workoutClass =
-            getMonthIndexFromDate(dayFormat) !== getMonthIndexFromZeroToEleven(monthIndex)
-                ? `${styles.workout} ${styles.disabled}`
-                : `${styles.workout}`;
-        const workoutSelected = selectedWorkoutId === id ? `${styles.selectWorkout}` : '';
-        return `${workoutClass} ${workoutSelected}`;
-    };
+    const workoutClasses = (id: string) =>
+        cx('workout', {
+            disabled: getMonthIndexFromDate(dayFormat) !== getMonthIndexFromZeroToEleven(monthIndex),
+            selectWorkout: selectedWorkoutId === id,
+        });
 
     return (
-        <div className={dayCN()} onClick={() => clickHandler('day')} ref={dayRef}>
+        <div className={dayClasses} onClick={() => clickHandler('day')} ref={dayRef}>
             <div className={styles.dayHeader}>
                 {row === 0 && <span className={styles.dayWeek}>{day.format('dd').toUpperCase()}</span>}
                 <span className={styles.number}>{day.format('DD')}</span>
@@ -77,7 +76,7 @@ export const Day: FC<DayProps> = ({ day, row, workoutsForMonth, monthIndex, chan
                     <Slide key={id} direction="right" in={!!workoutName} mountOnEnter unmountOnExit>
                         <div
                             style={{ backgroundColor: color }}
-                            className={workoutCN(id)}
+                            className={workoutClasses(id)}
                             onMouseDown={() => clickHandler('workout', id)}
                         >
                             {workoutName}

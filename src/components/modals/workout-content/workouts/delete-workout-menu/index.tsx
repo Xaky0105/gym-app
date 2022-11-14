@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import cnBind from 'classnames/bind';
 
 import { ButtonStandart } from '@/components/buttons/button-standart';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
@@ -27,6 +28,8 @@ const choiseList: ChoiseItemType[] = [
     },
 ];
 
+const cx = cnBind.bind(styles);
+
 export const DeleteWorkoutMenu: FC<DeleteModalPropsType> = ({ workoutId, deleteModalToggler }) => {
     const [deleteType, setDeleteType] = useState(DELETE_WORKOUT_FROM_CALENDAR.ONLY_ONE);
     const dispatch = useAppDispatch();
@@ -36,9 +39,8 @@ export const DeleteWorkoutMenu: FC<DeleteModalPropsType> = ({ workoutId, deleteM
         deleteModalToggler();
         dispatch(setModalWorkoutIsOpen(false));
     };
-    const cn = (choise: ChoiseItemType) => {
-        return choise.type === deleteType ? `${styles.item} ${styles.active}` : `${styles.item}`;
-    };
+
+    const cn = (choise: ChoiseItemType) => cx('item', { active: choise.type === deleteType });
     return (
         <>
             <div className={styles.wrapper}>

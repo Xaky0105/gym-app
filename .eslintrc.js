@@ -15,6 +15,7 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint', 'react-hooks', 'prettier', 'simple-import-sort'],
     rules: {
+        'prefer-const': 'error',
         'react/jsx-uses-react': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/display-name': 'off',

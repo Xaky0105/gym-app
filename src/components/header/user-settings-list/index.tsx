@@ -1,4 +1,6 @@
 import React from 'react';
+import cnBind from 'classnames/bind';
+import { MdOutlineReviews } from 'react-icons/md';
 import { TbSettings } from 'react-icons/tb';
 import { VscSignOut } from 'react-icons/vsc';
 
@@ -7,21 +9,28 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { userSignOut } from '@/store/user/asyncActions';
 import { selectUserName } from '@/store/user/selectors';
 import { workoutsFetchComplete } from '@/store/workout/slice';
+import { ROUTE_PATH } from '@/types/route';
 
 import styles from './index.module.scss';
 
 type UserSettingsListPropsType = {
     isActiveSettings: boolean;
+    onCLickSettingsToggler: () => void;
 };
 
-export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActiveSettings }) => {
+const cx = cnBind.bind(styles);
+
+export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActiveSettings, onCLickSettingsToggler }) => {
     const dispatch = useAppDispatch();
     const userEmail = useAppSelector(selectUserName);
-    const cn = isActiveSettings ? `${styles.userSettings} ${styles.active}` : `${styles.userSettings}`;
+
     const onClickSignOut = () => {
         dispatch(userSignOut());
         dispatch(workoutsFetchComplete({}));
     };
+
+    const cn = cx('userSettings', { active: isActiveSettings });
+
     return (
         <div className={cn}>
             <p className={styles.loggedInText}>Вы вошли как:</p>
@@ -30,7 +39,20 @@ export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActive
             </p>
             <ul>
                 <li>
-                    <ButtonNav name={'Настройки'} icon={<TbSettings size={22} />} />
+                    <ButtonNav
+                        name={'Настройки'}
+                        to={ROUTE_PATH.SETTINGS}
+                        onClick={onCLickSettingsToggler}
+                        icon={<TbSettings size={22} />}
+                    />
+                </li>
+                <li>
+                    <ButtonNav
+                        name={'Отзывы'}
+                        to={ROUTE_PATH.REVIEWS}
+                        onClick={onCLickSettingsToggler}
+                        icon={<MdOutlineReviews size={22} />}
+                    />
                 </li>
                 <li>
                     <ButtonNav name={'Выйти'} onClick={onClickSignOut} icon={<VscSignOut size={22} />} />

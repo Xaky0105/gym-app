@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import cnBind from 'classnames/bind';
 
 import { workoutColors } from '@/constants/constant';
 
@@ -9,8 +10,11 @@ type SelectColorType = {
     selectColorHandler: (color: string) => void;
 };
 
+const cx = cnBind.bind(styles);
+
 export const SelectColor: FC<SelectColorType> = ({ selectColor, selectColorHandler }) => {
-    const cn = (color: string) => (selectColor === color ? `${styles.item} ${styles.active}` : `${styles.item}`);
+    const cn = (color: string) => cx('item', { active: selectColor === color });
+
     return (
         <div className={styles.wrapper}>
             <span>Цвет тренировки</span>

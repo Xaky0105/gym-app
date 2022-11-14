@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import cnBind from 'classnames/bind';
 import _ from 'lodash';
 import { MdArrowBack } from 'react-icons/md';
 
@@ -11,6 +12,8 @@ import { getSortedExerciseByPosition } from '@/utils/exercise';
 
 import styles from './index.module.scss';
 
+const cx = cnBind.bind(styles);
+
 export const Exercises: FC = () => {
     const dispatch = useAppDispatch();
     const { exercises, workoutName } = useAppSelector(selectWorkoutById);
@@ -19,15 +22,12 @@ export const Exercises: FC = () => {
         dispatch(setStepWorkoutModal(STEP_MODAL.SETS));
         dispatch(setTempIdExercise(id));
     };
-    const cn = (ex: ExerciseInWorkoutOnCalendar) => {
-        if (ex.sets?.every((set) => set.amount && set.weight)) {
-            return `${styles.item} ${styles.complete}`;
-        } else if (ex.sets?.some((set) => set.amount || set.weight)) {
-            return `${styles.item} ${styles.partly}`;
-        } else {
-            return `${styles.item}`;
-        }
-    };
+
+    const cn = (ex: ExerciseInWorkoutOnCalendar) =>
+        cx('item', {
+            complete: ex.sets?.every((set) => set.amount && set.weight),
+            partly: ex.sets?.some((set) => set.amount || set.weight),
+        });
     return (
         <div className={styles.content}>
             <span className={styles.back} onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.WORKOUTS))}>

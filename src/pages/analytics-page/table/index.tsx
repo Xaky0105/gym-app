@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import cnBind from 'classnames/bind';
 import dayjs from 'dayjs';
 import _ from 'lodash';
 
@@ -12,12 +13,13 @@ type TableType = {
     selectedExerciseGroup: ExerciseInWorkoutOnCalendar[];
 };
 
+const cx = cnBind.bind(styles);
+
 export const Table: FC<TableType> = ({ selectedExerciseGroup }) => {
     const sortedExercisesByDate = selectedExerciseGroup && getSortedExercisesByDate(selectedExerciseGroup);
 
-    const sn = (i: number, exercise: ExerciseInWorkoutOnCalendar) =>
-        i === _.findLastIndex(exercise.sets) ? `${styles.underline}` : '';
-
+    const cn = (i: number, exercise: ExerciseInWorkoutOnCalendar) =>
+        cx({ underline: i === _.findLastIndex(exercise.sets) });
     return (
         <div className={styles.tableWrapper}>
             <table>
@@ -37,18 +39,18 @@ export const Table: FC<TableType> = ({ selectedExerciseGroup }) => {
                                 <tr key={i}>
                                     {!i && (
                                         <td
-                                            className={sn(_.findLastIndex(exercise.sets), exercise)}
+                                            className={cn(_.findLastIndex(exercise.sets), exercise)}
                                             rowSpan={_.size(exercise.sets)}
                                         >
                                             {dayjs(exercise.date).format(DAY_FORMAT.DD_MM_YYYY)}
                                         </td>
                                     )}
-                                    <td className={sn(i, exercise)}>{i + 1}</td>
-                                    <td className={sn(i, exercise)}>{set.weight}</td>
-                                    <td className={sn(i, exercise)}>{set.amount}</td>
+                                    <td className={cn(i, exercise)}>{i + 1}</td>
+                                    <td className={cn(i, exercise)}>{set.weight}</td>
+                                    <td className={cn(i, exercise)}>{set.amount}</td>
                                     {!i && (
                                         <td
-                                            className={sn(_.findLastIndex(exercise.sets), exercise)}
+                                            className={cn(_.findLastIndex(exercise.sets), exercise)}
                                             rowSpan={_.size(exercise.sets)}
                                         >
                                             {getExerciseTonnage(exercise).toFixed(2)}

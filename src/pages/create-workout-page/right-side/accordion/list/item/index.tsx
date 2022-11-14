@@ -1,4 +1,5 @@
 import { FC, useContext, useState } from 'react';
+import cnBind from 'classnames/bind';
 import { BsPlusSquareDotted } from 'react-icons/bs';
 import { MdClose } from 'react-icons/md';
 import { TiPencil } from 'react-icons/ti';
@@ -22,6 +23,8 @@ type ItemType = {
     index: number;
     changeSelectExercise: (exercise: ExerciseInWorkout) => void;
 };
+
+const cx = cnBind.bind(styles);
 
 export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSelectExercise }) => {
     const [isEdit, setIsEdit] = useState(false);
@@ -74,14 +77,14 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
                 ...exercise,
                 name: editInputValue,
             };
-            console.log(updatedExercise);
             dispatch(changeExerciseAsync({ exercise: updatedExercise, howToChange: HOW_TO_CHANGE_EXERCISE.UPDATE }));
         }
         editToggler();
     };
 
-    const closeCN = () => (isEdit || exercisesGroup.length === 1 ? `${styles.disabled}` : '');
-    const pencilCN = () => (isChecked() ? `${styles.disabled}` : '');
+    const closeCn = cx('iconWrapper', { disabled: isEdit || exercisesGroup.length === 1 });
+    const pencilCn = cx('iconWrapper', { disabled: isChecked() });
+
     return (
         <>
             <div className={styles.listItem}>
@@ -122,12 +125,12 @@ export const Item: FC<ItemType> = ({ exercisesGroup, exercise, index, changeSele
                             <VscCheck />
                         </span>
                     ) : (
-                        <span className={`${styles.iconWrapper} ${pencilCN()}`} onClick={editToggler}>
+                        <span className={pencilCn} onClick={editToggler}>
                             <TiPencil />
                         </span>
                     )}
 
-                    <span className={`${styles.iconWrapper} ${closeCN()}`} onClick={onClickDeleteIcon}>
+                    <span className={closeCn} onClick={onClickDeleteIcon}>
                         <MdClose />
                     </span>
                 </div>
