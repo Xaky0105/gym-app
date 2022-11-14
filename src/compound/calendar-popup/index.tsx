@@ -1,5 +1,4 @@
 import React, { FC, RefObject, useRef } from 'react';
-import { TransitionGroup } from 'react-transition-group';
 
 import { Header } from '@/compound/calendar-popup/header';
 import { Overlay } from '@/compound/overlay';

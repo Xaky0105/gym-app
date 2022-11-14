@@ -15,7 +15,7 @@
         .btnWrapper {
             margin-right: 5px;
         }
-        .arrowWrapper {
+        .btn {
             width: 35px;
             height: 35px;
             display: flex;
@@ -24,7 +24,7 @@
             border-radius: 50%;
             transition: all 0.2s linear;
             margin-right: 7px;
-            cursor: pointer;
+            background-color: transparent;
             &:hover {
                 background-color: $lightGray;
             }

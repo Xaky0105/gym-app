@@ -5,11 +5,11 @@ import { EXERCISE_CATEGORY, ExerciseInWorkoutOnCalendar, WorkoutOnCalendar } fro
 import { convertDateToNumber } from './dayjs';
 
 export const getListOfCompletedExercise = (workouts: { [key: string]: WorkoutOnCalendar }) => {
-    const workoutsList = _.toArray(workouts);
+    const workoutsArr = _.toArray(workouts);
     const exercisesWithData: { [key: string]: ExerciseInWorkoutOnCalendar[] } = {};
-    workoutsList.forEach((workout) => {
-        const exerciseList = _.toArray(workout.exercises) as ExerciseInWorkoutOnCalendar[];
-        exerciseList.forEach((exercise) => {
+    workoutsArr.forEach((workout) => {
+        const exerciseArr = _.toArray(workout.exercises) as ExerciseInWorkoutOnCalendar[];
+        exerciseArr.forEach((exercise) => {
             const filtredSets = exercise.sets.filter((set) => set.amount && set.weight);
             if (!_.isEmpty(filtredSets)) {
                 if (!exercisesWithData[exercise.id]) {
@@ -33,6 +33,14 @@ export const getSortedExerciseByPosition = (exercises: {
     return _.toArray(exercises).sort((a, b) => a.order - b.order);
 };
 
+export const getExerciseTonnage = (exercise: ExerciseInWorkoutOnCalendar) => {
+    return (
+        exercise.sets.reduce((acc, set) => {
+            return (acc += set.amount * set.weight);
+        }, 0) / 1000
+    );
+};
+
 export const getCategoryExercise = (name: EXERCISE_CATEGORY) => {
     switch (name) {
         case EXERCISE_CATEGORY.arms:
@@ -48,12 +56,4 @@ export const getCategoryExercise = (name: EXERCISE_CATEGORY) => {
         case EXERCISE_CATEGORY.core:
             return 'core';
     }
-};
-
-export const getExerciseTonnage = (exercise: ExerciseInWorkoutOnCalendar) => {
-    return (
-        exercise.sets.reduce((acc, set) => {
-            return (acc += set.amount * set.weight);
-        }, 0) / 1000
-    );
 };

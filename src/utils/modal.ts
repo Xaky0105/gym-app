@@ -1,9 +1,9 @@
-import { Coordinates } from '@/types/modal';
+import { Coordinates, Dimensions } from '@/types/modal';
 
 type DayCoordinates = {
     left: number;
     top: number;
-} & Coordinates;
+} & Dimensions;
 
 type CalendarPopupCoordinates = {
     monthSize: Coordinates;
@@ -12,33 +12,40 @@ type CalendarPopupCoordinates = {
     windowSize: Coordinates;
 };
 
-export const getCalendarPopupCoordinates = (coordinates: CalendarPopupCoordinates) => {
-    const { modalSize, monthSize, dayCoordinates, windowSize } = coordinates;
-    const padding = 30;
-    const diffX = windowSize.x - monthSize.x;
+export const getCalendarPopupCoordinates = ({
+    modalSize,
+    monthSize,
+    dayCoordinates,
+    windowSize,
+}: CalendarPopupCoordinates) => {
+    const { left: dayLeft, top: dayTop, width: dayWidth, height: dayHeight } = dayCoordinates;
 
-    const posX = dayCoordinates.x + dayCoordinates.left + diffX / 2;
-    const posY = dayCoordinates.top + dayCoordinates.y / 2;
+    const padding = 30;
+    const diffBetweenWindowAndMonth = windowSize.x - monthSize.x;
+
+    const initModalPositionX = dayWidth + dayLeft + diffBetweenWindowAndMonth / 2;
+    const initModalPositionY = dayTop + dayHeight / 2;
+
+    const isModalDontFitRightOfDay = initModalPositionX + modalSize.x > windowSize.x;
+    const modalPositionLeftOfDay = initModalPositionX - modalSize.x - dayWidth - padding;
+    const isModalDontFitLeftAndRightOfDay = isModalDontFitRightOfDay && modalPositionLeftOfDay <= 0;
 
     const getCoordX = () => {
-        if (posX + modalSize.x > windowSize.x && posX - modalSize.x - dayCoordinates.x - padding <= 0) {
+        if (isModalDontFitLeftAndRightOfDay) {
             return windowSize.x / 2 - modalSize.x / 2;
-        } else if (posX + modalSize.x > windowSize.x) {
-            return posX - modalSize.x - dayCoordinates.x - padding;
+        } else if (isModalDontFitRightOfDay) {
+            return modalPositionLeftOfDay;
         }
-        return posX;
+        return initModalPositionX;
     };
 
     const getCoordY = () => {
-        if (posY + modalSize.y > windowSize.y) {
-            return posY - modalSize.y;
-        } else {
-            if (posX + modalSize.x > windowSize.x && posX - modalSize.x - dayCoordinates.x - padding <= 0) {
-                return dayCoordinates.top + dayCoordinates.y * 1.5;
-            } else {
-                return posY;
-            }
+        if (initModalPositionY + modalSize.y > windowSize.y) {
+            return initModalPositionY - modalSize.y;
+        } else if (isModalDontFitLeftAndRightOfDay) {
+            return dayTop + dayHeight * 1.5;
         }
+        return initModalPositionY;
     };
 
     return {
