@@ -6,6 +6,8 @@ import { CreateWorkoutPage } from '@/pages/create-workout-page';
 import { LoginPage } from '@/pages/login-page';
 import { NotFoundPage } from '@/pages/not-found-page';
 import { RegisterPage } from '@/pages/register-page';
+import { ReviewPage } from '@/pages/reviews-page';
+import { SettingsPage } from '@/pages/settings-page';
 import { WorkoutsPage } from '@/pages/workouts-page';
 import { ROUTE_PATH } from '@/types/route';
 
@@ -49,5 +51,13 @@ export const privateRouteArr: Route[] = [
     {
         path: ROUTE_PATH.WORKOUT,
         Component: WorkoutsPage,
+    },
+    {
+        path: ROUTE_PATH.SETTINGS,
+        Component: SettingsPage,
+    },
+    {
+        path: ROUTE_PATH.REVIEWS,
+        Component: ReviewPage,
     },
 ];
