@@ -5,6 +5,8 @@ export enum ROUTE_PATH {
     ANALYTICS = '/analytics',
     LOGIN = '/',
     REGISTER = '/register',
+    SETTINGS = '/settings',
+    REVIEWS = '/reviews',
     EDIT_WORKOUT = '/edit-workout',
     NOT_FOUND = '*',
 }
