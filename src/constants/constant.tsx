@@ -11,8 +11,8 @@ export type basicExerciseListType = {
 };
 
 export const navigation = [
-    { name: 'Тренировки', path: ROUTE_PATH.WORKOUT, icon: <MdOutlineFitnessCenter size={20} /> },
     { name: 'Календарь', path: ROUTE_PATH.CALENDAR, icon: <BsCalendar3 size={20} /> },
+    { name: 'Тренировки', path: ROUTE_PATH.WORKOUT, icon: <MdOutlineFitnessCenter size={20} /> },
     { name: 'Аналитика', path: ROUTE_PATH.ANALYTICS, icon: <TbDeviceAnalytics size={20} /> },
 ];
 
