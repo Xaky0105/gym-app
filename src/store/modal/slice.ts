@@ -6,6 +6,7 @@ import { ModalState } from './types';
 const initialState: ModalState = {
     modalWorkoutIsOpen: false,
     confirmModalIsOpen: false,
+    reviewModalIsOpen: false,
     stepWorkoutModal: STEP_MODAL.WORKOUTS,
     idSelectedWorkout: '',
     idSelectedExercise: '',
@@ -27,6 +28,9 @@ const modalSlice = createSlice({
         setConfirmModalIsOpen(state, action: PayloadAction<boolean>) {
             state.confirmModalIsOpen = action.payload;
         },
+        setReviewModalIsOpen(state, action: PayloadAction<boolean>) {
+            state.reviewModalIsOpen = action.payload;
+        },
         setStepWorkoutModal(state, action: PayloadAction<STEP_MODAL>) {
             state.stepWorkoutModal = action.payload;
         },
@@ -45,6 +49,7 @@ const modalSlice = createSlice({
 export const {
     setModalWorkoutIsOpen,
     setConfirmModalIsOpen,
+    setReviewModalIsOpen,
     setStepWorkoutModal,
     setTempIdWorkout,
     setTempIdExercise,

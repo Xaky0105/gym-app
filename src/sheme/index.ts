@@ -1,4 +1,4 @@
-import { object, ref, string } from 'yup';
+import { number, object, ref, string } from 'yup';
 
 export const createWorkoutSchema = object({
     workoutName: string().min(4, 'Поле должно содержать минимум 4 символа').required('Обязательное поле'),
@@ -16,4 +16,8 @@ export const registerSchema = object({
     confirmPassword: string()
         .oneOf([ref('password')], 'Пароли не совпадают')
         .required('Обязательное поле'),
+});
+
+export const reviewSchema = object({
+    message: string().max(500, 'Длина отзыва не может быть больше 500 символов').required('Обязательное поле'),
 });
