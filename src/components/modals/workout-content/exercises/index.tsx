@@ -25,8 +25,9 @@ export const Exercises: FC = () => {
 
     const cn = (ex: ExerciseInWorkoutOnCalendar) =>
         cx('item', {
-            complete: ex.sets?.every((set) => set.amount && set.weight),
-            partly: ex.sets?.some((set) => set.amount || set.weight),
+            complete: ex.sets.every((set) => set.amount && set.weight),
+            partly:
+                ex.sets.some((set) => set.amount || set.weight) && !ex.sets.every((set) => set.amount && set.weight),
         });
     return (
         <div className={styles.content}>
