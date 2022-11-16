@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
-import { arrayUnion, collection, doc, getDoc, getDocs, query, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { db } from '@/firebase';
 import { IReview } from '@/types/review';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { addReview, reviewsFetchComplete, setIsLoadingReview } from './slice';
+import { reviewsFetchComplete, setIsLoadingReview } from './slice';
 import { ReviewsDataThunk } from './types';
 
 export const addReviewAsync = createAsyncThunk(
@@ -17,26 +17,26 @@ export const addReviewAsync = createAsyncThunk(
             user: { user },
         } = getState() as any;
         const id = uuidv4();
-        dispatch(setIsLoadingReview(true));
         const reviewData: IReview = {
             message,
             rating,
+            id,
             img: user!.photoURL,
             name: user!.displayName,
             createdAccountAt: user!.reloadUserInfo.createdAt,
             createdReviewAt: dayjs().valueOf().toString(),
-            id,
         };
+        dispatch(setIsLoadingReview(true));
         try {
             const reviewsListRef = doc(db, `userReviews/reviewsList`);
             await updateDoc(reviewsListRef, {
                 ['reviews']: arrayUnion(reviewData),
             });
             await dispatch(loadReviewsData());
-            dispatch(setIsLoadingReview(false));
         } catch (err) {
             console.log(err);
         }
+        dispatch(setIsLoadingReview(false));
     },
 );
 
