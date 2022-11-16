@@ -7,6 +7,7 @@ const initialState: ModalState = {
     modalWorkoutIsOpen: false,
     confirmModalIsOpen: false,
     reviewModalIsOpen: false,
+    changeAvatarModalIsOpen: false,
     stepWorkoutModal: STEP_MODAL.WORKOUTS,
     idSelectedWorkout: '',
     idSelectedExercise: '',
@@ -31,6 +32,9 @@ const modalSlice = createSlice({
         setReviewModalIsOpen(state, action: PayloadAction<boolean>) {
             state.reviewModalIsOpen = action.payload;
         },
+        setChangeAvatarModalIsOpen(state, action: PayloadAction<boolean>) {
+            state.changeAvatarModalIsOpen = action.payload;
+        },
         setStepWorkoutModal(state, action: PayloadAction<STEP_MODAL>) {
             state.stepWorkoutModal = action.payload;
         },
@@ -50,6 +54,7 @@ export const {
     setModalWorkoutIsOpen,
     setConfirmModalIsOpen,
     setReviewModalIsOpen,
+    setChangeAvatarModalIsOpen,
     setStepWorkoutModal,
     setTempIdWorkout,
     setTempIdExercise,
