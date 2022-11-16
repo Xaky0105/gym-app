@@ -19,6 +19,9 @@ const userSlice = createSlice({
             state.user = null;
             state.error = null;
         },
+        updateUserAvatar(state, action: PayloadAction<string>) {
+            state.user!.photoURL = action.payload;
+        },
         setIsLoadingUser(state, action: PayloadAction<boolean>) {
             state.isLoading = action.payload;
         },
@@ -29,6 +32,6 @@ const userSlice = createSlice({
     },
 });
 
-export const { setUser, removeUser, setIsLoadingUser, setErrorUser } = userSlice.actions;
+export const { setUser, removeUser, setIsLoadingUser, setErrorUser, updateUserAvatar } = userSlice.actions;
 
 export default userSlice.reducer;
