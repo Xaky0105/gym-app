@@ -1,5 +1,5 @@
 @import '../../../variables.scss';
-.btnOutline {
+.standart {
     padding: 10px;
     border: 1px solid #dadce0;
     background-color: transparent;
@@ -9,6 +9,25 @@
     transition: all 0.2s linear;
     &:hover {
         border: 1px solid $darkGray;
+    }
+    @media (max-width: $mobileWidth) {
+        font-size: 12px;
+        padding: 5px;
+    }
+}
+
+.red {
+    padding: 10px;
+    border: 1px solid $pink;
+    color: $pink;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: uppercase;
+    transition: all 0.2s linear;
+    &:hover {
+        border: 1px solid $DarknedPink;
+        color: $DarknedPink;
     }
     @media (max-width: $mobileWidth) {
         font-size: 12px;

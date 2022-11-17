@@ -1,15 +1,20 @@
 import { ChangeEvent, FC } from 'react';
+import cnBind from 'classnames/bind';
 
 import styles from './index.module.scss';
 
 type ButtonOutlinePropsType = {
     handleClick: (e?: ChangeEvent<any>) => void;
     text: string;
+    color?: 'standart' | 'red';
 };
 
-export const ButtonOutline: FC<ButtonOutlinePropsType> = ({ handleClick, text }) => {
+const cx = cnBind.bind(styles);
+
+export const ButtonOutline: FC<ButtonOutlinePropsType> = ({ handleClick, text, color = 'standart' }) => {
+    const cn = cx({ standart: color === 'standart', red: color === 'red' });
     return (
-        <button className={styles.btnOutline} onClick={handleClick}>
+        <button className={cn} onClick={handleClick}>
             {text}
         </button>
     );
