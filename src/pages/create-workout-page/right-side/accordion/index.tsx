@@ -1,7 +1,7 @@
 import { FC, useContext, useState } from 'react';
 import _ from 'lodash';
 
-import { DeleteContent } from '@/components/modals/confirm-content/delete-workout';
+import { DeleteContent } from '@/components/modals/confirm-content/delete-content';
 import { ConfirmPopup } from '@/compound/confirm-popup';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { Context } from '@/pages/create-workout-page';

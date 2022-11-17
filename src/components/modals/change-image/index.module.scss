@@ -8,6 +8,8 @@
     box-shadow: 0 0 12px 0 #959595;
     z-index: 2;
     border-radius: 10px;
+    background-color: white;
+    animation: 0.4s ease both running modalAnimation;
     .header {
         display: flex;
         justify-content: space-between;
@@ -80,4 +82,13 @@
         
     }
     
+}
+
+@keyframes modalAnimation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

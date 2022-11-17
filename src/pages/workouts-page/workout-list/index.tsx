@@ -4,7 +4,7 @@ import { MdClose } from 'react-icons/md';
 import { TiPencil } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
 
-import { DeleteContent } from '@/components/modals/confirm-content/delete-workout';
+import { DeleteContent } from '@/components/modals/confirm-content/delete-content';
 import { ConfirmPopup } from '@/compound/confirm-popup';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { selectIsOpenConfirmModale } from '@/store/modal/selectors';
