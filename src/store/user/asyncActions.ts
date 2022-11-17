@@ -1,20 +1,24 @@
 import {
     browserLocalPersistence,
     createUserWithEmailAndPassword,
+    deleteUser,
     setPersistence,
     signInWithEmailAndPassword,
     signInWithPopup,
     updateProfile,
 } from 'firebase/auth';
-import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { collection, deleteDoc, doc, getDocs, query, setDoc } from 'firebase/firestore';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import _ from 'lodash';
 
 import { basicExerciseList } from '@/constants/constant';
 import { auth, db, provider, storage } from '@/firebase';
 import { removeUser, setErrorUser, setIsLoadingUser, setUser, updateUserAvatar } from '@/store/user/slice';
+import { getCurrentUserId } from '@/utils/user';
 import { uuidv4 } from '@firebase/util';
 import { Dispatch } from '@reduxjs/toolkit';
+
+import { RootState } from '..';
 
 const USER_AUTH_CONFIG = {
     register: createUserWithEmailAndPassword,
@@ -99,21 +103,46 @@ export const userSignOut = () => {
 };
 
 export const uploadUserAvatar = (avatarImg: any) => {
-    return async (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch, getState: any) => {
         dispatch(setIsLoadingUser(true));
+        const {
+            user: { user },
+        } = getState() as RootState;
+        const currentPhotoURL = user!.photoURL;
+        const currUser = auth.currentUser!;
+        const imageRef = ref(storage, `usersAvatar/${currUser.uid}`);
+        const prevImgRef = ref(storage, currentPhotoURL);
         try {
-            const imageRef = ref(storage, `usersAvatar/${avatarImg.name + uuidv4()}`);
+            await deleteObject(prevImgRef);
+        } catch (err) {
+            console.log(err);
+        }
+        try {
             const res = await uploadBytes(imageRef, avatarImg);
             const photoURL = await getDownloadURL(res.ref);
-            const currUser = auth.currentUser!;
             await updateProfile(currUser, {
                 photoURL,
             });
             dispatch(updateUserAvatar(photoURL));
-        } catch ({ message }) {
-            if (typeof message === 'string') {
-                console.log(message);
-            }
+        } catch (err) {
+            console.log(err);
+        }
+        dispatch(setIsLoadingUser(false));
+    };
+};
+
+export const deleteUserFromApp = () => {
+    return async (dispatch: Dispatch, getState: any) => {
+        // const uid = getCurrentUserId(getState);
+        dispatch(setIsLoadingUser(true));
+        try {
+            const currUser = auth.currentUser!;
+            // const usersRef = doc(db, 'users', uid);
+            await deleteUser(currUser);
+            // await deleteDoc(usersRef);
+            dispatch(removeUser());
+        } catch (err) {
+            console.log(err);
         }
         dispatch(setIsLoadingUser(false));
     };
