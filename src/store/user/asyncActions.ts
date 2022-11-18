@@ -8,9 +8,10 @@ import {
     updateProfile,
 } from 'firebase/auth';
 import { collection, deleteDoc, doc, getDocs, query, setDoc } from 'firebase/firestore';
-import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getBlob, getDownloadURL, ref, uploadBytes, uploadString } from 'firebase/storage';
 import _ from 'lodash';
 
+import anonymImg from '@/assets/images/anonym.jpg';
 import { basicExerciseList } from '@/constants/constant';
 import { auth, db, provider, storage } from '@/firebase';
 import { removeUser, setErrorUser, setIsLoadingUser, setUser, updateUserAvatar } from '@/store/user/slice';
@@ -32,9 +33,15 @@ export const userAuth = (email: string, password: string, type: 'signin' | 'regi
             await setPersistence(auth, browserLocalPersistence);
             const user = (await USER_AUTH_CONFIG[type](auth, email, password)).user;
             if (type === 'register') {
+                const imageRef = ref(storage, `usersAvatar/${user.uid}`);
+                const anonymImgRef = ref(storage, `usersAvatar/anonym.jpg`);
+                const blob = await getBlob(anonymImgRef);
+                const res = await uploadBytes(imageRef, blob); //Добавляю дефолтное фото нового пользователя
+                const photoURL = await getDownloadURL(res.ref);
+
                 await updateProfile(user, {
                     displayName: name,
-                    photoURL: `https://ui-avatars.com/api/?size=128&name=${name}&font-size=0.53&background=ccc&color=fff&rounded=true`,
+                    photoURL,
                 });
                 dispatch(setUser({ user }));
                 const userExerciseListDoc = doc(db, `users/${user.uid}/exerciseList/${uuidv4()}`);
@@ -43,6 +50,7 @@ export const userAuth = (email: string, password: string, type: 'signin' | 'regi
                 dispatch(setUser({ user }));
             }
         } catch ({ message }) {
+            console.log(message);
             if (typeof message === 'string') {
                 dispatch(setErrorUser(message));
                 _.delay(() => dispatch(setErrorUser(null)), 1500);
@@ -114,19 +122,20 @@ export const uploadUserAvatar = (avatarImg: any) => {
         const prevImgRef = ref(storage, currentPhotoURL);
         try {
             await deleteObject(prevImgRef);
+            try {
+                const res = await uploadBytes(imageRef, avatarImg);
+                const photoURL = await getDownloadURL(res.ref);
+                await updateProfile(currUser, {
+                    photoURL,
+                });
+                dispatch(updateUserAvatar(photoURL));
+            } catch (err) {
+                console.log(err);
+            }
         } catch (err) {
             console.log(err);
         }
-        try {
-            const res = await uploadBytes(imageRef, avatarImg);
-            const photoURL = await getDownloadURL(res.ref);
-            await updateProfile(currUser, {
-                photoURL,
-            });
-            dispatch(updateUserAvatar(photoURL));
-        } catch (err) {
-            console.log(err);
-        }
+
         dispatch(setIsLoadingUser(false));
     };
 };

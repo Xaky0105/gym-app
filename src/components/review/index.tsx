@@ -13,9 +13,6 @@ type ReviewType = {
 export const Review: FC<ReviewType> = ({ review }) => {
     const createdAccount = dayjs(Number(review.createdAccountAt)).format('DD.MM.YYYY');
     const createdReview = dayjs(Number(review.createdReviewAt)).format(`DD.MM.YYYY / HH:mm:ss`);
-    const photo =
-        review.img ||
-        `https://ui-avatars.com/api/?size=128&name=${review.name}&font-size=0.40&background=ccc&color=fff&rounded=true`;
     return (
         <div className={styles.review}>
             <div className={styles.header}>
@@ -26,7 +23,7 @@ export const Review: FC<ReviewType> = ({ review }) => {
             <div className={styles.wrap}>
                 <div className={styles.aboutUser}>
                     <div className={styles.imgWrap}>
-                        <img src={photo} alt="avatar" />
+                        <img src={review.img} alt="avatar" />
                     </div>
                     <p className={styles.registerTitle}>В системе с:</p>
                     <p>{createdAccount}</p>

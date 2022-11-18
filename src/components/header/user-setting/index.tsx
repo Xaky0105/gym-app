@@ -19,7 +19,15 @@ export const UserSetting: FC<UserSettingsPropsType> = ({ onCLickSettingsToggler,
     const cn = cx('user', { active: isActiveSettings });
     return (
         <div className={cn}>
-            <img src={userPhoto} alt="user" onClick={onCLickSettingsToggler} />
+            <img
+                src={
+                    userPhoto
+                        ? userPhoto
+                        : `https://ui-avatars.com/api/?size=128&name=ai&font-size=0.53&background=ccc&color=fff&rounded=true`
+                }
+                alt="user"
+                onClick={onCLickSettingsToggler}
+            />
             <UserSettingsList isActiveSettings={isActiveSettings} onCLickSettingsToggler={onCLickSettingsToggler} />
         </div>
     );
