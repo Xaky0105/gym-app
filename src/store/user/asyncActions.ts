@@ -31,6 +31,9 @@ export const userAuth = (email: string, password: string, type: 'signin' | 'regi
             await setPersistence(auth, browserLocalPersistence);
             const user = (await USER_AUTH_CONFIG[type](auth, email, password)).user;
             if (type === 'register') {
+                const userExerciseListDoc = doc(db, `users/${user.uid}/exerciseList/${uuidv4()}`);
+                await setDoc(userExerciseListDoc, basicExerciseList); // При регистрации добавляю юзеру базовый список упражнений
+
                 const imageRef = ref(storage, `usersAvatar/${user.uid}`);
                 const anonymImgRef = ref(storage, `usersAvatar/anonym.jpg`);
                 const blob = await getBlob(anonymImgRef);
@@ -41,14 +44,8 @@ export const userAuth = (email: string, password: string, type: 'signin' | 'regi
                     displayName: name,
                     photoURL,
                 });
-
-                const userExerciseListDoc = doc(db, `users/${user.uid}/exerciseList/${uuidv4()}`);
-                await setDoc(userExerciseListDoc, basicExerciseList); // При регистрации добавляю юзеру базовый список упражнений
-
-                dispatch(setUser({ user }));
-            } else if (type === 'signin') {
-                dispatch(setUser({ user }));
             }
+            dispatch(setUser({ user }));
         } catch ({ message }) {
             console.log(message);
             if (typeof message === 'string') {
