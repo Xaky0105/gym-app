@@ -17,6 +17,7 @@ const cx = cnBind.bind(styles);
 export const UserSetting: FC<UserSettingsPropsType> = ({ onCLickSettingsToggler, isActiveSettings }) => {
     const userPhoto = useAppSelector(selectUserPhoto);
     const cn = cx('user', { active: isActiveSettings });
+
     return (
         <div className={cn}>
             <img

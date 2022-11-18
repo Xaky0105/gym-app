@@ -7,7 +7,7 @@ import { VscSignOut } from 'react-icons/vsc';
 import { ButtonNav } from '@/components/buttons/button-nav';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { userSignOut } from '@/store/user/asyncActions';
-import { selectUserName } from '@/store/user/selectors';
+import { selectIsUserProviderIdWithGoogle, selectUserName } from '@/store/user/selectors';
 import { workoutsFetchComplete } from '@/store/workout/slice';
 import { ROUTE_PATH } from '@/types/route';
 
@@ -23,6 +23,7 @@ const cx = cnBind.bind(styles);
 export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActiveSettings, onCLickSettingsToggler }) => {
     const dispatch = useAppDispatch();
     const userEmail = useAppSelector(selectUserName);
+    const isUserAuthorizedWithGoogle = useAppSelector(selectIsUserProviderIdWithGoogle);
 
     const onClickSignOut = () => {
         dispatch(userSignOut());
@@ -38,14 +39,15 @@ export const UserSettingsList: React.FC<UserSettingsListPropsType> = ({ isActive
                 <b>{userEmail}</b>
             </p>
             <ul>
-                <li>
+                {!isUserAuthorizedWithGoogle && (
                     <ButtonNav
                         name={'Настройки'}
                         to={ROUTE_PATH.SETTINGS}
                         onClick={onCLickSettingsToggler}
                         icon={<TbSettings size={22} />}
                     />
-                </li>
+                )}
+                <li></li>
                 <li>
                     <ButtonNav
                         name={'Отзывы'}

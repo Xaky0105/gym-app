@@ -16,16 +16,14 @@ import styles from './index.module.scss';
 export const ReviewPage: FC = () => {
     const isShowReviewModal = useAppSelector(selectIsOpenReviewModale);
     const reviews = useAppSelector(selectReviews);
-    const reviewsSortByDate = [...reviews].sort((a, b) => +b.createdReviewAt - +a.createdReviewAt);
+    const reviewsSortByDate = reviews && [...reviews].sort((a, b) => +b.createdReviewAt - +a.createdReviewAt);
     const dispatch = useAppDispatch();
     return (
         <Container>
             <h2 className={styles.title}>Отзывы о приложении</h2>
             <div className={styles.wrapper}>
                 <div className={styles.reviewContainer}>
-                    {reviewsSortByDate.map((review) => (
-                        <Review key={review.id} review={review} />
-                    ))}
+                    {reviews && reviewsSortByDate.map((review) => <Review key={review.id} review={review} />)}
                 </div>
                 <Fab
                     sx={{ position: 'sticky', bottom: '5%', left: '100%', width: 50, height: 50 }}

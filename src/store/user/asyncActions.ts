@@ -7,15 +7,13 @@ import {
     signInWithPopup,
     updateProfile,
 } from 'firebase/auth';
-import { collection, deleteDoc, doc, getDocs, query, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
 import { deleteObject, getBlob, getDownloadURL, ref, uploadBytes, uploadString } from 'firebase/storage';
 import _ from 'lodash';
 
-import anonymImg from '@/assets/images/anonym.jpg';
 import { basicExerciseList } from '@/constants/constant';
 import { auth, db, provider, storage } from '@/firebase';
 import { removeUser, setErrorUser, setIsLoadingUser, setUser, updateUserAvatar } from '@/store/user/slice';
-import { getCurrentUserId } from '@/utils/user';
 import { uuidv4 } from '@firebase/util';
 import { Dispatch } from '@reduxjs/toolkit';
 
