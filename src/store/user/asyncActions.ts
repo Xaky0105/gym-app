@@ -41,9 +41,11 @@ export const userAuth = (email: string, password: string, type: 'signin' | 'regi
                     displayName: name,
                     photoURL,
                 });
-                dispatch(setUser({ user }));
+
                 const userExerciseListDoc = doc(db, `users/${user.uid}/exerciseList/${uuidv4()}`);
                 await setDoc(userExerciseListDoc, basicExerciseList); // При регистрации добавляю юзеру базовый список упражнений
+
+                dispatch(setUser({ user }));
             } else if (type === 'signin') {
                 dispatch(setUser({ user }));
             }
