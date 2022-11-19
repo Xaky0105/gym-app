@@ -68,7 +68,7 @@ export const LoginPage: FC = () => {
                                     position: 'absolute',
                                     top: '100%',
                                 },
-                                '& .Mui-focused': {
+                                '& .MuiInputLabel-root.Mui-focused': {
                                     color: '#07575b',
                                 },
                                 '& .MuiInput-root:after': {
@@ -92,7 +92,7 @@ export const LoginPage: FC = () => {
                                     position: 'absolute',
                                     top: '100%',
                                 },
-                                '& .Mui-focused': {
+                                '& .MuiInputLabel-root.Mui-focused': {
                                     color: '#07575b',
                                 },
                                 '& .MuiInput-root:after': {
