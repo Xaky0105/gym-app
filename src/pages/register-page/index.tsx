@@ -44,92 +44,95 @@ export const RegisterPage: FC = () => {
     });
 
     return (
-        <div className={styles.registerWrapper}>
-            <form onSubmit={formik.handleSubmit} className={styles.form}>
-                <h2>Регистрация</h2>
-                <div className={styles.inputWrapper}>
-                    <TextField
-                        variant={'standard'}
-                        sx={{
-                            marginBottom: '20px',
-                            '& .MuiFormHelperText-root': {
-                                position: 'absolute',
-                                top: '100%',
-                            },
-                        }}
-                        fullWidth
-                        id="name"
-                        name="name"
-                        label="Введите ваше имя"
-                        value={formik.values.name}
-                        onChange={formik.handleChange}
-                        error={formik.touched.name && Boolean(formik.errors.name)}
-                        helperText={formik.touched.name && formik.errors.name}
-                    />
-                    <TextField
-                        variant={'standard'}
-                        sx={{
-                            marginBottom: '20px',
-                            '& .MuiFormHelperText-root': {
-                                position: 'absolute',
-                                top: '100%',
-                            },
-                        }}
-                        fullWidth
-                        id="email"
-                        name="email"
-                        label="Введите email"
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        error={formik.touched.email && Boolean(formik.errors.email)}
-                        helperText={formik.touched.email && formik.errors.email}
-                    />
-                    <TextField
-                        variant={'standard'}
-                        sx={{
-                            marginBottom: '20px',
-                            '& .MuiFormHelperText-root': {
-                                position: 'absolute',
-                                top: '100%',
-                            },
-                        }}
-                        fullWidth
-                        id="password"
-                        name="password"
-                        label="Введите пароль"
-                        type="password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        error={formik.touched.password && Boolean(formik.errors.password)}
-                        helperText={formik.touched.password && formik.errors.password}
-                    />
-                    <TextField
-                        variant={'standard'}
-                        sx={{
-                            marginBottom: '20px',
-                            '& .MuiFormHelperText-root': {
-                                position: 'absolute',
-                                top: '100%',
-                            },
-                        }}
-                        fullWidth
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        label="Подтвердите пароль"
-                        type="password"
-                        value={formik.values.confirmPassword}
-                        onChange={formik.handleChange}
-                        error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-                        helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-                    />
-                    <div className={styles.block}>
-                        <p>Уже есть аккаунт?</p>
-                        <Link to={ROUTE_PATH.LOGIN}>Войти</Link>
+        <>
+            <div className={styles.overlay}></div>
+            <div className={styles.registerWrapper}>
+                <form onSubmit={formik.handleSubmit} className={styles.form}>
+                    <h2>Регистрация</h2>
+                    <div className={styles.inputWrapper}>
+                        <TextField
+                            variant={'standard'}
+                            sx={{
+                                marginBottom: '20px',
+                                '& .MuiFormHelperText-root': {
+                                    position: 'absolute',
+                                    top: '100%',
+                                },
+                            }}
+                            fullWidth
+                            id="name"
+                            name="name"
+                            label="Введите ваше имя"
+                            value={formik.values.name}
+                            onChange={formik.handleChange}
+                            error={formik.touched.name && Boolean(formik.errors.name)}
+                            helperText={formik.touched.name && formik.errors.name}
+                        />
+                        <TextField
+                            variant={'standard'}
+                            sx={{
+                                marginBottom: '20px',
+                                '& .MuiFormHelperText-root': {
+                                    position: 'absolute',
+                                    top: '100%',
+                                },
+                            }}
+                            fullWidth
+                            id="email"
+                            name="email"
+                            label="Введите email"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            helperText={formik.touched.email && formik.errors.email}
+                        />
+                        <TextField
+                            variant={'standard'}
+                            sx={{
+                                marginBottom: '20px',
+                                '& .MuiFormHelperText-root': {
+                                    position: 'absolute',
+                                    top: '100%',
+                                },
+                            }}
+                            fullWidth
+                            id="password"
+                            name="password"
+                            label="Введите пароль"
+                            type="password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
+                        />
+                        <TextField
+                            variant={'standard'}
+                            sx={{
+                                marginBottom: '20px',
+                                '& .MuiFormHelperText-root': {
+                                    position: 'absolute',
+                                    top: '100%',
+                                },
+                            }}
+                            fullWidth
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            label="Подтвердите пароль"
+                            type="password"
+                            value={formik.values.confirmPassword}
+                            onChange={formik.handleChange}
+                            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                        />
+                        <div className={styles.block}>
+                            <p>Уже есть аккаунт?</p>
+                            <Link to={ROUTE_PATH.LOGIN}>Войти</Link>
+                        </div>
                     </div>
-                </div>
-                <ButtonStandart name="Зарегистрироваться" type={'submit'} isloading={userIsLoading} />
-                {userError && <AuthError errorMessage={userError} />}
-            </form>
-        </div>
+                    <ButtonStandart name="Зарегистрироваться" type={'submit'} isloading={userIsLoading} />
+                    {userError && <AuthError errorMessage={userError} />}
+                </form>
+            </div>
+        </>
     );
 };

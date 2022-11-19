@@ -5,6 +5,10 @@
     justify-content: center;
     height: 100vh;
     background-color: $lightGray;
+    background-image: url(../../assets/img/background.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     .form {
         display: flex;
         flex-direction: column;
@@ -35,6 +39,7 @@
                     margin: 8px 0;
                     transition: all 0.1s linear;
                     background-color: #fff;
+                    border-radius: 5px;
                     span {
                         margin-left: 10px;
                     }
@@ -50,6 +55,7 @@
                     margin: 8px 0;
                     transition: all 0.1s linear;
                     background-color: #fff;
+                    border-radius: 5px;
                     &:hover {
                         background-color: $lightGray;
                     }
@@ -57,4 +63,12 @@
             }
         }
     }
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255 255 255 / 79%);
 }

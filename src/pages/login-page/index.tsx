@@ -54,60 +54,63 @@ export const LoginPage: FC = () => {
     }, []);
 
     return (
-        <div className={styles.loginWrapper}>
-            <form onSubmit={formik.handleSubmit} className={styles.form}>
-                <h2>Войти</h2>
-                <div className={styles.inputWrapper}>
-                    <TextField
-                        variant={'standard'}
-                        sx={{
-                            marginBottom: '20px',
-                            '& .MuiFormHelperText-root': {
-                                position: 'absolute',
-                                top: '100%',
-                            },
-                        }}
-                        fullWidth
-                        id="email"
-                        name="email"
-                        label="Email"
-                        value={formik.values.email}
-                        onChange={formik.handleChange}
-                        error={formik.touched.email && Boolean(formik.errors.email)}
-                        helperText={formik.touched.email && formik.errors.email}
-                    />
-                    <TextField
-                        variant={'standard'}
-                        sx={{
-                            marginBottom: '20px',
-                            '& .MuiFormHelperText-root': {
-                                position: 'absolute',
-                                top: '100%',
-                            },
-                        }}
-                        fullWidth
-                        id="password"
-                        name="password"
-                        label="Password"
-                        type="password"
-                        value={formik.values.password}
-                        onChange={formik.handleChange}
-                        error={formik.touched.password && Boolean(formik.errors.password)}
-                        helperText={formik.touched.password && formik.errors.password}
-                    />
-                    <div className={styles.block}>
-                        <p>Нет аккаунта ?</p>
-                        <Link to={ROUTE_PATH.REGISTER}>Зарегистрироваться</Link>
-                        <p>или</p>
-                        <div onClick={loginWithGoogleHandler} className={styles.signInWithGoogle}>
-                            <FcGoogle size={30} />
-                            <span>Авторизоваться через Google</span>
+        <>
+            <div className={styles.overlay}></div>
+            <div className={styles.loginWrapper}>
+                <form onSubmit={formik.handleSubmit} className={styles.form}>
+                    <h2>Войти</h2>
+                    <div className={styles.inputWrapper}>
+                        <TextField
+                            variant={'standard'}
+                            sx={{
+                                marginBottom: '20px',
+                                '& .MuiFormHelperText-root': {
+                                    position: 'absolute',
+                                    top: '100%',
+                                },
+                            }}
+                            fullWidth
+                            id="email"
+                            name="email"
+                            label="Email"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            error={formik.touched.email && Boolean(formik.errors.email)}
+                            helperText={formik.touched.email && formik.errors.email}
+                        />
+                        <TextField
+                            variant={'standard'}
+                            sx={{
+                                marginBottom: '20px',
+                                '& .MuiFormHelperText-root': {
+                                    position: 'absolute',
+                                    top: '100%',
+                                },
+                            }}
+                            fullWidth
+                            id="password"
+                            name="password"
+                            label="Password"
+                            type="password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
+                        />
+                        <div className={styles.block}>
+                            <p>Нет аккаунта ?</p>
+                            <Link to={ROUTE_PATH.REGISTER}>Зарегистрироваться</Link>
+                            <p>или</p>
+                            <div onClick={loginWithGoogleHandler} className={styles.signInWithGoogle}>
+                                <FcGoogle size={30} />
+                                <span>Авторизоваться через Google</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <ButtonStandart name="Войти" type={'submit'} isloading={userIsLoading} />
-                {userError && <AuthError errorMessage={userError} />}
-            </form>
-        </div>
+                    <ButtonStandart name="Войти" type={'submit'} isloading={userIsLoading} />
+                    {userError && <AuthError errorMessage={userError} />}
+                </form>
+            </div>
+        </>
     );
 };
