@@ -26,9 +26,15 @@ export const ReviewPage: FC = () => {
                     {reviews && reviewsSortByDate.map((review) => <Review key={review.id} review={review} />)}
                 </div>
                 <Fab
-                    sx={{ position: 'sticky', bottom: '5%', left: '100%', width: 50, height: 50 }}
+                    style={{ backgroundColor: '#87b6bc' }}
+                    sx={{
+                        position: 'sticky',
+                        bottom: '5%',
+                        left: '100%',
+                        width: 50,
+                        height: 50,
+                    }}
                     size="medium"
-                    color="primary"
                     onClick={() => dispatch(setReviewModalIsOpen(true))}
                 >
                     <EditIcon />

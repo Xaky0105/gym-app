@@ -68,6 +68,12 @@ export const LoginPage: FC = () => {
                                     position: 'absolute',
                                     top: '100%',
                                 },
+                                '& .Mui-focused': {
+                                    color: '#07575b',
+                                },
+                                '& .MuiInput-root:after': {
+                                    borderBottom: '2px solid #07575b',
+                                },
                             }}
                             fullWidth
                             id="email"
@@ -85,6 +91,12 @@ export const LoginPage: FC = () => {
                                 '& .MuiFormHelperText-root': {
                                     position: 'absolute',
                                     top: '100%',
+                                },
+                                '& .Mui-focused': {
+                                    color: '#07575b',
+                                },
+                                '& .MuiInput-root:after': {
+                                    borderBottom: '2px solid #07575b',
                                 },
                             }}
                             fullWidth

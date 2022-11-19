@@ -53,6 +53,15 @@ export const ReviewContent: FC = () => {
                             position: 'absolute',
                             top: '100%',
                         },
+                        '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#07575b',
+                        },
+                        '& .Mui-focused': {
+                            color: '#07575b',
+                        },
+                        '& .MuiInput-root:after': {
+                            border: '2px solid #07575b',
+                        },
                     }}
                     error={formik.touched.message && Boolean(formik.errors.message)}
                     helperText={formik.touched.message && formik.errors.message}

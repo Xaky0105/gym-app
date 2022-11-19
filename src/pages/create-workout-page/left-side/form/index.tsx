@@ -86,6 +86,12 @@ export const Form: FC<FormPropsType> = ({ clearTemporaryExercise, editableWorkou
                             position: 'absolute',
                             top: '100%',
                         },
+                        '& .Mui-focused': {
+                            color: '#07575b',
+                        },
+                        '& .MuiInput-root:after': {
+                            borderBottom: '2px solid #07575b',
+                        },
                     }}
                     variant="standard"
                     id="workoutName"
