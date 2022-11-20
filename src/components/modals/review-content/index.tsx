@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useFormik } from 'formik';
+import { useSnackbar } from 'notistack';
 
 import { ButtonStandart } from '@/components/buttons/button-standart';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
@@ -17,11 +18,15 @@ type OnClickSubmitFn = (values: { rating: number; message: string }) => void;
 
 export const ReviewContent: FC = () => {
     const isLoading = useAppSelector(selectIsLoadingReview);
+
     const dispatch = useAppDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+
     const onClickSubmit: OnClickSubmitFn = async ({ rating, message }) => {
         const reviewData = {
             rating,
             message,
+            enqueueSnackbar,
         };
         await dispatch(addReviewAsync(reviewData));
         dispatch(setReviewModalIsOpen(false));

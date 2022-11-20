@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, ReactNode, useState } from 'react';
+import { useSnackbar } from 'notistack';
 import { MdOutlineClose } from 'react-icons/md';
 
 import { ButtonStandart } from '@/components/buttons/button-standart';
@@ -20,6 +21,7 @@ export const ChangeImgPopup: FC<ChangeImgPopupType> = ({ onClose, isOpened }) =>
     const [avatarImgUrl, setAvatarImgUrl] = useState<any>(null);
 
     const setIsLoadingUser = useAppSelector(selectUserIsLoading);
+    const { enqueueSnackbar } = useSnackbar();
 
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
@@ -27,7 +29,7 @@ export const ChangeImgPopup: FC<ChangeImgPopupType> = ({ onClose, isOpened }) =>
     };
     const uploadImg = async () => {
         if (!avatarImgUrl) return;
-        await dispatch(uploadUserAvatar(avatarImg));
+        await dispatch(uploadUserAvatar(avatarImg, enqueueSnackbar));
         setAvatarImg(null);
         setAvatarImgUrl(null);
         onClose();

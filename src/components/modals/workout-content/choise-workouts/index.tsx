@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import _ from 'lodash';
+import { useSnackbar } from 'notistack';
 import { MdArrowBack } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,8 +11,7 @@ import { setModalWorkoutIsOpen, setStepWorkoutModal } from '@/store/modal/slice'
 import { selectWorkouts } from '@/store/workout/selectors';
 import { addWorkoutToCalendarAsync } from '@/store/workout-on-calendar/asyncActions';
 import { selectIsLoadingWorkoutsCalendar } from '@/store/workout-on-calendar/selectors';
-import { STEP_MODAL } from '@/types/modal';
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH, STEP_MODAL } from '@/types/other';
 import { HOW_TO_REPEAT, Workout, WorkoutOnCalendar } from '@/types/workout';
 import { generateWorkout } from '@/utils/workout';
 
@@ -27,6 +27,7 @@ export const ChoiseWorkouts: FC = () => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
     const userWorkout = useAppSelector(selectWorkouts);
     const daySelected = useAppSelector(selectSelectedDay);
@@ -48,7 +49,7 @@ export const ChoiseWorkouts: FC = () => {
 
     const addWorkoutOnCalendarClickHandler = async () => {
         const workout = generateWorkout(daySelected, selectWorkout as WorkoutOnCalendar);
-        await dispatch(addWorkoutToCalendarAsync(workout, howToRepeat, repeatInterval));
+        await dispatch(addWorkoutToCalendarAsync(workout, howToRepeat, repeatInterval, enqueueSnackbar));
         dispatch(setModalWorkoutIsOpen(false));
     };
 

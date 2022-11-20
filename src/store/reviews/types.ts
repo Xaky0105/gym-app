@@ -1,4 +1,4 @@
-import { IReview } from '@/types/review';
+import { EnqueueSnackbar, IReview } from '@/types/other';
 
 export type ReviewState = {
     reviews: IReview[];
@@ -9,4 +9,5 @@ export type ReviewState = {
 export type ReviewsDataThunk = {
     rating: number;
     message: string;
+    enqueueSnackbar: EnqueueSnackbar;
 };

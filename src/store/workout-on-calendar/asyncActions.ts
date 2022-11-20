@@ -8,9 +8,9 @@ import {
     deleteSomeWorkoutFromCalendar,
     deleteWorkoutFromCalendar,
     setIsLoadingWorkoutCalendar,
-    setWorkoutCalendarError,
     updateExerciseInWorkoutOnCalendar,
 } from '@/store/workout-on-calendar/slice';
+import { EnqueueSnackbar } from '@/types/other';
 import {
     DELETE_WORKOUT_FROM_CALENDAR,
     ExerciseInWorkoutOnCalendar,
@@ -27,6 +27,7 @@ export const addWorkoutToCalendarAsync = (
     workout: WorkoutOnCalendar,
     howToRepeat: HOW_TO_REPEAT,
     repeatInterval: number,
+    enqueueSnackbar: EnqueueSnackbar,
 ) => {
     return async (dispatch: Dispatch, getState: any) => {
         const uid = getCurrentUserId(getState);
@@ -46,6 +47,7 @@ export const addWorkoutToCalendarAsync = (
             await batch.commit();
             dispatch(setIsLoadingWorkoutCalendar(false));
             dispatch(addSomeWorkoutsToCalendar(workoutsArr));
+            enqueueSnackbar('Тренировки на календарь успешно добавлены', { variant: 'success' });
         };
         try {
             switch (howToRepeat) {
@@ -55,6 +57,7 @@ export const addWorkoutToCalendarAsync = (
                     await setDoc(userWorkoutDoc, workout);
                     dispatch(setIsLoadingWorkoutCalendar(false));
                     dispatch(addWorkoutToCalendar(workout));
+                    enqueueSnackbar('Тренировка на календарь успешно добавлена', { variant: 'success' });
                     break;
                 case HOW_TO_REPEAT.ONCE_A_WEEK:
                     await setWorkoutsData(HOW_TO_REPEAT.ONCE_A_WEEK, workout);
@@ -66,18 +69,18 @@ export const addWorkoutToCalendarAsync = (
                     await setWorkoutsData(HOW_TO_REPEAT.INTERVAL, workout, 0);
                     break;
             }
-        } catch ({ message }) {
-            if (typeof message === 'string') {
-                dispatch(setWorkoutCalendarError(message));
-                _.delay(() => dispatch(setWorkoutCalendarError('')), 2000);
-            } else {
-                console.log(message);
-            }
+        } catch (err) {
+            console.log(err);
+            enqueueSnackbar('Не удалось добавить тренировку', { variant: 'error' });
         }
     };
 };
 
-export const deleteWorkoutFromCalendarAsync = (id: string, type: DELETE_WORKOUT_FROM_CALENDAR) => {
+export const deleteWorkoutFromCalendarAsync = (
+    id: string,
+    type: DELETE_WORKOUT_FROM_CALENDAR,
+    enqueueSnackbar: EnqueueSnackbar,
+) => {
     return async (dispatch: Dispatch, getState: any) => {
         dispatch(setIsLoadingWorkoutCalendar(true));
         const uid = getCurrentUserId(getState);
@@ -89,6 +92,7 @@ export const deleteWorkoutFromCalendarAsync = (id: string, type: DELETE_WORKOUT_
                 const userWorkoutDoc = doc(db, `users/${uid}/workoutsOnCalendar/${id}`);
                 await deleteDoc(userWorkoutDoc);
                 dispatch(deleteWorkoutFromCalendar(id));
+                enqueueSnackbar('Тренировка удалена', { variant: 'success' });
             } else if (type === DELETE_WORKOUT_FROM_CALENDAR.THIS_AND_NEXT) {
                 const arrIdToRemove = getArrWorkoutsIdToDelete(workoutsOnTheCalendar, id);
                 const batch = writeBatch(db);
@@ -98,14 +102,11 @@ export const deleteWorkoutFromCalendarAsync = (id: string, type: DELETE_WORKOUT_
                 });
                 await batch.commit();
                 dispatch(deleteSomeWorkoutFromCalendar(arrIdToRemove));
+                enqueueSnackbar('Тренировки данного типа удалены', { variant: 'success' });
             }
-        } catch ({ message }) {
-            if (typeof message === 'string') {
-                dispatch(setWorkoutCalendarError(message));
-                _.delay(() => dispatch(setWorkoutCalendarError('')), 2000);
-            } else {
-                console.log(message);
-            }
+        } catch (err) {
+            console.log(err);
+            enqueueSnackbar('Не получилось удалить тренировку', { variant: 'error' });
         }
         dispatch(setIsLoadingWorkoutCalendar(false));
     };

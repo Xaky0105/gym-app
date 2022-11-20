@@ -3,7 +3,7 @@ import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { db } from '@/firebase';
-import { IReview } from '@/types/review';
+import { IReview } from '@/types/other';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { reviewsFetchComplete, setIsLoadingReview } from './slice';
@@ -12,7 +12,7 @@ import { ReviewsDataThunk } from './types';
 export const addReviewAsync = createAsyncThunk(
     'reviews/addReview',
     async (reviewsData: ReviewsDataThunk, { dispatch, getState }) => {
-        const { message, rating } = reviewsData;
+        const { message, rating, enqueueSnackbar } = reviewsData;
         const {
             user: { user },
         } = getState() as any;
@@ -33,8 +33,10 @@ export const addReviewAsync = createAsyncThunk(
                 ['reviews']: arrayUnion(reviewData),
             });
             await dispatch(loadReviewsData());
+            enqueueSnackbar('Ваш отзыв успешно добавлен', { variant: 'success' });
         } catch (err) {
             console.log(err);
+            enqueueSnackbar('Не удалось добавить отзыв', { variant: 'error' });
         }
         dispatch(setIsLoadingReview(false));
     },

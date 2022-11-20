@@ -1,5 +1,6 @@
 import { FC, useContext, useState } from 'react';
 import { useFormik } from 'formik';
+import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,7 +11,7 @@ import { Context } from '@/pages/create-workout-page';
 import { createWorkoutSchema } from '@/sheme';
 import { createOrEditWorkout } from '@/store/workout/asyncActions';
 import { selectWorkouts } from '@/store/workout/selectors';
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH } from '@/types/other';
 import { ExerciseInWorkout, Workout } from '@/types/workout';
 import TextField from '@mui/material/TextField';
 
@@ -28,6 +29,8 @@ export const Form: FC<FormPropsType> = ({ clearTemporaryExercise, editableWorkou
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
+
+    const { enqueueSnackbar } = useSnackbar();
 
     const { temporaryExercise } = useContext(Context);
 
@@ -62,12 +65,12 @@ export const Form: FC<FormPropsType> = ({ clearTemporaryExercise, editableWorkou
             };
             if (editableWorkoutId) {
                 const workout: Workout = configUserWorkout(editableWorkoutId);
-                dispatch(createOrEditWorkout(workout, 'edit'));
+                dispatch(createOrEditWorkout(workout, 'edit', enqueueSnackbar));
                 navigate(ROUTE_PATH.WORKOUT);
             } else {
                 const id = uuidv4();
                 const workout: Workout = configUserWorkout(id);
-                dispatch(createOrEditWorkout(workout, 'create'));
+                dispatch(createOrEditWorkout(workout, 'create', enqueueSnackbar));
                 clearTemporaryExercise();
                 selectColorHandler(workoutColors[0]);
                 formik.resetForm();

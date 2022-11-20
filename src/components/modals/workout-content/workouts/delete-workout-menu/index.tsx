@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import cnBind from 'classnames/bind';
+import { useSnackbar } from 'notistack';
 
 import { ButtonStandart } from '@/components/buttons/button-standart';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
@@ -32,10 +33,13 @@ const cx = cnBind.bind(styles);
 
 export const DeleteWorkoutMenu: FC<DeleteModalPropsType> = ({ workoutId, deleteModalToggler }) => {
     const [deleteType, setDeleteType] = useState(DELETE_WORKOUT_FROM_CALENDAR.ONLY_ONE);
+
     const dispatch = useAppDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+
     const isLoadingWorkoutsCalendar = useAppSelector(selectIsLoadingWorkoutsCalendar);
     const deleteWorkoutClickHandler = async () => {
-        await dispatch(deleteWorkoutFromCalendarAsync(workoutId, deleteType));
+        await dispatch(deleteWorkoutFromCalendarAsync(workoutId, deleteType, enqueueSnackbar));
         deleteModalToggler();
         dispatch(setModalWorkoutIsOpen(false));
     };

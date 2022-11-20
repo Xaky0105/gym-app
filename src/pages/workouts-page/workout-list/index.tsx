@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import _ from 'lodash';
+import { useSnackbar } from 'notistack';
 import { MdClose } from 'react-icons/md';
 import { TiPencil } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +12,7 @@ import { selectIsOpenConfirmModale } from '@/store/modal/selectors';
 import { setConfirmModalIsOpen } from '@/store/modal/slice';
 import { deleteWorkout } from '@/store/workout/asyncActions';
 import { selectWorkouts } from '@/store/workout/selectors';
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH } from '@/types/other';
 import Tooltip from '@mui/material/Tooltip';
 
 import styles from './index.module.scss';
@@ -28,6 +29,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
     const onClickEditWorkout = (id: string) => {
         navigate(ROUTE_PATH.EDIT_WORKOUT, { state: { editableWorkoutId: id } });
@@ -38,7 +40,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
     };
 
     const onClickDeleteWorkout = () => {
-        dispatch(deleteWorkout(workoutId));
+        dispatch(deleteWorkout(workoutId, enqueueSnackbar));
         setWorkoutClickHandlerCallback(null);
     };
 
