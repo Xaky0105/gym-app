@@ -6,10 +6,8 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { changeDaySelected, setModalWorkoutIsOpen, setStepWorkoutModal } from '@/store/modal/slice';
 import { selectMonthIndex } from '@/store/month/selectors';
 import { decMonthIndex, incMonthIndex, resetMonthIndex } from '@/store/month/slice';
-import { selectWorkoutCalendarError } from '@/store/workout-on-calendar/selectors';
-import { STEP_MODAL } from '@/types/modal';
+import { STEP_MODAL } from '@/types/other';
 import { getCurrentDay, getYear } from '@/utils/dayjs';
-import Alert from '@mui/material/Alert';
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
 
 import styles from './index.module.scss';
@@ -21,7 +19,6 @@ type CalendarHeaderType = {
 export const CalendarHeader: FC<CalendarHeaderType> = memo(({ changeDayRef }) => {
     const dispatch = useAppDispatch();
     const monthIndex = useAppSelector(selectMonthIndex);
-    const error = useAppSelector(selectWorkoutCalendarError);
     const buttonClickHandler = (reducer: ActionCreatorWithoutPayload<string>) => {
         dispatch(reducer());
     };
@@ -56,20 +53,6 @@ export const CalendarHeader: FC<CalendarHeaderType> = memo(({ changeDayRef }) =>
                     <h3 className={styles.data}>{getYear(monthIndex)}</h3>
                 </div>
             </div>
-            {error && (
-                <Alert
-                    severity="error"
-                    sx={{
-                        position: 'absolute',
-                        width: '70%',
-                        left: '50%',
-                        top: '10%',
-                        translate: '-50%',
-                    }}
-                >
-                    {error}
-                </Alert>
-            )}
         </>
     );
 });

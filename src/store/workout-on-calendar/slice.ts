@@ -6,7 +6,6 @@ import { WorkoutCalendarState } from './types';
 const initialState: WorkoutCalendarState = {
     workoutsOnTheCalendar: {},
     isLoading: false,
-    error: '',
 };
 
 const workoutsCalendarSlice = createSlice({
@@ -48,9 +47,6 @@ const workoutsCalendarSlice = createSlice({
             const { idSelectedWorkout, idSelectedExercise, exercise } = action.payload;
             state.workoutsOnTheCalendar[idSelectedWorkout].exercises[idSelectedExercise] = exercise;
         },
-        setWorkoutCalendarError(state, action: PayloadAction<string>) {
-            state.error = action.payload;
-        },
     },
 });
 
@@ -62,6 +58,5 @@ export const {
     deleteWorkoutFromCalendar,
     deleteSomeWorkoutFromCalendar,
     updateExerciseInWorkoutOnCalendar,
-    setWorkoutCalendarError,
 } = workoutsCalendarSlice.actions;
 export default workoutsCalendarSlice.reducer;

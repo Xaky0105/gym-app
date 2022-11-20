@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { loginSchema } from '@/sheme';
 import { autoSignIn, loginWithGoogle, userAuth } from '@/store/user/asyncActions';
 import { selectUser, selectUserError, selectUserIsLoading } from '@/store/user/selectors';
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH } from '@/types/other';
 import TextField from '@mui/material/TextField';
 
 import styles from './index.module.scss';

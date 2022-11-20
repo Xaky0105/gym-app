@@ -8,12 +8,13 @@ import {
     updateProfile,
 } from 'firebase/auth';
 import { collection, doc, getDocs, query, setDoc } from 'firebase/firestore';
-import { deleteObject, getBlob, getDownloadURL, ref, uploadBytes, uploadString } from 'firebase/storage';
+import { deleteObject, getBlob, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import _ from 'lodash';
 
 import { basicExerciseList } from '@/constants/constant';
 import { auth, db, provider, storage } from '@/firebase';
 import { removeUser, setErrorUser, setIsLoadingUser, setUser, updateUserAvatar } from '@/store/user/slice';
+import { EnqueueSnackbar } from '@/types/other';
 import { uuidv4 } from '@firebase/util';
 import { Dispatch } from '@reduxjs/toolkit';
 
@@ -107,7 +108,7 @@ export const userSignOut = () => {
     };
 };
 
-export const uploadUserAvatar = (avatarImg: any) => {
+export const uploadUserAvatar = (avatarImg: Blob, enqueueSnackbar: EnqueueSnackbar) => {
     return async (dispatch: Dispatch, getState: any) => {
         dispatch(setIsLoadingUser(true));
         const {
@@ -117,20 +118,19 @@ export const uploadUserAvatar = (avatarImg: any) => {
         const currUser = auth.currentUser!;
         const imageRef = ref(storage, `usersAvatar/${currUser.uid}`);
         const prevImgRef = ref(storage, currentPhotoURL);
+
         try {
             await deleteObject(prevImgRef);
-            try {
-                const res = await uploadBytes(imageRef, avatarImg);
-                const photoURL = await getDownloadURL(res.ref);
-                await updateProfile(currUser, {
-                    photoURL,
-                });
-                dispatch(updateUserAvatar(photoURL));
-            } catch (err) {
-                console.log(err);
-            }
+            const res = await uploadBytes(imageRef, avatarImg);
+            const photoURL = await getDownloadURL(res.ref);
+            await updateProfile(currUser, {
+                photoURL,
+            });
+            dispatch(updateUserAvatar(photoURL));
+            enqueueSnackbar('Фото профиля успешно обновлено', { variant: 'success' });
         } catch (err) {
             console.log(err);
+            enqueueSnackbar('Не удалось обновить фото профиля', { variant: 'error' });
         }
 
         dispatch(setIsLoadingUser(false));

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
-import { DAY_FORMAT } from '@/types/day';
+import { DAY_FORMAT } from '@/types/other';
 import { ExerciseInWorkoutOnCalendar, HOW_TO_REPEAT, UserWorkoutsStateType, WorkoutOnCalendar } from '@/types/workout';
 
 import { convertDateToNumber, getMonthMatrix } from './dayjs';

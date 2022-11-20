@@ -2,7 +2,7 @@ import React from 'react';
 import { TbArrowBackUp } from 'react-icons/tb';
 
 import { ButtonNav } from '@/components/buttons/button-nav';
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH } from '@/types/other';
 
 import styles from './index.module.scss';
 

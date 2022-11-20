@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import dayjs from 'dayjs';
 
-import { IReview } from '@/types/review';
+import { IReview } from '@/types/other';
 import Rating from '@mui/material/Rating';
 
 import styles from './index.module.scss';

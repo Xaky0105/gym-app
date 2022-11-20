@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { userSignOut } from '@/store/user/asyncActions';
 import { selectIsUserProviderIdWithGoogle, selectUserName } from '@/store/user/selectors';
 import { workoutsFetchComplete } from '@/store/workout/slice';
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH } from '@/types/other';
 
 import styles from './index.module.scss';
 

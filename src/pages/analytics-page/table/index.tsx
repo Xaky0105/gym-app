@@ -3,7 +3,7 @@ import cnBind from 'classnames/bind';
 import dayjs from 'dayjs';
 import _ from 'lodash';
 
-import { DAY_FORMAT } from '@/types/day';
+import { DAY_FORMAT } from '@/types/other';
 import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
 import { getExerciseTonnage, getSortedExercisesByDate } from '@/utils/exercise';
 

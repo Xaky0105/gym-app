@@ -3,7 +3,7 @@ import { MdOutlineFitnessCenter } from 'react-icons/md';
 import { TbDeviceAnalytics } from 'react-icons/tb';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH } from '@/types/other';
 import { BasicExercise } from '@/types/workout';
 
 export type basicExerciseListType = {

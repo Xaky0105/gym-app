@@ -9,7 +9,7 @@ import { RegisterPage } from '@/pages/register-page';
 import { ReviewPage } from '@/pages/reviews-page';
 import { SettingsPage } from '@/pages/settings-page';
 import { WorkoutsPage } from '@/pages/workouts-page';
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH } from '@/types/other';
 
 type Route = {
     path: string;

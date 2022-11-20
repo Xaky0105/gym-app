@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ButtonStandart } from '@/components/buttons/button-standart';
 import { Left } from '@/compound/container-two-part/left';
-import { ROUTE_PATH } from '@/types/route';
+import { ROUTE_PATH } from '@/types/other';
 
 import { WorkoutList } from '../workout-list';
 

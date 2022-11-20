@@ -2,8 +2,6 @@ import { FC, ReactNode } from 'react';
 
 import { Overlay } from '@/compound/overlay';
 
-import styles from './index.module.scss';
-
 type ReviewPopupType = {
     children: ReactNode;
     isOpened: boolean;

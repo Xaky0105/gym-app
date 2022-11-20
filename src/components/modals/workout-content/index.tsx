@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useAppSelector } from '@/hooks/redux-hook';
 import { selectStepWorkoutModale } from '@/store/modal/selectors';
-import { STEP_MODAL } from '@/types/modal';
+import { STEP_MODAL } from '@/types/other';
 
 import { ChoiseWorkouts } from './choise-workouts';
 import { Exercises } from './exercises';

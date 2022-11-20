@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { selectExerciseById } from '@/store/exercises/selectors';
 import { setStepWorkoutModal } from '@/store/modal/slice';
 import { updateExerciseInWorkoutOnCalendarAsync } from '@/store/workout-on-calendar/asyncActions';
-import { STEP_MODAL } from '@/types/modal';
+import { STEP_MODAL } from '@/types/other';
 import Tooltip from '@mui/material/Tooltip';
 
 import { Set } from './set';

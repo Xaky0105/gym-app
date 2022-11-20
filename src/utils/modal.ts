@@ -1,4 +1,4 @@
-import { Coordinates, Dimensions } from '@/types/modal';
+import { Coordinates, Dimensions } from '@/types/other';
 
 type DayCoordinates = {
     left: number;

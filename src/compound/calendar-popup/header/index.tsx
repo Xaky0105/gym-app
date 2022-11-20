@@ -5,7 +5,7 @@ import { MdOutlineClose } from 'react-icons/md';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { selectSelectedDay } from '@/store/modal/selectors';
 import { setModalWorkoutIsOpen } from '@/store/modal/slice';
-import { DAY_FORMAT } from '@/types/day';
+import { DAY_FORMAT } from '@/types/other';
 
 import styles from './index.module.scss';
 

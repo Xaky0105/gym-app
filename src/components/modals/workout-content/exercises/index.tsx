@@ -6,7 +6,7 @@ import { MdArrowBack } from 'react-icons/md';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { setStepWorkoutModal, setTempIdExercise } from '@/store/modal/slice';
 import { selectWorkoutById } from '@/store/workout-on-calendar/selectors';
-import { STEP_MODAL } from '@/types/modal';
+import { STEP_MODAL } from '@/types/other';
 import { ExerciseInWorkoutOnCalendar } from '@/types/workout';
 import { getSortedExerciseByPosition } from '@/utils/exercise';
 

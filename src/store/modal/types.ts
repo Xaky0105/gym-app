@@ -1,4 +1,4 @@
-import { STEP_MODAL } from '@/types/modal';
+import { STEP_MODAL } from '@/types/other';
 export type ModalState = {
     modalWorkoutIsOpen: boolean;
     confirmModalIsOpen: boolean;

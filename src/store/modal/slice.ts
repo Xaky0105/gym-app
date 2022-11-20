@@ -1,4 +1,4 @@
-import { STEP_MODAL } from '@/types/modal';
+import { STEP_MODAL } from '@/types/other';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { ModalState } from './types';

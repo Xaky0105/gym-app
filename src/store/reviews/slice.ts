@@ -1,4 +1,4 @@
-import { IReview } from '@/types/review';
+import { IReview } from '@/types/other';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { ReviewState } from './types';

@@ -3,7 +3,7 @@ import { BsPlusSquareDotted } from 'react-icons/bs';
 
 import { useAppDispatch } from '@/hooks/redux-hook';
 import { setStepWorkoutModal } from '@/store/modal/slice';
-import { STEP_MODAL } from '@/types/modal';
+import { STEP_MODAL } from '@/types/other';
 import Tooltip from '@mui/material/Tooltip';
 
 import { DeleteWorkoutMenu } from './delete-workout-menu';
