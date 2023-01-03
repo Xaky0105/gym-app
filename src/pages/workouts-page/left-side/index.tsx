@@ -1,7 +1,7 @@
 import { FC, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ButtonStandart } from '@/components/buttons/button-standart';
+import { ButtonStandard } from '@/components/buttons/button-standard';
 import { Left } from '@/compound/container-two-part/left';
 import { ROUTE_PATH } from '@/types/other';
 
@@ -24,7 +24,7 @@ export const LeftSide: FC<LeftSidePropsType> = memo(({ setWorkoutClickHandlerCal
                 <div className={styles.content}>
                     <WorkoutList setWorkoutClickHandlerCallback={setWorkoutClickHandlerCallback} />
                 </div>
-                <ButtonStandart name="Создать тренировку" handleClick={btnClickHandler} />
+                <ButtonStandard name="Создать тренировку" handleClick={btnClickHandler} />
             </div>
         </Left>
     );

@@ -6,7 +6,7 @@ import { DeleteContent } from '@/components/modals/confirm-content/delete-conten
 import { ConfirmPopup } from '@/compound/confirm-popup';
 import { Container } from '@/compound/container';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { selectIsOpenChangeAvatarModal, selectIsOpenConfirmModale } from '@/store/modal/selectors';
+import { selectIsOpenChangeAvatarModal, selectIsOpenConfirmModal } from '@/store/modal/selectors';
 import { setChangeAvatarModalIsOpen, setConfirmModalIsOpen } from '@/store/modal/slice';
 import { deleteUserFromApp } from '@/store/user/asyncActions';
 import { selectUserPhoto } from '@/store/user/selectors';
@@ -17,7 +17,7 @@ export const SettingsPage: FC = () => {
     const dispatch = useAppDispatch();
     const userPhoto = useAppSelector(selectUserPhoto);
     const isOpenCHangeAvatarModal = useAppSelector(selectIsOpenChangeAvatarModal);
-    const isOpenConfirmModal = useAppSelector(selectIsOpenConfirmModale);
+    const isOpenConfirmModal = useAppSelector(selectIsOpenConfirmModal);
 
     return (
         <Container>

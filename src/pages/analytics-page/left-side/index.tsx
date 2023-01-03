@@ -13,7 +13,7 @@ type LeftSideType = {
 
 export const LeftSide: FC<LeftSideType> = ({ exerciseWithData, selectedExerciseGroupClickHandler }) => {
     return (
-        <Left title="Список упражнений которые вы вополняли">
+        <Left title="Список упражнений которые вы выполняли">
             <ul className={styles.list}>
                 {_.isEmpty(exerciseWithData) ? (
                     <p>Вы не выполнили ни одного упражнения</p>

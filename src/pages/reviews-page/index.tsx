@@ -5,7 +5,7 @@ import { Review } from '@/components/review';
 import { Container } from '@/compound/container';
 import { ReviewPopup } from '@/compound/review-popup';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { selectIsOpenReviewModale } from '@/store/modal/selectors';
+import { selectIsOpenReviewModal } from '@/store/modal/selectors';
 import { setReviewModalIsOpen } from '@/store/modal/slice';
 import { selectReviews } from '@/store/reviews/selectors';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,7 +14,7 @@ import Fab from '@mui/material/Fab';
 import styles from './index.module.scss';
 
 export const ReviewPage: FC = () => {
-    const isShowReviewModal = useAppSelector(selectIsOpenReviewModale);
+    const isShowReviewModal = useAppSelector(selectIsOpenReviewModal);
     const reviews = useAppSelector(selectReviews);
     const reviewsSortByDate = reviews && [...reviews].sort((a, b) => +b.createdReviewAt - +a.createdReviewAt);
     const dispatch = useAppDispatch();

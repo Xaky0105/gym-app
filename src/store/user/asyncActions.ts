@@ -22,10 +22,10 @@ import { RootState } from '..';
 
 const USER_AUTH_CONFIG = {
     register: createUserWithEmailAndPassword,
-    signin: signInWithEmailAndPassword,
+    signIn: signInWithEmailAndPassword,
 };
 
-export const userAuth = (email: string, password: string, type: 'signin' | 'register', name?: string) => {
+export const userAuth = (email: string, password: string, type: 'signIn' | 'register', name?: string) => {
     return async (dispatch: Dispatch) => {
         dispatch(setIsLoadingUser(true));
         try {

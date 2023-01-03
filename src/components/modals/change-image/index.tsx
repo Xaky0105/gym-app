@@ -1,8 +1,8 @@
-import { ChangeEvent, FC, ReactNode, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { useSnackbar } from 'notistack';
 import { MdOutlineClose } from 'react-icons/md';
 
-import { ButtonStandart } from '@/components/buttons/button-standart';
+import { ButtonStandard } from '@/components/buttons/button-standard';
 import { Overlay } from '@/compound/overlay';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { uploadUserAvatar } from '@/store/user/asyncActions';
@@ -44,7 +44,7 @@ export const ChangeImgPopup: FC<ChangeImgPopupType> = ({ onClose, isOpened }) =>
         <Overlay onClose={onClose} isOpened={isOpened}>
             <div className={styles.wrapper}>
                 <div className={styles.header}>
-                    <p>{avatarImgUrl ? 'Предпросмотр новой фоторафии' : 'Загрузка новой фотографии'}</p>
+                    <p>{avatarImgUrl ? 'Предпросмотр новой фотографии' : 'Загрузка новой фотографии'}</p>
                     <div className={styles.crossWrapper} onClick={onClose}>
                         <MdOutlineClose />
                     </div>
@@ -56,12 +56,12 @@ export const ChangeImgPopup: FC<ChangeImgPopupType> = ({ onClose, isOpened }) =>
                                 <img src={avatarImgUrl} alt="avatar" />
                             </div>
                             <div className={styles.btnGroup}>
-                                <ButtonStandart
-                                    isloading={setIsLoadingUser}
+                                <ButtonStandard
+                                    isLoading={setIsLoadingUser}
                                     name="Подтвердить"
                                     handleClick={uploadImg}
                                 />
-                                <ButtonStandart
+                                <ButtonStandard
                                     name="Вернуться назад"
                                     handleClick={() => {
                                         setAvatarImgUrl(null);

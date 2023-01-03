@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import ruLocale from 'dayjs/locale/ru';
-import weekday from 'dayjs/plugin/weekday'; // Для установки дня недели в соответсвии с локалью
+import weekday from 'dayjs/plugin/weekday';
 
 import { DAY_FORMAT } from '@/types/other';
 

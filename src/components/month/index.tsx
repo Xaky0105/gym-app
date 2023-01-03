@@ -16,7 +16,7 @@ type MonthType = {
 };
 
 export const Month: React.FC<MonthType> = memo(({ changeDayRef, monthRef }) => {
-    const [currentMonth, setCurrentMonth] = useState(getMonthMatrix()); // В стейте двумерный массив
+    const [currentMonth, setCurrentMonth] = useState(getMonthMatrix());
 
     const monthIndex = useAppSelector(selectMonthIndex);
     const workoutsForCalendar = useAppSelector(selectWorkoutsForCalendar);

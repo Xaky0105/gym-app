@@ -2,10 +2,10 @@ import { FC, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { ButtonStandart } from '@/components/buttons/button-standart';
+import { ButtonStandard } from '@/components/buttons/button-standard';
 import { AuthError } from '@/components/errors/auth-error';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { registerSchema } from '@/sheme';
+import { registerScheme } from '@/scheme';
 import { userAuth } from '@/store/user/asyncActions';
 import { selectUser, selectUserError, selectUserIsLoading } from '@/store/user/selectors';
 import { ROUTE_PATH } from '@/types/other';
@@ -33,7 +33,7 @@ export const RegisterPage: FC = () => {
             password: '',
             confirmPassword: '',
         },
-        validationSchema: registerSchema,
+        validationSchema: registerScheme,
         onSubmit: onClickSubmit,
     });
 
@@ -153,7 +153,7 @@ export const RegisterPage: FC = () => {
                             <Link to={ROUTE_PATH.LOGIN}>Войти</Link>
                         </div>
                     </div>
-                    <ButtonStandart name="Зарегистрироваться" type={'submit'} isloading={userIsLoading} />
+                    <ButtonStandard name="Зарегистрироваться" type={'submit'} isLoading={userIsLoading} />
                     {userError && <AuthError errorMessage={userError} />}
                 </form>
             </div>

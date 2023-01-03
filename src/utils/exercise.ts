@@ -10,12 +10,12 @@ export const getListOfCompletedExercise = (workouts: { [key: string]: WorkoutOnC
     workoutsArr.forEach((workout) => {
         const exerciseArr = _.toArray(workout.exercises) as ExerciseInWorkoutOnCalendar[];
         exerciseArr.forEach((exercise) => {
-            const filtredSets = exercise.sets.filter((set) => set.amount && set.weight);
-            if (!_.isEmpty(filtredSets)) {
+            const filterSets = exercise.sets.filter((set) => set.amount && set.weight);
+            if (!_.isEmpty(filterSets)) {
                 if (!exercisesWithData[exercise.id]) {
                     exercisesWithData[exercise.id] = [];
                 }
-                exercisesWithData[exercise.id].push({ ...exercise, date: workout.date, sets: filtredSets });
+                exercisesWithData[exercise.id].push({ ...exercise, date: workout.date, sets: filterSets });
             }
         });
     });
@@ -51,8 +51,8 @@ export const getCategoryExercise = (name: EXERCISE_CATEGORY) => {
             return 'breast';
         case EXERCISE_CATEGORY.legs:
             return 'legs';
-        case EXERCISE_CATEGORY.shouldres:
-            return 'shouldres';
+        case EXERCISE_CATEGORY.shoulders:
+            return 'shoulders';
         case EXERCISE_CATEGORY.core:
             return 'core';
     }

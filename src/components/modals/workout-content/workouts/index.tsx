@@ -30,7 +30,7 @@ export const Workouts: FC = () => {
             </div>
             <div className={styles.btn}>
                 <Tooltip title={'Выбрать из списка'} disableInteractive enterDelay={500} leaveDelay={200}>
-                    <span onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.CHOISE_WORKOUTS))}>
+                    <span onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.CHOICE_WORKOUTS))}>
                         <BsPlusSquareDotted size={40} />
                     </span>
                 </Tooltip>

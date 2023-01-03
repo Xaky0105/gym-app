@@ -26,14 +26,14 @@ export const getCalendarPopupCoordinates = ({
     const initModalPositionX = dayWidth + dayLeft + diffBetweenWindowAndMonth / 2;
     const initModalPositionY = dayTop + dayHeight / 2;
 
-    const isModalDontFitRightOfDay = initModalPositionX + modalSize.x > windowSize.x;
+    const isModalDoNotFitRightOfDay = initModalPositionX + modalSize.x > windowSize.x;
     const modalPositionLeftOfDay = initModalPositionX - modalSize.x - dayWidth - padding;
-    const isModalDontFitLeftAndRightOfDay = isModalDontFitRightOfDay && modalPositionLeftOfDay <= 0;
+    const isModalDoNotFitLeftAndRightOfDay = isModalDoNotFitRightOfDay && modalPositionLeftOfDay <= 0;
 
     const getCoordX = () => {
-        if (isModalDontFitLeftAndRightOfDay) {
+        if (isModalDoNotFitLeftAndRightOfDay) {
             return windowSize.x / 2 - modalSize.x / 2;
-        } else if (isModalDontFitRightOfDay) {
+        } else if (isModalDoNotFitRightOfDay) {
             return modalPositionLeftOfDay;
         }
         return initModalPositionX;
@@ -42,7 +42,7 @@ export const getCalendarPopupCoordinates = ({
     const getCoordY = () => {
         if (initModalPositionY + modalSize.y > windowSize.y) {
             return initModalPositionY - modalSize.y;
-        } else if (isModalDontFitLeftAndRightOfDay) {
+        } else if (isModalDoNotFitLeftAndRightOfDay) {
             return dayTop + dayHeight * 1.5;
         }
         return initModalPositionY;

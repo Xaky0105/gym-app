@@ -4,7 +4,7 @@ import { Header } from '@/compound/calendar-popup/header';
 import { Overlay } from '@/compound/overlay';
 import { useComponentCoordinates } from '@/hooks/useComponentCoordinates';
 import { useComponentSize } from '@/hooks/useComponentSize';
-import { useWindowSize } from '@/hooks/useWondowSize';
+import { useWindowSize } from '@/hooks/useWindowSize';
 import { getCalendarPopupCoordinates } from '@/utils/modal';
 import Slide from '@mui/material/Slide';
 
@@ -36,7 +36,7 @@ export const CalendarPopup: FC<CalendarPopupType> = ({ children, onClose, isOpen
     return (
         <Overlay isOpened={isOpen} onClose={onClose}>
             <Slide direction="up" in={isOpen} mountOnEnter unmountOnExit>
-                <div className={styles.modale} style={{ left: modalPosition.x, top: modalPosition.y }} ref={ref}>
+                <div className={styles.modal} style={{ left: modalPosition.x, top: modalPosition.y }} ref={ref}>
                     <Header />
                     {children}
                 </div>

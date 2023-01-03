@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import cnBind from 'classnames/bind';
 import { useSnackbar } from 'notistack';
 
-import { ButtonStandart } from '@/components/buttons/button-standart';
+import { ButtonStandard } from '@/components/buttons/button-standard';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { setModalWorkoutIsOpen } from '@/store/modal/slice';
 import { deleteWorkoutFromCalendarAsync } from '@/store/workout-on-calendar/asyncActions';
@@ -16,12 +16,12 @@ type DeleteModalPropsType = {
     deleteModalToggler: () => void;
 };
 
-type ChoiseItemType = {
+type ChoiceItemType = {
     name: string;
     type: DELETE_WORKOUT_FROM_CALENDAR;
 };
 
-const choiseList: ChoiseItemType[] = [
+const choiceList: ChoiceItemType[] = [
     { name: 'Только одну', type: DELETE_WORKOUT_FROM_CALENDAR.ONLY_ONE },
     {
         name: 'Эту и следующие',
@@ -44,24 +44,24 @@ export const DeleteWorkoutMenu: FC<DeleteModalPropsType> = ({ workoutId, deleteM
         dispatch(setModalWorkoutIsOpen(false));
     };
 
-    const cn = (choise: ChoiseItemType) => cx('item', { active: choise.type === deleteType });
+    const cn = (choice: ChoiceItemType) => cx('item', { active: choice.type === deleteType });
     return (
         <>
             <div className={styles.wrapper}>
                 <div className={styles.block}>
                     <h4 className={styles.title}>Варианты удаления:</h4>
                     <ul>
-                        {choiseList.map((choise) => (
-                            <li onClick={() => setDeleteType(choise.type)} className={cn(choise)} key={choise.type}>
-                                {choise.name}
+                        {choiceList.map((choice) => (
+                            <li onClick={() => setDeleteType(choice.type)} className={cn(choice)} key={choice.type}>
+                                {choice.name}
                             </li>
                         ))}
                     </ul>
                 </div>
-                <ButtonStandart
+                <ButtonStandard
                     name="Удалить"
                     handleClick={deleteWorkoutClickHandler}
-                    isloading={isLoadingWorkoutsCalendar}
+                    isLoading={isLoadingWorkoutsCalendar}
                 />
             </div>
             <div className={styles.mask} onClick={deleteModalToggler}></div>

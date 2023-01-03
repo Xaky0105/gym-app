@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { Context } from '@/pages/create-workout-page';
 import { changeExerciseAsync } from '@/store/exercises/asyncActions';
 import { selectExerciseList } from '@/store/exercises/selectors';
-import { selectIsOpenConfirmModale } from '@/store/modal/selectors';
+import { selectIsOpenConfirmModal } from '@/store/modal/selectors';
 import { setConfirmModalIsOpen } from '@/store/modal/slice';
 import { ExerciseInWorkout, HOW_TO_CHANGE_EXERCISE } from '@/types/workout';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowDropDownOutlined';
@@ -65,7 +65,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export const ExerciseAccordion: FC = () => {
     const exerciseList = useAppSelector(selectExerciseList);
-    const isOpenConfirmModale = useAppSelector(selectIsOpenConfirmModale);
+    const isOpenConfirmModal = useAppSelector(selectIsOpenConfirmModal);
     const dispatch = useAppDispatch();
 
     const [selectExercise, setSelectExercise] = useState<ExerciseInWorkout | null>(null);
@@ -95,7 +95,7 @@ export const ExerciseAccordion: FC = () => {
                     </AccordionDetails>
                 </Accordion>
             ))}
-            <ConfirmPopup onClose={onCloseConfirmPopup} isOpened={isOpenConfirmModale}>
+            <ConfirmPopup onClose={onCloseConfirmPopup} isOpened={isOpenConfirmModal}>
                 <DeleteContent
                     message={`Вы уверены что хотите удалить упражнение ${selectExercise?.name}?`}
                     onOk={deleteExerciseHandler}

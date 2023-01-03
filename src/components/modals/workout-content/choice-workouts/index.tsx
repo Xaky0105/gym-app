@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 import { MdArrowBack } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-import { ButtonStandart } from '@/components/buttons/button-standart';
+import { ButtonStandard } from '@/components/buttons/button-standard';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { selectSelectedDay } from '@/store/modal/selectors';
 import { setModalWorkoutIsOpen, setStepWorkoutModal } from '@/store/modal/slice';
@@ -20,7 +20,7 @@ import { SelectRepeat } from './select-repeat';
 
 import styles from './index.module.scss';
 
-export const ChoiseWorkouts: FC = () => {
+export const ChoiceWorkouts: FC = () => {
     const [selectWorkout, setSelectWorkout] = useState<WorkoutOnCalendar | null>(null);
     const [howToRepeat, setHowToRepeat] = useState(HOW_TO_REPEAT.DONT_REPEAT);
     const [repeatInterval, setRepeatInterval] = useState(2);
@@ -87,7 +87,7 @@ export const ChoiseWorkouts: FC = () => {
             </div>
             <div className={styles.botBlock}>
                 {_.isEmpty(userWorkout) ? (
-                    <ButtonStandart handleClick={createWorkoutClickHandler} name={'Создать тренировку'} />
+                    <ButtonStandard handleClick={createWorkoutClickHandler} name={'Создать тренировку'} />
                 ) : (
                     <>
                         <div className={styles.selectGroup}>
@@ -96,11 +96,11 @@ export const ChoiseWorkouts: FC = () => {
                                 <SelectNumber repeatInterval={repeatInterval} repeatClickHandler={repeatClickHandler} />
                             )}
                         </div>
-                        <ButtonStandart
+                        <ButtonStandard
                             handleClick={addWorkoutOnCalendarClickHandler}
                             name={'Добавить'}
                             disabled={!selectWorkout}
-                            isloading={isLoadingWorkoutCalendar}
+                            isLoading={isLoadingWorkoutCalendar}
                         />
                     </>
                 )}

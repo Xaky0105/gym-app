@@ -4,11 +4,11 @@ import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ButtonStandart } from '@/components/buttons/button-standart';
+import { ButtonStandard } from '@/components/buttons/button-standard';
 import { workoutColors } from '@/constants/constant';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { Context } from '@/pages/create-workout-page';
-import { createWorkoutSchema } from '@/sheme';
+import { createWorkoutScheme } from '@/scheme';
 import { createOrEditWorkout } from '@/store/workout/asyncActions';
 import { selectWorkouts } from '@/store/workout/selectors';
 import { ROUTE_PATH } from '@/types/other';
@@ -48,7 +48,7 @@ export const Form: FC<FormPropsType> = ({ clearTemporaryExercise, editableWorkou
         initialValues: {
             workoutName: editableWorkoutId ? userWorkouts[editableWorkoutId].workoutName : '',
         },
-        validationSchema: createWorkoutSchema,
+        validationSchema: createWorkoutScheme,
         onSubmit: (workoutName) => {
             const configUserWorkout = (id: string) => {
                 const exercises: { [k: string]: ExerciseInWorkout } = {};
@@ -109,7 +109,7 @@ export const Form: FC<FormPropsType> = ({ clearTemporaryExercise, editableWorkou
                 <SelectColor selectColor={selectColor} selectColorHandler={selectColorHandler} />
                 <ExerciseList />
             </div>
-            <ButtonStandart
+            <ButtonStandard
                 handleClick={() => {}}
                 name={editableWorkoutId ? 'Завершить редактирование' : 'Создать тренировку'}
                 disabled={temporaryExercise.length === 0}

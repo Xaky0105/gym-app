@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { DeleteContent } from '@/components/modals/confirm-content/delete-content';
 import { ConfirmPopup } from '@/compound/confirm-popup';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { selectIsOpenConfirmModale } from '@/store/modal/selectors';
+import { selectIsOpenConfirmModal } from '@/store/modal/selectors';
 import { setConfirmModalIsOpen } from '@/store/modal/slice';
 import { deleteWorkout } from '@/store/workout/asyncActions';
 import { selectWorkouts } from '@/store/workout/selectors';
@@ -25,7 +25,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
     const [workoutId, setWorkoutId] = useState('');
 
     const userWorkouts = useAppSelector(selectWorkouts);
-    const isOpenConfirmModale = useAppSelector(selectIsOpenConfirmModale);
+    const isOpenConfirmModal = useAppSelector(selectIsOpenConfirmModal);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -79,7 +79,7 @@ export const WorkoutList: FC<WorkoutListPropTypes> = ({ setWorkoutClickHandlerCa
                     ))}
                 </ul>
             )}
-            <ConfirmPopup onClose={onCloseConfirmPopup} isOpened={isOpenConfirmModale}>
+            <ConfirmPopup onClose={onCloseConfirmPopup} isOpened={isOpenConfirmModal}>
                 <DeleteContent message="Вы уверены что хотите удалить тренировку?" onOk={onClickDeleteWorkout} />
             </ConfirmPopup>
         </>

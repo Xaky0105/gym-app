@@ -25,7 +25,7 @@ export const Review: FC<ReviewType> = ({ review }) => {
                     <div className={styles.imgWrap}>
                         <img src={review.img} alt="avatar" />
                     </div>
-                    <p className={styles.registerTitle}>В системе с:</p>
+                    <p className={styles.registerTitle}>В системе с :</p>
                     <p>{createdAccount}</p>
                 </div>
 

@@ -64,7 +64,7 @@ export enum EXERCISE_CATEGORY {
     legs = 'Ноги',
     arms = 'Руки',
     back = 'Спина',
-    shouldres = 'Плечи',
+    shoulders = 'Плечи',
     breast = 'Грудь',
     core = 'Пресс',
 }

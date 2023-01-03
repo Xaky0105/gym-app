@@ -1,5 +1,5 @@
 @import '../../../variables.scss';
-.standart {
+.standard {
     padding: 10px;
     border: 1px solid #dadce0;
     background-color: transparent;
@@ -26,8 +26,8 @@
     text-transform: uppercase;
     transition: all 0.2s linear;
     &:hover {
-        border: 1px solid $DarknedPink;
-        color: $DarknedPink;
+        border: 1px solid $DarkPink;
+        color: $DarkPink;
     }
     @media (max-width: $mobileWidth) {
         font-size: 12px;

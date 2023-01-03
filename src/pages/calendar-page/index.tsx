@@ -1,7 +1,7 @@
 import { FC, RefObject, useCallback, useRef, useState } from 'react';
 
 import { CalendarHeader } from '@/components/calendar-header';
-import { WorkoutContentModale } from '@/components/modals/workout-content';
+import { WorkoutContentModal } from '@/components/modals/workout-content';
 import { Month } from '@/components/month';
 import { CalendarPopup } from '@/compound/calendar-popup';
 import { Container } from '@/compound/container';
@@ -35,7 +35,7 @@ export const CalendarPage: FC = () => {
                 currentDayRef={currentDayRef}
                 monthRef={monthRef}
             >
-                <WorkoutContentModale />
+                <WorkoutContentModal />
             </CalendarPopup>
         </Container>
     );

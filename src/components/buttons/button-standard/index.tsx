@@ -4,23 +4,23 @@ import { Preloader } from '@/components/preloader';
 
 import styles from './index.module.scss';
 
-type ButtonStandartPropsType = {
+type ButtonStandardPropsType = {
     handleClick?: () => void;
     name: string;
     disabled?: boolean;
     type?: 'button' | 'submit' | 'reset';
-    isloading?: boolean;
+    isLoading?: boolean;
 };
 
-export const ButtonStandart: FC<ButtonStandartPropsType> = ({ handleClick, name, disabled, type, isloading }) => {
+export const ButtonStandard: FC<ButtonStandardPropsType> = ({ handleClick, name, disabled, type, isLoading }) => {
     return (
         <button
             className={styles.btn}
             onClick={() => handleClick && handleClick()}
-            disabled={disabled || isloading}
+            disabled={disabled || isLoading}
             type={type && type}
         >
-            {isloading && (
+            {isLoading && (
                 <div className={styles.preloaderWrapper}>
                     <Preloader />
                 </div>

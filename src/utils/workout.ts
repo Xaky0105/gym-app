@@ -48,7 +48,7 @@ export const getArrWorkoutsIdToDelete: GetWorkoutsIdToDelete = (workoutsOnTheCal
             const workoutDate = convertDateToNumber(workout.date!);
             return workoutDate >= selectWorkoutDate && workout.workoutName === selectWorkout.workoutName;
         })
-        .map((filtredWorkout) => filtredWorkout.id);
+        .map((filterWorkout) => filterWorkout.id);
 };
 
 export const getWorkoutsDates = (type: HOW_TO_REPEAT, workout: WorkoutOnCalendar, repeatInterval?: number) => {
@@ -82,8 +82,8 @@ export const getWorkoutsForMonth = (workouts: UserWorkoutsStateType, monthIndex:
 };
 
 export const getWorkoutForTheDay = (date: string, workoutsForMonth: WorkoutOnCalendar[]) => {
-    const filtredWorkout = workoutsForMonth.filter((workout) => workout.date === date);
-    return sortWorkoutByAddingTime(filtredWorkout);
+    const filterWorkout = workoutsForMonth.filter((workout) => workout.date === date);
+    return sortWorkoutByAddingTime(filterWorkout);
 };
 
 export const sortWorkoutByAddingTime = (workout: WorkoutOnCalendar[]) => {

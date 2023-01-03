@@ -3,10 +3,10 @@ import { useFormik } from 'formik';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { ButtonStandart } from '@/components/buttons/button-standart';
+import { ButtonStandard } from '@/components/buttons/button-standard';
 import { AuthError } from '@/components/errors/auth-error';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { loginSchema } from '@/sheme';
+import { loginScheme } from '@/scheme';
 import { autoSignIn, loginWithGoogle, userAuth } from '@/store/user/asyncActions';
 import { selectUser, selectUserError, selectUserIsLoading } from '@/store/user/selectors';
 import { ROUTE_PATH } from '@/types/other';
@@ -25,7 +25,7 @@ export const LoginPage: FC = () => {
     const userIsLoading = useAppSelector(selectUserIsLoading);
 
     const onClickSubmit: OnClickSubmitFn = ({ email, password }) => {
-        dispatch(userAuth(email, password, 'signin'));
+        dispatch(userAuth(email, password, 'signIn'));
     };
 
     const loginWithGoogleHandler = () => {
@@ -39,7 +39,7 @@ export const LoginPage: FC = () => {
             email: '',
             password: '',
         },
-        validationSchema: loginSchema,
+        validationSchema: loginScheme,
         onSubmit: onClickSubmit,
     });
 
@@ -119,7 +119,7 @@ export const LoginPage: FC = () => {
                             </div>
                         </div>
                     </div>
-                    <ButtonStandart name="Войти" type={'submit'} isloading={userIsLoading} />
+                    <ButtonStandard name="Войти" type={'submit'} isLoading={userIsLoading} />
                     {userError && <AuthError errorMessage={userError} />}
                 </form>
             </div>

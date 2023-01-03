@@ -34,7 +34,7 @@ export const basicExerciseList: basicExerciseListType = {
         { id: uuidv4(), name: 'Жим штанги лежа - накл', category: 'Грудь' },
         { id: uuidv4(), name: 'Разводка', category: 'Грудь' },
     ],
-    shouldres: [
+    shoulders: [
         { id: uuidv4(), name: 'Жим Гантелей сидя', category: 'Плечи' },
         { id: uuidv4(), name: 'Армейский жим', category: 'Плечи' },
         { id: uuidv4(), name: 'Махи гантелей в стороны', category: 'Плечи' },

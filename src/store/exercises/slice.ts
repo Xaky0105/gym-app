@@ -20,8 +20,8 @@ const exerciseSlice = createSlice({
         },
         removeExercise(state, action) {
             const { category, exercise } = action.payload;
-            const filtredCatygoryExercise = state.exerciseList[category].filter((ex) => ex.id !== exercise.id);
-            state.exerciseList[category] = filtredCatygoryExercise;
+            const filterCategoryExercise = state.exerciseList[category].filter((ex) => ex.id !== exercise.id);
+            state.exerciseList[category] = filterCategoryExercise;
         },
         updateExercise(state, action) {
             const { category, updatedExerciseCategory } = action.payload;

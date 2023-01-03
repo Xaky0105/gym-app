@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useFormik } from 'formik';
 import { useSnackbar } from 'notistack';
 
-import { ButtonStandart } from '@/components/buttons/button-standart';
+import { ButtonStandard } from '@/components/buttons/button-standard';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { reviewSchema } from '@/sheme';
+import { reviewScheme } from '@/scheme';
 import { setReviewModalIsOpen } from '@/store/modal/slice';
 import { addReviewAsync } from '@/store/reviews/asyncActions';
 import { selectIsLoadingReview } from '@/store/reviews/selectors';
@@ -36,7 +36,7 @@ export const ReviewContent: FC = () => {
             rating: 0,
             message: '',
         },
-        validationSchema: reviewSchema,
+        validationSchema: reviewScheme,
         onSubmit: onClickSubmit,
     });
 
@@ -72,11 +72,11 @@ export const ReviewContent: FC = () => {
                     helperText={formik.touched.message && formik.errors.message}
                 />
                 <div className={styles.btnWrapper}>
-                    <ButtonStandart
+                    <ButtonStandard
                         name="Готово"
                         type={'submit'}
                         disabled={!(formik.values.message && formik.values.rating)}
-                        isloading={isLoading}
+                        isLoading={isLoading}
                     />
                 </div>
             </form>
