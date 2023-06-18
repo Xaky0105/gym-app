@@ -6,7 +6,7 @@ import monthReducer from './month/slice';
 import reviewsSlice from './reviews/slice';
 import userSlice from './user/slice';
 import workoutSlice from './workout/slice';
-import workoutCalendarSlice from './workout-on-calendar/slice';
+import { workoutsCalendarReducer } from './workout-on-calendar/slice';
 
 export const store = configureStore({
     reducer: {
@@ -14,7 +14,7 @@ export const store = configureStore({
         workout: workoutSlice,
         user: userSlice,
         modal: modalSlice,
-        workoutCalendar: workoutCalendarSlice,
+        workoutCalendar: workoutsCalendarReducer,
         exercise: exerciseSlice,
         reviews: reviewsSlice,
     },

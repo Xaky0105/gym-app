@@ -38,6 +38,10 @@ export const Set: FC<SetProps> = ({ set, index, removeSet }) => {
     const dispatch = useAppDispatch();
     const selectExercise = useAppSelector(selectExerciseById);
 
+    if (!selectExercise) {
+        return null;
+    }
+
     const deactivateEditMode = () => {
         const newSets = selectExercise.sets.map((set, i) => (i === index ? { amount, weight } : set));
         const exercise = {

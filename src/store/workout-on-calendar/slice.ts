@@ -59,4 +59,5 @@ export const {
     deleteSomeWorkoutFromCalendar,
     updateExerciseInWorkoutOnCalendar,
 } = workoutsCalendarSlice.actions;
-export default workoutsCalendarSlice.reducer;
+export const workoutCalendarActions = workoutsCalendarSlice.actions;
+export const workoutsCalendarReducer = workoutsCalendarSlice.reducer;

@@ -1,42 +1,82 @@
-import React, { FC, RefObject, useRef } from 'react';
+import React, { FC, useLayoutEffect, useRef, useState } from 'react';
 
 import { Header } from '@/compound/calendar-popup/header';
 import { Overlay } from '@/compound/overlay';
-import { useComponentCoordinates } from '@/hooks/useComponentCoordinates';
-import { useComponentSize } from '@/hooks/useComponentSize';
-import { useWindowSize } from '@/hooks/useWindowSize';
-import { getCalendarPopupCoordinates } from '@/utils/modal';
 import Slide from '@mui/material/Slide';
 
 import styles from './index.module.scss';
 
 type CalendarPopupType = {
+    isOpen: boolean;
+    anchorRef: React.RefObject<HTMLDivElement>;
     children: React.ReactNode;
     onClose: () => void;
-    isOpen: boolean;
-    currentDayRef: RefObject<any> | null;
-    monthRef: RefObject<any>;
 };
 
-export const CalendarPopup: FC<CalendarPopupType> = ({ children, onClose, isOpen, currentDayRef, monthRef }) => {
-    const ref = useRef<HTMLDivElement>(null);
+const MODAL_WIDTH = 400;
+const MODAL_PADDING = 30;
 
-    const monthSize = useComponentSize(monthRef);
-    const modalSize = useComponentSize(ref);
-    const dayCoordinates = useComponentCoordinates(currentDayRef);
-    const windowSize = useWindowSize();
+export const CalendarPopup: FC<CalendarPopupType> = ({ children, onClose, isOpen, anchorRef }) => {
+    const modalRef = useRef<HTMLDivElement>(null);
+    const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
 
-    const modalPosition = getCalendarPopupCoordinates({
-        monthSize,
-        modalSize,
-        dayCoordinates,
-        windowSize,
-    });
+    useLayoutEffect(() => {
+        const anchorElement = anchorRef.current;
+
+        if (!isOpen || !anchorElement) {
+            return;
+        }
+
+        const updatePopupPosition = () => {
+            const anchorRect = anchorElement.getBoundingClientRect();
+            const windowWidth = window.innerWidth;
+
+            const newPosition = {
+                top: anchorRect.top,
+                left: anchorRect.left + anchorRect.width + MODAL_PADDING,
+            };
+
+            if (newPosition.left + MODAL_WIDTH > windowWidth) {
+                newPosition.left = anchorRect.left - MODAL_WIDTH - MODAL_PADDING;
+            }
+
+            setPosition(newPosition);
+        };
+
+        let rafId: number | null = null;
+
+        const handleResize = () => {
+            if (typeof rafId === 'number') {
+                return;
+            }
+            rafId = requestAnimationFrame(() => {
+                updatePopupPosition();
+                rafId = null;
+            });
+        };
+
+        updatePopupPosition();
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [isOpen]);
+
+    const handleClose = () => {
+        onClose();
+        setPosition(null);
+    };
+
+    const isModalOpened = isOpen && Boolean(position);
 
     return (
-        <Overlay isOpened={isOpen} onClose={onClose}>
-            <Slide direction="up" in={isOpen} mountOnEnter unmountOnExit>
-                <div className={styles.modal} style={{ left: modalPosition.x, top: modalPosition.y }} ref={ref}>
+        <Overlay isOpened={isModalOpened} onClose={handleClose}>
+            <Slide direction="up" in={isModalOpened} mountOnEnter unmountOnExit>
+                <div
+                    ref={modalRef}
+                    className={styles.modal}
+                    style={{ width: MODAL_WIDTH, left: position?.left, top: position?.top }}
+                >
                     <Header />
                     {children}
                 </div>

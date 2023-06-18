@@ -75,10 +75,17 @@ export const getWorkoutsDates = (type: HOW_TO_REPEAT, workout: WorkoutOnCalendar
 };
 
 export const getWorkoutsForMonth = (workouts: UserWorkoutsStateType, monthIndex: number) => {
-    const monthDates = getMonthMatrix(monthIndex)
-        .map((row) => row.map((day) => day.format(DAY_FORMAT.YYYY_MM_DD)))
-        .flat(1);
-    return _.toArray(workouts).filter((workout) => monthDates.find((date) => date === workout.date));
+    const result: WorkoutOnCalendar[] = [];
+    const monthDate = dayjs().month(monthIndex);
+
+    for (const key in workouts) {
+        const workout = workouts[key];
+        if (monthDate.isSame(dayjs(workout.date), 'month')) {
+            result.push(workout);
+        }
+    }
+
+    return result;
 };
 
 export const getWorkoutForTheDay = (date: string, workoutsForMonth: WorkoutOnCalendar[]) => {

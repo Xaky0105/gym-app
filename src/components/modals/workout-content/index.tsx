@@ -1,16 +1,16 @@
 import { FC } from 'react';
 
-import { useAppSelector } from '@/hooks/redux-hook';
-import { selectStepWorkoutModal } from '@/store/modal/selectors';
 import { STEP_MODAL } from '@/types/other';
 
 import { ChoiceWorkouts } from './choice-workouts';
 import { Exercises } from './exercises';
 import { Sets } from './sets';
 import { Workouts } from './workouts';
+import { useAppSelector } from '@/hooks/redux-hook';
 
-const renderContentModal = (step: STEP_MODAL) => {
-    switch (step) {
+export const WorkoutContentModal = () => {
+    const modalStep = useAppSelector((state) => state.modal.workoutModal.step);
+    switch (modalStep) {
         case STEP_MODAL.WORKOUTS:
             return <Workouts />;
         case STEP_MODAL.CHOICE_WORKOUTS:
@@ -20,11 +20,6 @@ const renderContentModal = (step: STEP_MODAL) => {
         case STEP_MODAL.SETS:
             return <Sets />;
         default:
-            return <Workouts />;
+            return null;
     }
-};
-
-export const WorkoutContentModal: FC = () => {
-    const stepWorkoutModal = useAppSelector(selectStepWorkoutModal);
-    return renderContentModal(stepWorkoutModal);
 };

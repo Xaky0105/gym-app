@@ -29,7 +29,7 @@ export const addWorkoutToCalendarAsync = (
     repeatInterval: number,
     enqueueSnackbar: EnqueueSnackbar,
 ) => {
-    return async (dispatch: Dispatch, getState: any) => {
+    return async (dispatch: Dispatch, getState: () => RootState) => {
         const uid = getCurrentUserId(getState);
         const setWorkoutsData = async (
             howToRepeat: HOW_TO_REPEAT,
@@ -81,7 +81,7 @@ export const deleteWorkoutFromCalendarAsync = (
     type: DELETE_WORKOUT_FROM_CALENDAR,
     enqueueSnackbar: EnqueueSnackbar,
 ) => {
-    return async (dispatch: Dispatch, getState: any) => {
+    return async (dispatch: Dispatch, getState: () => RootState) => {
         dispatch(setIsLoadingWorkoutCalendar(true));
         const uid = getCurrentUserId(getState);
         const {
@@ -113,25 +113,29 @@ export const deleteWorkoutFromCalendarAsync = (
 };
 
 export const updateExerciseInWorkoutOnCalendarAsync = (exercise: ExerciseInWorkoutOnCalendar) => {
-    return async (dispatch: Dispatch, getState: any) => {
+    return async (dispatch: Dispatch, getState: () => RootState) => {
         const {
-            user: {
-                user: { uid },
+            user: { user },
+            modal: {
+                workoutModal: { selectedExerciseId, selectedWorkoutId },
             },
-            modal: { idSelectedExercise, idSelectedWorkout },
         } = getState();
 
+        if (!user || !selectedExerciseId || !selectedWorkoutId) {
+            return;
+        }
+
         try {
-            const field = `exercises.${idSelectedExercise}`;
-            const userWorkoutRef = doc(db, `users/${uid}/workoutsOnCalendar/${idSelectedWorkout}`);
+            const field = `exercises.${selectedExerciseId}`;
+            const userWorkoutRef = doc(db, `users/${user.uid}/workoutsOnCalendar/${selectedWorkoutId}`);
             updateDoc(userWorkoutRef, {
                 [field]: exercise,
             });
             dispatch(
                 updateExerciseInWorkoutOnCalendar({
                     exercise,
-                    idSelectedExercise,
-                    idSelectedWorkout,
+                    idSelectedExercise: selectedExerciseId,
+                    idSelectedWorkout: selectedWorkoutId,
                 }),
             );
         } catch (err) {

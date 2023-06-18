@@ -12,6 +12,6 @@ export const selectWorkoutById = createSelector(
     selectWorkoutsForCalendar,
     selectTempIdWorkout,
     (workouts, workoutId) => {
-        return workouts[workoutId];
+        return typeof workoutId === 'string' ? workouts[workoutId] : undefined;
     },
 );
