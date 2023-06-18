@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import _ from 'lodash';
 import { useSnackbar } from 'notistack';
 import { MdArrowBack } from 'react-icons/md';
@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonStandard } from '@/components/buttons/button-standard';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { selectSelectedDay } from '@/store/modal/selectors';
-import { setModalWorkoutIsOpen, setStepWorkoutModal } from '@/store/modal/slice';
 import { selectWorkouts } from '@/store/workout/selectors';
 import { addWorkoutToCalendarAsync } from '@/store/workout-on-calendar/asyncActions';
 import { selectIsLoadingWorkoutsCalendar } from '@/store/workout-on-calendar/selectors';
@@ -19,8 +18,9 @@ import { SelectNumber } from './select-number';
 import { SelectRepeat } from './select-repeat';
 
 import styles from './index.module.scss';
+import { closeWorkoutModal, openWorkoutModal } from '@/store/modal/slice';
 
-export const ChoiceWorkouts: FC = () => {
+export const ChoiceWorkouts = () => {
     const [selectWorkout, setSelectWorkout] = useState<WorkoutOnCalendar | null>(null);
     const [howToRepeat, setHowToRepeat] = useState(HOW_TO_REPEAT.DONT_REPEAT);
     const [repeatInterval, setRepeatInterval] = useState(2);
@@ -48,14 +48,17 @@ export const ChoiceWorkouts: FC = () => {
     };
 
     const addWorkoutOnCalendarClickHandler = async () => {
+        if (!daySelected) {
+            return;
+        }
         const workout = generateWorkout(daySelected, selectWorkout as WorkoutOnCalendar);
         await dispatch(addWorkoutToCalendarAsync(workout, howToRepeat, repeatInterval, enqueueSnackbar));
-        dispatch(setModalWorkoutIsOpen(false));
+        dispatch(closeWorkoutModal());
     };
 
     const createWorkoutClickHandler = () => {
         navigate(ROUTE_PATH.CREATE_WORKOUT);
-        dispatch(setModalWorkoutIsOpen(false));
+        dispatch(closeWorkoutModal());
     };
 
     const activeWorkoutClass = (workout: Workout) => {
@@ -65,7 +68,7 @@ export const ChoiceWorkouts: FC = () => {
     return (
         <div className={styles.content}>
             <div className={styles.topBlock}>
-                <span className={styles.back} onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.WORKOUTS))}>
+                <span className={styles.back} onClick={() => dispatch(openWorkoutModal({ step: STEP_MODAL.WORKOUTS }))}>
                     <MdArrowBack size={20} />
                 </span>
                 <h3 className={styles.title}>Выберите тренировку из списка</h3>

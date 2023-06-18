@@ -1,5 +1,5 @@
-import React, { memo, RefObject, useEffect, useState } from 'react';
-import { type Dayjs } from 'dayjs';
+import React, { memo, useMemo } from 'react';
+import type { Dayjs } from 'dayjs';
 
 import { Day } from '@/components/day';
 import { useAppSelector } from '@/hooks/redux-hook';
@@ -10,25 +10,19 @@ import { getWorkoutsForMonth } from '@/utils/workout';
 
 import styles from './index.module.scss';
 
-type MonthType = {
-    changeDayRef: (ref: RefObject<any>) => void;
-    monthRef: RefObject<any> | null;
-};
-
-export const Month: React.FC<MonthType> = memo(({ changeDayRef, monthRef }) => {
-    const [currentMonth, setCurrentMonth] = useState(getMonthMatrix());
-
+export const Month = memo(() => {
     const monthIndex = useAppSelector(selectMonthIndex);
     const workoutsForCalendar = useAppSelector(selectWorkoutsForCalendar);
 
-    useEffect(() => {
-        setCurrentMonth(getMonthMatrix(monthIndex));
-    }, [monthIndex]);
+    const currentMonth = useMemo(() => getMonthMatrix(monthIndex), [monthIndex]);
 
-    const workoutsForMonth = getWorkoutsForMonth(workoutsForCalendar, monthIndex);
+    const workoutsForMonth = useMemo(
+        () => getWorkoutsForMonth(workoutsForCalendar, monthIndex),
+        [workoutsForCalendar, monthIndex],
+    );
 
     return (
-        <div className={styles.wrapper} ref={monthRef}>
+        <div className={styles.wrapper}>
             {currentMonth.map((row: Dayjs[], i: number) => (
                 <React.Fragment key={i}>
                     {row.map((day: Dayjs, index: number) => (
@@ -38,7 +32,6 @@ export const Month: React.FC<MonthType> = memo(({ changeDayRef, monthRef }) => {
                             row={i}
                             workoutsForMonth={workoutsForMonth}
                             monthIndex={monthIndex}
-                            changeDayRef={changeDayRef}
                         />
                     ))}
                 </React.Fragment>

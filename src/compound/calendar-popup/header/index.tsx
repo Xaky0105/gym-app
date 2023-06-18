@@ -4,10 +4,10 @@ import { MdOutlineClose } from 'react-icons/md';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
 import { selectSelectedDay } from '@/store/modal/selectors';
-import { setModalWorkoutIsOpen } from '@/store/modal/slice';
-import { DAY_FORMAT } from '@/types/other';
+import { DAY_FORMAT, STEP_MODAL } from '@/types/other';
 
 import styles from './index.module.scss';
+import { closeWorkoutModal } from '@/store/modal/slice';
 
 export const Header: FC = () => {
     const daySelected = useAppSelector(selectSelectedDay);
@@ -18,7 +18,7 @@ export const Header: FC = () => {
             <div
                 className={styles.cross}
                 onClick={() => {
-                    dispatch(setModalWorkoutIsOpen(false));
+                    dispatch(closeWorkoutModal());
                 }}
             >
                 <MdOutlineClose />

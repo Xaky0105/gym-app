@@ -6,5 +6,5 @@ import { selectWorkoutById } from '../workout-on-calendar/selectors';
 import { RootState } from './../index';
 export const selectExerciseList = ({ exercise: { exerciseList } }: RootState) => exerciseList;
 export const selectExerciseById = createSelector(selectWorkoutById, selectTempIdExercise, (workout, exerciseId) => {
-    return workout.exercises[exerciseId];
+    return exerciseId && workout ? workout.exercises[exerciseId] : undefined;
 });

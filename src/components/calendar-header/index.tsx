@@ -1,53 +1,39 @@
-import { ChangeEvent, FC, memo, RefObject } from 'react';
+import { memo } from 'react';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 
 import { ButtonOutline } from '@/components/buttons/button-outline';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux-hook';
-import { changeDaySelected, setModalWorkoutIsOpen, setStepWorkoutModal } from '@/store/modal/slice';
 import { selectMonthIndex } from '@/store/month/selectors';
 import { decMonthIndex, incMonthIndex, resetMonthIndex } from '@/store/month/slice';
 import { STEP_MODAL } from '@/types/other';
 import { getCurrentDay, getYear } from '@/utils/dayjs';
-import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
 
 import styles from './index.module.scss';
+import { openWorkoutModal } from '@/store/modal/slice';
 
-type CalendarHeaderType = {
-    changeDayRef: (ref: RefObject<any>) => void;
-};
-
-export const CalendarHeader: FC<CalendarHeaderType> = memo(({ changeDayRef }) => {
+export const CalendarHeader = memo(() => {
     const dispatch = useAppDispatch();
     const monthIndex = useAppSelector(selectMonthIndex);
-    const buttonClickHandler = (reducer: ActionCreatorWithoutPayload<string>) => {
-        dispatch(reducer());
-    };
-    const workoutForDayClickHandler = (e: ChangeEvent<any> | undefined) => {
-        const daysNode = e!.target.offsetParent.lastChild.childNodes;
-        const daysArr: HTMLElement[] = Array.from(daysNode);
-        const currentNode = daysArr.find((day) => Array.from(day.classList).find((cl) => cl.includes('current')));
-        changeDayRef({ current: currentNode });
 
-        dispatch(changeDaySelected(getCurrentDay()));
-        dispatch(setStepWorkoutModal(STEP_MODAL.WORKOUTS));
-        dispatch(setModalWorkoutIsOpen(true));
+    const workoutForDayClickHandler = () => {
+        dispatch(openWorkoutModal({ step: STEP_MODAL.WORKOUTS, selectedDay: getCurrentDay() }));
     };
     return (
         <>
             <div className={styles.wrapper}>
                 <div className={styles.wrapperGroupBtn}>
                     <div className={styles.btnWrapper} onMouseDown={() => dispatch(resetMonthIndex())}>
-                        <ButtonOutline text="Тренировка на сегодня" handleClick={(e) => workoutForDayClickHandler(e)} />
+                        <ButtonOutline text="Тренировка на сегодня" handleClick={workoutForDayClickHandler} />
                     </div>
                 </div>
                 <div className={styles.wrapperGroupBtn}>
                     <div className={styles.btnWrapper}>
-                        <ButtonOutline text="Сегодня" handleClick={() => buttonClickHandler(resetMonthIndex)} />
+                        <ButtonOutline text="Сегодня" handleClick={() => dispatch(resetMonthIndex())} />
                     </div>
-                    <button className={styles.btn} onClick={() => buttonClickHandler(decMonthIndex)}>
+                    <button className={styles.btn} onClick={() => dispatch(decMonthIndex())}>
                         <MdArrowBackIosNew />
                     </button>
-                    <button className={styles.btn} onClick={() => buttonClickHandler(incMonthIndex)}>
+                    <button className={styles.btn} onClick={() => dispatch(incMonthIndex())}>
                         <MdArrowForwardIos />
                     </button>
                     <h3 className={styles.data}>{getYear(monthIndex)}</h3>

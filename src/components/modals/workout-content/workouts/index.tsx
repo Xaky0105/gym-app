@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { BsPlusSquareDotted } from 'react-icons/bs';
 
 import { useAppDispatch } from '@/hooks/redux-hook';
-import { setStepWorkoutModal } from '@/store/modal/slice';
 import { STEP_MODAL } from '@/types/other';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -10,10 +9,12 @@ import { DeleteWorkoutMenu } from './delete-workout-menu';
 import { WorkoutsList } from './workouts-list';
 
 import styles from './index.module.scss';
+import { closeWorkoutModal, openWorkoutModal } from '@/store/modal/slice';
 
 export const Workouts: FC = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [workoutId, setWorkoutId] = useState('');
+    const dispatch = useAppDispatch();
     const deleteWorkoutClickHandler = (id: string) => {
         setIsDeleteModalOpen(!isDeleteModalOpen);
         setWorkoutId(id);
@@ -21,7 +22,7 @@ export const Workouts: FC = () => {
     const deleteModalToggler = () => {
         setIsDeleteModalOpen(!isDeleteModalOpen);
     };
-    const dispatch = useAppDispatch();
+
     return (
         <div className={styles.content}>
             <div className={styles.block}>
@@ -30,12 +31,18 @@ export const Workouts: FC = () => {
             </div>
             <div className={styles.btn}>
                 <Tooltip title={'Выбрать из списка'} disableInteractive enterDelay={500} leaveDelay={200}>
-                    <span onClick={() => dispatch(setStepWorkoutModal(STEP_MODAL.CHOICE_WORKOUTS))}>
+                    <span onClick={() => dispatch(openWorkoutModal({ step: STEP_MODAL.CHOICE_WORKOUTS }))}>
                         <BsPlusSquareDotted size={40} />
                     </span>
                 </Tooltip>
             </div>
-            {isDeleteModalOpen && <DeleteWorkoutMenu workoutId={workoutId} deleteModalToggler={deleteModalToggler} />}
+            {isDeleteModalOpen && (
+                <DeleteWorkoutMenu
+                    workoutId={workoutId}
+                    deleteModalToggler={deleteModalToggler}
+                    onDelete={() => dispatch(closeWorkoutModal())}
+                />
+            )}
         </div>
     );
 };
