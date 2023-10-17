@@ -16,7 +16,7 @@
     "@testing-library/user-event": "^13.5.0",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.5",
-    "firebase": "^9.10.0",
+    "firebase": "^9.23.0",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "notistack": "^2.0.8",
